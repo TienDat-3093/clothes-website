@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('cart_details', function (Blueprint $table) {
+            $table->foreignId('carts_id')->constrained(
+                table: 'carts', indexName: 'cart_details_carts_id'
+            );
+            $table->foreignId('products_id')->constrained(
+                table: 'products', indexName: 'cart_details_products_id'
+            );
+            $table->foreignId('discounts_id')->constrained(
+                table: 'discounts', indexName: 'cart_details_discounts_id'
+            );
+            $table->foreignId('status_id')->constrained(
+                table: 'status', indexName: 'cart_details_status_id'
+            );
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('cart_details', function (Blueprint $table) {
+            $table->dropForeign(['carts_id','products_id','discounts_id','status_id']);
+
+            $table->dropColumn(['carts_id','products_id','discounts_id','status_id']);
+        });
+    }
+};
