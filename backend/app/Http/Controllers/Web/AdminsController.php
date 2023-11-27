@@ -24,7 +24,7 @@ class AdminsController extends Controller
             return redirect()->route('admin.dashboard');
             
         }
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('thong-bao','Sai thong tin!');
     }
     public function logout()
     {

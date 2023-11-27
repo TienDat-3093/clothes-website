@@ -18,7 +18,8 @@
     <title>Clothes Website</title>
 
     <meta name="description" content="" />
-
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="{{asset('sweetalert2/sweetalert2.min.css')}}">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -632,6 +633,12 @@
 
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
+
+    <script src="{{asset('sweetalert2/sweetalert2.all.min.js')}}"></script>
+    @if(session('thong-bao'))
+        <script>Swal.fire("{{session('thong-bao')}}")</script>
+    @endif
+    <!-- SweetAlert -->
 
     <!-- Vendors JS -->
     <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>

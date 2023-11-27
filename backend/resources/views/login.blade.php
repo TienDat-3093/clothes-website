@@ -18,7 +18,8 @@
     <title>Login</title>
 
     <meta name="description" content="" />
-
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="{{asset('sweetalert2/sweetalert2.min.css')}}">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -209,7 +210,11 @@
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-
+    <script src="{{asset('sweetalert2/sweetalert2.all.min.js')}}"></script>
+    @if(session('thong-bao'))
+        <script>Swal.fire("{{session('thong-bao')}}")</script>
+    @endif
+    <!-- SweetAlert -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
