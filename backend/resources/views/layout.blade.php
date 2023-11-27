@@ -616,10 +616,10 @@
 
     <div class="buy-now">
       <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
+        href="https://github.com/TienDat-3093/clothes-website/commits/master"
         target="_blank"
         class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
+        >GitHub</a
       >
     </div>
 
