@@ -14,7 +14,7 @@ class StatusUsersSeeder extends Seeder
      */
     public function run(): void
     {
-        $status_users = ['Bị khóa','Hoạt động'];
+        $status_users = ['Hoạt động','Bị khóa'];
         foreach ($status_users as $name) {
             StatusUsers::create(['name' => $name]);
         }

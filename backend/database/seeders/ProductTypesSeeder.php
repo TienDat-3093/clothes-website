@@ -13,7 +13,7 @@ class ProductTypesSeeder extends Seeder
      */
     public function run(): void
     {
-        $product_types = ['Phụ kiện','Quần','Áo'];
+        $product_types = ['Áo','Quần','Phụ kiện'];
         foreach ($product_types as $name) {
             ProductTypes::create(['name' => $name,'status_id'=>1]);
         }

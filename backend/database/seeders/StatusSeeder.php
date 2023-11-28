@@ -13,7 +13,7 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $status = ['Không tồn tại','Tồn tại'];
+        $status = ['Tồn tại','Không tồn tại'];
         foreach ($status as $name) {
             Status::create(['name' => $name]);
         }
