@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Sideshows extends Model
 {
     use HasFactory;
-    protected $table = 'sileshows';
+    protected $table = 'sideshows';
 
 }
