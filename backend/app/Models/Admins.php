@@ -9,4 +9,7 @@ class Admins extends Authenticatable
 {
     use HasFactory;
     protected $table = 'admins';
+    public function status(){
+        return $this->belongsTo(Status::class);
+    }
 }

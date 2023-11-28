@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admins;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -30,5 +31,11 @@ class AdminsController extends Controller
     {
         Auth::logout();
         return redirect()->route('admin.login');
+    }
+    public function Index()
+    {
+        $listAdmin=Admins::all();
+        // dd($listAdmin);
+        return view('admin/index',compact('listAdmin'));
     }
 }

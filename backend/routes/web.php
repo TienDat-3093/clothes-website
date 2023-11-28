@@ -28,4 +28,6 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [AdminsController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/logout', [AdminsController::class, 'logout'])->name('admin.logout');
+    
+    Route::get('/admin/index', [AdminsController::class, 'Index'])->name('adminIndex');
 });
