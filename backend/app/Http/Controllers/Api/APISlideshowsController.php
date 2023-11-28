@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sideshows;
+use App\Models\Slideshows;
 use Illuminate\Http\Request;
 
 class APISlideshowsController extends Controller
 {
     public function index()
     {
-        $sideshows = Sideshows::get();
-        if(empty($sideshows))
+        $slideshows = Slideshows::get();
+        if(empty($slideshows))
         {
             return response()->json([
                 'success'=> false,
@@ -20,7 +20,7 @@ class APISlideshowsController extends Controller
         }
         return response()->json([
             'success'=> true,
-            'data' => $sideshows,
+            'data' => $slideshows,
         ]);
     }
 }

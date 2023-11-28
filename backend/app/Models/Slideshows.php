@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sideshows extends Model
+class Slideshows extends Model
 {
     use HasFactory;
-    protected $table = 'sideshows';
+    protected $table = 'slideshows';
 
 }

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('slideshows', function (Blueprint $table) {
             $table->id();
             $table->string('url');
+            $table->string('name');
+            $table->string('title');
             $table->timestamps();
         });
     }
