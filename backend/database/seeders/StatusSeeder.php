@@ -2,17 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\Products;
+use App\Models\Status;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ProductsSeeder extends Seeder
+class StatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Products::factory()->count(30)->create();
+        $status = ['Không tồn tại','Tồn tại'];
+        foreach ($status as $name) {
+            Status::create(['name' => $name]);
+        }
     }
 }
