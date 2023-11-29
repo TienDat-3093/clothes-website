@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->foreignId('categories_id')->constrained(
-                table: 'categories', indexName: 'products_categories_id'
-            );
+        Schema::table('product_types', function (Blueprint $table) {
+            
             $table->foreignId('status_id')->constrained(
-                table: 'status', indexName: 'products_status_id'
+                table: 'status', indexName: 'product_types_status_id'
             );
            
         });
@@ -28,9 +26,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['categories_id','status_id']);
+            $table->dropForeign(['status_id']);
 
-            $table->dropColumn(['categories_id','status_id']);
+            $table->dropColumn(['status_id']);
         });
     }
 };

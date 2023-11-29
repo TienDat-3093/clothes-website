@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->foreignId('product_id')->constrained(
-                table: 'products', indexName: 'categories_products_id'
+            $table->foreignId('product_types_id')->constrained(
+                table: 'product_types', indexName: 'categories_product_types_id'
             );
             $table->foreignId('status_id')->constrained(
                 table: 'status', indexName: 'categories_status_id'
@@ -27,9 +27,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->dropForeign(['status_id']);
+            $table->dropForeign(['product_types_id','status_id']);
 
-            $table->dropColumn(['status_id']);
+            $table->dropColumn(['product_types_id','status_id']);
 
         });
     }
