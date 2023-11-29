@@ -20,7 +20,7 @@ use App\Http\Controllers\Web\ProductTypesController;
 
 Route::middleware('guest')->group(function () {
 
-    Route::get('/', [AdminsController::class, 'login'])->name('login');
+    Route::get('/', [AdminsController::class, 'login'])->name('admin.login');
     Route::post('/login', [AdminsController::class, 'loginHandle'])->name('loginHandle');
     
 });
@@ -52,5 +52,6 @@ Route::middleware('auth')->group(function () {
 
     });
 
+    //Product
 
 });
