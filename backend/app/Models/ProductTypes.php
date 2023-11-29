@@ -9,4 +9,8 @@ class ProductTypes extends Model
 {
     use HasFactory;
     protected $table = 'product_types';
+
+    public function status(){
+        return $this->belongsTo(Status::class);
+    }
 }

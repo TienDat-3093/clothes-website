@@ -21,14 +21,14 @@ class AdminsController extends Controller
         
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
         {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('dashboard');
             
         }
-        return redirect()->route('admin.login')->with('thong-bao','Sai thong tin!');
+        return redirect()->route('login')->with('alert','Access denied!');
     }
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('admin.login');
+        return redirect()->route('login');
     }
 }
