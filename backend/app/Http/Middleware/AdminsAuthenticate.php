@@ -21,6 +21,6 @@ class AdminsAuthenticate
         {
             return $next($request);
         }
-        return redirect()->route('login');
+        return redirect()->route('admin.login');
     }
 }

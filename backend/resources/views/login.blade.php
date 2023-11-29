@@ -211,8 +211,8 @@
 
     <!-- Page JS -->
     <script src="{{asset('sweetalert2/sweetalert2.all.min.js')}}"></script>
-    @if(session('thong-bao'))
-        <script>Swal.fire("{{session('thong-bao')}}")</script>
+    @if(session('alert'))
+        <script>Swal.fire("{{session('alert')}}")</script>
     @endif
     <!-- SweetAlert -->
     <!-- Place this tag in your head or just before your close body tag. -->
