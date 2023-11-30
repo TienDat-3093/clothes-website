@@ -20,7 +20,7 @@ use App\Http\Controllers\Web\ProductTypesController;
 
 Route::middleware('guest')->group(function () {
 
-    Route::get('/', [AdminsController::class, 'login'])->name('admin.login');
+    Route::get('/login', [AdminsController::class, 'login'])->name('admin.login');
     Route::post('/login', [AdminsController::class, 'loginHandle'])->name('loginHandle');
     
 });
@@ -28,7 +28,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', [AdminsController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/', [AdminsController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/logout', [AdminsController::class, 'logout'])->name('admin.logout');
 
     
