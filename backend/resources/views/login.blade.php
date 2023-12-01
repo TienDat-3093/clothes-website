@@ -127,7 +127,7 @@
               <h4 class="mb-2">Welcome to Sneat! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-              <form id="formAuthentication" class="mb-3" action="{{route('admin.loginHandle')}}" method="POST">
+              <form id="formAuthentication" class="mb-3" action="{{route('loginHandle')}}" method="POST">
                 @csrf
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
@@ -139,6 +139,14 @@
                     placeholder="Enter your email"
                     autofocus
                   />
+                </div>
+                <div class="form-text">
+                    <font style="vertical-align: inherit;">
+                        @error('email')
+                        <font style="vertical-align: inherit;color:red">{{ $message }}</font>
+                        @enderror
+                    </font>
+
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
@@ -158,6 +166,14 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+                </div>
+                <div class="form-text">
+                    <font style="vertical-align: inherit;">
+                        @error('password')
+                        <font style="vertical-align: inherit;color:red">{{ $message }}</font>
+                        @enderror
+                    </font>
+
                 </div>
                 <div class="mb-3">
                   <div class="form-check">
@@ -211,9 +227,9 @@
 
     <!-- Page JS -->
     <script src="{{asset('sweetalert2/sweetalert2.all.min.js')}}"></script>
-    @if(session('thong-bao'))
-        <script>Swal.fire("{{session('thong-bao')}}")</script>
-    @endif
+   <!--  @if(session('alert'))
+        <script>Swal.fire("{{session('alert')}}")</script>
+    @endif -->
     <!-- SweetAlert -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

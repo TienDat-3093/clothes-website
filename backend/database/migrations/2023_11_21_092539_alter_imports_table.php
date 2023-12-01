@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('suppliers_id')->constrained(
                 table: 'suppliers', indexName: 'imports_users_id'
             );
-            $table->foreignId('status_id')->constrained(
+            $table->foreignId('status_id')->default(1)->constrained(
                 table: 'status', indexName: 'imports_status_id'
             );
         });
