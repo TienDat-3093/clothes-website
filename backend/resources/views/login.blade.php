@@ -140,6 +140,14 @@
                     autofocus
                   />
                 </div>
+                <div class="form-text">
+                    <font style="vertical-align: inherit;">
+                        @error('email')
+                        <font style="vertical-align: inherit;color:red">{{ $message }}</font>
+                        @enderror
+                    </font>
+
+                </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Password</label>
@@ -158,6 +166,14 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+                </div>
+                <div class="form-text">
+                    <font style="vertical-align: inherit;">
+                        @error('password')
+                        <font style="vertical-align: inherit;color:red">{{ $message }}</font>
+                        @enderror
+                    </font>
+
                 </div>
                 <div class="mb-3">
                   <div class="form-check">
@@ -211,9 +227,9 @@
 
     <!-- Page JS -->
     <script src="{{asset('sweetalert2/sweetalert2.all.min.js')}}"></script>
-    @if(session('alert'))
+   <!--  @if(session('alert'))
         <script>Swal.fire("{{session('alert')}}")</script>
-    @endif
+    @endif -->
     <!-- SweetAlert -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
