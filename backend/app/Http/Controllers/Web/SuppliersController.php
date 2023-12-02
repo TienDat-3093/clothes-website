@@ -20,11 +20,7 @@ class SuppliersController extends Controller
     {
         $keyword = $request->input('data');
         $listSupplier = Suppliers::where('name', 'like', "%$keyword%")->get();
-        /* dd('listSupplier');*/
         return view('supplier\results', compact('listSupplier'));
-        /* $html = view('supplier/results', ['listSupplier' => $listSupplier])->render();
-
-        return response()->json($html); */
     }
     public function create()
     {
@@ -61,7 +57,6 @@ class SuppliersController extends Controller
     }
     public function delete($id)
     {
-        
         $supplier = Suppliers::find($id);
         if($supplier->status_id == 2)
         {

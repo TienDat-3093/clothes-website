@@ -33,6 +33,17 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [AdminsController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/logout', [AdminsController::class, 'logout'])->name('admin.logout');
+    //Admins
+    Route::prefix('/admin')->name('admin.')->group(function(){
+        Route::get('/',[AdminsController::class,'index'])->name('index');
+        Route::post('/search',[AdminsController::class,'search'])->name('search');
+        Route::get('/create',[AdminsController::class,'create'])->name('create');
+        Route::post('/create',[AdminsController::class,'createHandle'])->name('createHandle');
+        Route::get('/update/{id}',[AdminsController::class,'update'])->name('update');
+        Route::post('/update/{id}',[AdminsController::class,'updateHandle'])->name('updateHandle');
+        Route::get('/delete/{id}',[AdminsController::class,'delete'])->name('delete');
+    });
+    //endAdmins
     //Suppliers
     Route::prefix('/supplier')->name('supplier.')->group(function(){
         Route::get('/',[SuppliersController::class,'index'])->name('index');
