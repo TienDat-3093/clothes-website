@@ -17,9 +17,6 @@ use App\Models\Suppliers;
 |
 */
 
-/* Route::get('/', function () {
-    return view('dashboard');
-}); */
 
 Route::middleware('guest')->group(function () {
 
