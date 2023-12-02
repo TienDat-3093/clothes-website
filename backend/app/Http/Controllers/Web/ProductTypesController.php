@@ -19,7 +19,6 @@ class ProductTypesController extends Controller
         $PDT=new ProductTypes();
 
         $PDT->name=$re->name;
-        $PDT->status_id=1;
 
         $PDT->save();
 

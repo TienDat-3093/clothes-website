@@ -255,7 +255,7 @@
             <ul class="navbar-nav flex-row align-items-center ms-auto">
               <!-- Place this tag where you want the button to render. -->
               <li class="nav-item lh-1 me-3">
-                <a class="github-button" href="#" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">{{Auth::User()->username}}</a>
+                <a class="github-button" href="#" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">{{Auth::User()->fullname}}</a>
               </li>
 
               <!-- User -->
@@ -275,7 +275,7 @@
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <span class="fw-semibold d-block">John Doe</span>
+                          <span class="fw-semibold d-block">{{Auth::User()->username}}</span>
                           <small class="text-muted">Admin</small>
                         </div>
                       </div>

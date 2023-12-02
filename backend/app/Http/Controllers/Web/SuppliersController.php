@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateSuppliersRequest;
 use App\Models\Suppliers;
 use App\Models\Status;
+use App\Models\StatusUsers;
 use Illuminate\Http\Request;
 
 class SuppliersController extends Controller
@@ -13,7 +14,7 @@ class SuppliersController extends Controller
     public function index()
     {
         $listSupplier = Suppliers::all();
-        $status = Status::all();
+        $status = StatusUsers::all();
         return view('supplier/index', compact('listSupplier', 'status'));
     }
     public function search(Request $request)
