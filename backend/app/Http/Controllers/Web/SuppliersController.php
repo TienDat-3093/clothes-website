@@ -63,7 +63,7 @@ class SuppliersController extends Controller
     {
         
         $supplier = Suppliers::find($id);
-        if($supplier->status_id = 2)
+        if($supplier->status_id == 2)
         {
             return redirect()->route('supplier.index')->with('alert', 'Nhà cung cấp không tồn tại');
         }
