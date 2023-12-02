@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignId('categories_id')->constrained(
                 table: 'categories', indexName: 'products_categories_id'
             );
-            $table->foreignId('status_id')->constrained(
+            $table->foreignId('status_id')->default(1)->constrained(
                 table: 'status', indexName: 'products_status_id'
             );
            

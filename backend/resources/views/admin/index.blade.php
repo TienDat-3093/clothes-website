@@ -2,8 +2,15 @@
 
 
 @section('content')
-<a href="#"><button class="btn btn-primary me-2">Add</button></a>
-<table class="table">
+<div class="mt-2 d-flex align-items-center">
+    <a href="{{ route('admin.create') }}" class="btn btn-primary me-2">Add</a>
+    <div class="input-group input-group-merge">
+        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon-search31">
+    </div>
+</div>
+<br>
+<table class="table" id="listAdmin">
                     <thead>
                       <tr>
                         <th>Id</th>
@@ -16,28 +23,35 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    @foreach($listAdmin as $admin)
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $admin->id }}</strong></td>
-                        <td>{{ $admin->username }}</td>
-                        <td>{{ $admin->fullname }}</td>
-                        <td>{{ $admin->email }}</td>
-                        <td>{{ $admin->phone_number }}</td>
-                        <td><span class="badge bg-label-info me-1">{{ $admin->login_at }}</span></td>
-                        <td><span class="badge bg-label-primary me-1">{{ $admin->status->name }}</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu" style="">
-                              <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                              <a class="dropdown-item" href=""><i class="bx bx-trash me-1"></i> Delete</a>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    @endforeach
+                    @include('admin/results')
                     </tbody>
                   </table>
+<script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        $('#searchInput').on('keyup', function(event) {
+            if (event.key === 'Enter') {
+                searchSuppliers();
+            }
+        });
+    });
+
+    function searchSuppliers() {
+        let keyword = $('#searchInput').val();
+        $.ajax({
+            url: '{{ route("admin.search") }}',
+            type: 'POST',
+            data: {
+                data: keyword,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                $('#listAdmin tbody').html(data);
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+</script>
 @endsection

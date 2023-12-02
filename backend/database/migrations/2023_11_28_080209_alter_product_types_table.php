@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('product_types', function (Blueprint $table) {
             
-            $table->foreignId('status_id')->constrained(
+            $table->foreignId('status_id')->default(1)->constrained(
                 table: 'status', indexName: 'product_types_status_id'
             );
            

@@ -10,4 +10,9 @@ class Suppliers extends Model
     use HasFactory;
     protected $table = 'suppliers';
 
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
 }

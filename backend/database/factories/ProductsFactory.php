@@ -22,7 +22,7 @@ class ProductsFactory extends Factory
             'import_price' =>$this->faker->numberBetween(0, 100000),
             'sales_price' =>$this->faker->numberBetween(0, 100000),
             'categories_id' =>$this->faker->numberBetween(1,6),
-            'status_id' => $this->faker->numberBetween(0,1),
+            'status_id' => $this->faker->numberBetween(1,2),
         ];
     }
 }

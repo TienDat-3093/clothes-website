@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admins;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -17,25 +18,35 @@ class AdminsController extends Controller
     {
         return view('login');
     }
-    public function loginHandle(Request $request)
+    public function loginHandle(LoginRequest $request)
     {
-        
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
-        {
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('admin.dashboard');
-            
         }
-        return redirect()->route('admin.login')->with('alert','Access denied!');
+        return redirect()->route('admin.login')->with('alert', 'Access denied!');
     }
     public function logout()
     {
         Auth::logout();
         return redirect()->route('admin.login');
     }
-    public function Index()
+    public function getLoginUser()
+    {
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+            return $username;
+        }
+    }
+    public function index()
     {
         $listAdmin=Admins::all();
-        // dd($listAdmin);
         return view('admin/index',compact('listAdmin'));
+    }
+    public function search(Request $request)
+    {
+        $keyword = $request->input('data');
+        $listAdmin = Admins::where('username', 'like', "%$keyword%")->get();
+        return view('admin/results', compact('listAdmin'));
     }
 }

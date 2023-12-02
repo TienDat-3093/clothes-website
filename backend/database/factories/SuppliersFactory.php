@@ -24,7 +24,7 @@ class SuppliersFactory extends Factory
             'email' => $this->faker->userName.'@company.com',
             'phone_number' =>'0'.$this->faker->numerify('##########'),
             'address' => $this->faker->address,
-            'status_id' => $this->faker->numberBetween(0,1),
+            'status_id' => $this->faker->numberBetween(1,2),
         ];
     }
 }

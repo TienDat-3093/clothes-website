@@ -24,7 +24,7 @@ class UsersFactory extends Factory
             'email' => $this->faker->userName.'@gmail.com',
             'password' => Hash::make('123456'),
             'phone_number' =>'0'.$this->faker->numerify('##########'),
-            'status_id' => $this->faker->numberBetween(0,1),
+            'status_id' => $this->faker->numberBetween(1,2),
         ];
     }
 }

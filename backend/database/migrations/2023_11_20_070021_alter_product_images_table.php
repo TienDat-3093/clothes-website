@@ -16,7 +16,7 @@ return new class extends Migration
                 table: 'products', indexName: 'product_images_products_id'
             );
            
-            $table->foreignId('status_id')->constrained(
+            $table->foreignId('status_id')->default(1)->constrained(
                 table: 'status', indexName: 'product_images_status_id'
             );
         });
