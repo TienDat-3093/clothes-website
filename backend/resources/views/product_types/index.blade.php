@@ -4,7 +4,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product Types/</span> Index </h4>
         <hr class="my-5" />
-        <button type="button" class="btn btn-info"><a href="{{ route('product-types.create') }}">Add</a></button>
+        <a href="{{ route('product-types.create') }}" class="btn btn-primary me-2">Add</a>
             <div class="card">
                 <div class="table-responsive text-nowrap">
                     <table class="table">
@@ -18,7 +18,7 @@
                         </thead>
                         @foreach ($PDT as $productTypes)
                             <tbody class="table-border-bottom-0">
-                                <tr class="table-info">
+                                <tr class="table-active">
                                     <td>
                                         <i class="fab fa-bootstrap fa-lg text me-3">{{$productTypes->id}}</i>
                                     </td>
