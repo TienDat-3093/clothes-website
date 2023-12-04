@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateCategoriesRequest;
 use Illuminate\Http\Request;
 use App\Models\Categories;
 use App\Models\ProductTypes;
@@ -18,7 +19,7 @@ class CategoriesController extends Controller
         return view("categories.create", compact("categories", "productTypes"));
     }
 
-    public function createHandler(Request $re)
+    public function createHandler(CreateCategoriesRequest $re)
     {
         $categories = new Categories();
 
@@ -58,7 +59,7 @@ class CategoriesController extends Controller
         return view('categories.update', compact('categories', 'productTypes', 'status'));
     }
 
-    public function updateHandler(Request $re, $id)
+    public function updateHandler(CreateCategoriesRequest $re, $id)
     {
         $categories = Categories::find($id);
 

@@ -5,7 +5,7 @@
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Categories /</span> Index </h4>
         
         <div class="mt-2 d-flex align-items-center">
-            <a href="{{ route('categories.create') }}" class="btn btn-primary me-2">Add</a>
+            <a href="{{ route('categories.create') }}" class="btn btn-primary me-5">Add</a>
             <div class="input-group input-group-merge">
                 <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
                 <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..."
@@ -16,7 +16,7 @@
 
         <div class="card">
             <div class="table-responsive text-nowrap">
-                <table class="table">
+                <table class="table" id="listCategories">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -47,7 +47,7 @@
             function searchCategories() {
                 let keyword = $('#searchInput').val();
                 $.ajax({
-                    url: '{{ route("categories.search") }}',
+                    url: '{{ route('categories.search') }}',
                     type: 'POST',
                     data: {
                         data: keyword,

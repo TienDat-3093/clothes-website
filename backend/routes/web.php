@@ -60,15 +60,15 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/product-types')->name('product-types.')->group(function () {
         Route::get('/', [ProductTypesController::class, 'List'])->name('index');
-        Route::post('search', [ProductTypesController::class, 'Search'])->name('search');
+        Route::post('/search', [ProductTypesController::class, 'Search'])->name('search');
 
-        Route::get('create', [ProductTypesController::class, 'Create'])->name('create');
-        Route::post('create', [ProductTypesController::class, 'createHandler'])->name('create-handler');
+        Route::get('/create', [ProductTypesController::class, 'Create'])->name('create');
+        Route::post('/create', [ProductTypesController::class, 'createHandler'])->name('create-handler');
 
-        Route::get('update/{id}', [ProductTypesController::class, 'Update'])->name('update');
-        Route::post('update/{id}', [ProductTypesController::class, 'updateHandler'])->name('update-handler');
+        Route::get('/update/{id}', [ProductTypesController::class, 'Update'])->name('update');
+        Route::post('/update/{id}', [ProductTypesController::class, 'updateHandler'])->name('update-handler');
 
-        Route::get('delete/{id}', [ProductTypesController::class, 'Delete'])->name('delete');
+        Route::get('/delete/{id}', [ProductTypesController::class, 'Delete'])->name('delete');
     });
 
     //endProductTypes
@@ -77,15 +77,15 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/categories')->name('categories.')->group(function () {
         Route::get('/', [CategoriesController::class, 'List'])->name('index');
-        Route::post('search', [CategoriesController::class, 'Search'])->name('search');
+        Route::post('/search', [CategoriesController::class, 'Search'])->name('search');
 
-        Route::get('create', [CategoriesController::class, 'Create'])->name('create');
-        Route::post('create', [CategoriesController::class, 'createHandler'])->name('create-handler');
+        Route::get('/create', [CategoriesController::class, 'Create'])->name('create');
+        Route::post('/create', [CategoriesController::class, 'createHandler'])->name('create-handler');
 
-        Route::get('update/{id}', [CategoriesController::class, 'Update'])->name('update');
-        Route::post('update/{id}', [CategoriesController::class, 'updateHandler'])->name('update-handler');
+        Route::get('/update/{id}', [CategoriesController::class, 'Update'])->name('update');
+        Route::post('/update/{id}', [CategoriesController::class, 'updateHandler'])->name('update-handler');
 
-        Route::get('delete/{id}', [CategoriesController::class, 'Delete'])->name('delete');
+        Route::get('/delete/{id}', [CategoriesController::class, 'Delete'])->name('delete');
     });
 
     //endCategories
