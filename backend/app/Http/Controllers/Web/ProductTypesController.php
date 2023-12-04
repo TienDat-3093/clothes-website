@@ -35,7 +35,7 @@ class ProductTypesController extends Controller
         $keyword = $re->input('data');
         $listProductTypes = ProductTypes::where('name', 'like', "%$keyword%")->get();
 
-        return view('product_type.search', compact('listProductTypes'));
+        return view('product_types.search', compact('listProductTypes'));
     }
     public function Update($id){
         $PDT=ProductTypes::find($id);
