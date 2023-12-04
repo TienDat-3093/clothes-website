@@ -219,7 +219,7 @@
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="" class="menu-link">
+                        <a href="#" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-discount"></i>
                             <div data-i18n="Basic">Discounts</div>
                         </a>
