@@ -1,21 +1,19 @@
-@foreach ($listSupplier as $supplier)
+@foreach ($listCategories as $cate)
     <tr>
-        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $supplier->id }}</strong></td>
-        <td>{{ $supplier->name }}</td>
-        <td>{{ $supplier->email }}</td>
-        <td>{{ $supplier->phone_number }}</td>
-        <td>{{ $supplier->address }}</td>
-        <td><span class="badge bg-label-primary me-1">{{ $supplier->status->name }}</span></td>
+        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $cate->id }}</strong></td>
+        <td>{{ $cate->name }}</td>
+        <td>{{ $cate->product_types->name }}</td>
+        <td><span class="badge bg-label-primary me-1">{{ $cate->status->name }}</span></td>
         <td>
             <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                     <i class="bx bx-dots-vertical-rounded"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ route('supplier.update', ['id' => $supplier->id]) }}"><i
+                    <a class="dropdown-item" href="{{ route('categories.update', ['id' => $cate->id]) }}"><i
                             class="bx bx-edit-alt me-1"></i> Edit</a>
-                    <a data-name="{{ $supplier->name }}" class="dropdown-item delete-link"
-                        data-route="{{ route('supplier.delete', ['id' => $supplier->id]) }}"><i
+                    <a data-name="{{ $cate->name }}" class="dropdown-item delete-link"
+                        data-route="{{ route('categories.delete', ['id' => $cate->id]) }}"><i
                             class="bx bx-trash me-1"></i> Delete</a>
                 </div>
             </div>
