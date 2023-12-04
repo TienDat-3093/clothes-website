@@ -275,9 +275,9 @@
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <!-- Place this tag where you want the button to render. -->
                             <li class="nav-item lh-1 me-3">
-                                <a class="github-button" href="#" data-icon="octicon-star" data-size="large"
+                                <a class="card-title text-primary" href="#" data-size="large"
                                     data-show-count="true"
-                                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">{{ Auth::User()->fullname }}</a>
+                                    aria-label="Star theme selection/sneat-html-admin-template-free on GitHub">{{ Auth::User()->fullname }}</a>
                             </li>
 
                             <!-- User -->
