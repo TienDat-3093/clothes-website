@@ -22,21 +22,27 @@ class ProductTypesController extends Controller
 
         $PDT->save();
 
-        return redirect()->route('product-types.index')->with('alert','Add Product Type successfully');
+        return redirect()->route('product-types.index')->with('alert','Thêm loại sản phẩm thành công');
     }
 
     public function List(){
-        $PDT=ProductTypes::all();
+        $listProductTypes=ProductTypes::all();
         $STT=Status::all();
-        return view('product_types.index',compact('PDT','STT'));
+        return view('product_types.index',compact('listProductTypes','STT'));
     }
+    public function Search(Request $re)
+    {
+        $keyword = $re->input('data');
+        $listProductTypes = ProductTypes::where('name', 'like', "%$keyword%")->get();
 
+        return view('product_type.search', compact('listProductTypes'));
+    }
     public function Update($id){
         $PDT=ProductTypes::find($id);
         $STT=Status::all();
 
-        if(empty($PDT)){
-            return "Product Type doesn't exist!!!";
+        if (empty($PDT)) {
+            return redirect()->route('product-types.index')->with("alert", "Loại sản phẩm không tồn tại");
         }
         return view('product_types.update',compact('PDT','STT'));
     }
@@ -45,14 +51,14 @@ class ProductTypesController extends Controller
         $PDT=ProductTypes::find($id);
 
         if(empty($PDT)){
-            return "Product Type doesn't exist!!!";
+            return redirect()->route('product-types.index')->with("alert","Loại sản phẩm không tồn tại");
         }
 
         $PDT->name=$re->name;
         $PDT->status_id=$re->status_id;
         $PDT->save();
 
-        return redirect()->route('product-types.index')->with('alert','Update Product Type successfully');
+        return redirect()->route('product-types.index')->with('alert', 'Cập nhật loại sản phẩm thành công');
     }
 
     public function Delete($id)
@@ -60,14 +66,15 @@ class ProductTypesController extends Controller
         $PDT=ProductTypes::find($id);
 
         if(empty($PDT)){
-            return "Product Type doesn't exist!!!";
+            return redirect()->route('product-types.index')->with('alert', "Loại sản phẩm không tồn tại");
         }
+
         if($PDT->status_id==2){
-            return redirect()->route('product-types.index')->with('alert','Product Type already deleted');
+            return redirect()->route('product-types.index')->with('alert','Đã xóa loại sản phẩm ');
         }
         $PDT->status_id=2;
         $PDT->save();
 
-        return redirect()->route('product-types.index')->with('alert','Delete Product Type successfully');
+        return redirect()->route('product-types.index')->with('alert','Xóa loại sản phẩm thành công');
     }
 }

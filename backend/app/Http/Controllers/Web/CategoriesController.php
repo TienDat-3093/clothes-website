@@ -28,14 +28,21 @@ class CategoriesController extends Controller
 
         $categories->save();
 
-        return redirect()->route('categories.index')->with('alert', 'Add Categories successfully');
+        return redirect()->route('categories.index')->with('alert', 'Thêm danh mục loại sản phẩm thành công');
     }
 
     public function List()
     {
-        $categories = Categories::all();
+        $listCategories = Categories::all();
         $status = Status::all();
-        return view("categories.index", compact("categories", "status"));
+        return view("categories.index", compact("listCategories", "status"));
+    }
+
+    public function Search(Request $re){
+        $keyword = $re->input('data');
+        $listCategories = Categories::where('name', 'like', "%$keyword%")->get();
+
+        return view('categories.search', compact('listCategories'));
     }
 
     public function Update($id)
@@ -45,7 +52,7 @@ class CategoriesController extends Controller
         $status = Status::all();
 
         if (empty($categories)) {
-            return "Categories doesn't exist!!!";
+            return redirect()->route('categories.index')->with("alert", "Danh mục loại sản phẩm không tồn tại");
         }
 
         return view('categories.update', compact('categories', 'productTypes', 'status'));
@@ -55,8 +62,8 @@ class CategoriesController extends Controller
     {
         $categories = Categories::find($id);
 
-        if (empty($Ccategoriesat)) {
-            return "Categories doesn't exist!!!";
+        if (empty($categories)) {
+            return redirect()->route('categories.index')->with("alert", "Danh mục loại sản phẩm không tồn tại");
         }
 
         $categories->name = $re->name;
@@ -65,7 +72,7 @@ class CategoriesController extends Controller
 
         $categories->save();
 
-        return redirect()->route('categories.index')->with('alert', 'Update Categories successfully');
+        return redirect()->route('categories.index')->with('alert', 'Cập nhật danh mục loại sản phẩm thành công');
     }
 
     public function Delete($id)
@@ -73,14 +80,15 @@ class CategoriesController extends Controller
         $categories = Categories::find($id);
 
         if (empty($categories)) {
-            return "Categories doesn't exist!!!";
+            return redirect()->route('categories.index')->with("alert", "Danh mục loại sản phẩm không tồn tại");
+           
         }
         if ($categories->status_id == 2) {
-            return redirect()->route('categories.index')->with('alert', 'Categories already deleted');
+            return redirect()->route('categories.index')->with('alert', 'Đã xóa danh mục sản phẩm');
         }
         $categories->status_id = 2;
         $categories->save();
 
-        return redirect()->route('categories.index')->with('alert', 'Delete Categories successfully');
+        return redirect()->route('categories.index')->with('alert', 'Xóa danh mục loại sản phẩm thành công');
     }
 }

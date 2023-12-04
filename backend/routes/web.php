@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/product-types')->name('product-types.')->group(function () {
         Route::get('/', [ProductTypesController::class, 'List'])->name('index');
+        Route::post('search', [ProductTypesController::class, 'Search'])->name('search');
 
         Route::get('create', [ProductTypesController::class, 'Create'])->name('create');
         Route::post('create', [ProductTypesController::class, 'createHandler'])->name('create-handler');
@@ -76,6 +77,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/categories')->name('categories.')->group(function () {
         Route::get('/', [CategoriesController::class, 'List'])->name('index');
+        Route::post('search', [CategoriesController::class, 'Search'])->name('search');
 
         Route::get('create', [CategoriesController::class, 'Create'])->name('create');
         Route::post('create', [CategoriesController::class, 'createHandler'])->name('create-handler');
