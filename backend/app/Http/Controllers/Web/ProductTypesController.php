@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\ProductTypes;
 use App\Models\Status;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
+use App\Http\Requests\CreateProductTypesRequest;
+
 
 class ProductTypesController extends Controller
 {
@@ -15,7 +17,7 @@ class ProductTypesController extends Controller
         return view('product_types.create',compact('PDT'));
     }
 
-    public function createHandler(Request $re){
+    public function createHandler(CreateProductTypesRequest $re){
         $PDT=new ProductTypes();
 
         $PDT->name=$re->name;
@@ -47,7 +49,7 @@ class ProductTypesController extends Controller
         return view('product_types.update',compact('PDT','STT'));
     }
 
-    public function updateHandler(Request $re,$id){
+    public function updateHandler(CreateProductTypesRequest $re,$id){
         $PDT=ProductTypes::find($id);
 
         if(empty($PDT)){
