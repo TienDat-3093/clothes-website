@@ -13,7 +13,7 @@ class CategoriesSeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = ['Áo khoác','Áo thun','Áo sơ mi','Quần Jeans','Quần thun','Quần dài','Nón len'];
+        $categories = ['Áo khoác','Áo thun','Áo sơ mi','Quần Jeans','Quần thun','Quần dài','Đồng hồ', 'Nhẫn'];
         foreach ($categories as $name) {
             if(strpos($name,'Áo')!== false)
             {

@@ -72,7 +72,7 @@ class ProductTypesController extends Controller
         }
 
         if($PDT->status_id==2){
-            return redirect()->route('product-types.index')->with('alert','Đã xóa loại sản phẩm ');
+            return redirect()->route('product-types.index')->with('alert','Loại sản phẩm đã xóa trước đó rồi');
         }
         $PDT->status_id=2;
         $PDT->save();

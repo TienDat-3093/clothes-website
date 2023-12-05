@@ -9,15 +9,15 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('categories.create-handler') }}">
                             @csrf
-                             <div class="row mb-3">
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-icon-default-name">
                                     <font style="vertical-align: inherit;">
                                         <font style="vertical-align: inherit;">Name</font>
                                     </font>
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="basic-default-name"
-                                        placeholder=" " />
+                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control"
+                                        id="basic-default-name" placeholder=" " />
                                 </div>
                             </div>
                             <div class="form-text">
@@ -35,7 +35,7 @@
                                     <select name="product_types_id" class="form-select" id="exampleFormControlSelect1"
                                         aria-label="Default select example">
                                         @foreach ($productTypes as $pro)
-                                            <option value="{{ $pro->id  }}">{{$pro->name }}</option>
+                                            <option value="{{ $pro->id }}">{{ $pro->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -43,6 +43,9 @@
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary">Create</button>
+                                    <a href="{{ route('categories.index') }}"
+                                        class="btn btn-outline-secondary">Cancel</a>
+
                                 </div>
                             </div>
                         </form>
