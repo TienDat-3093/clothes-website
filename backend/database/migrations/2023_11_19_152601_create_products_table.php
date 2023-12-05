@@ -19,6 +19,8 @@ return new class extends Migration
             $table->decimal('sales_price');
             $table->decimal('star_avg')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

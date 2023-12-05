@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->decimal('total_price');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

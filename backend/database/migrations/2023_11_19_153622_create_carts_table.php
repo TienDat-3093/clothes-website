@@ -16,6 +16,8 @@ return new class extends Migration
             $table->decimal('total_price');
             $table->string('status_cart');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

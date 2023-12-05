@@ -16,20 +16,18 @@
                                     </font>
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="basic-default-name"
-                                        placeholder=" " />
+                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control"
+                                        id="basic-default-name" placeholder=" " />
                                 </div>
                             </div>
-
                             <div class="form-text">
                                 <font style="vertical-align: inherit;">
                                     @error('name')
                                         <font style="vertical-align: inherit;color:red">{{ $message }}</font>
                                     @enderror
                                 </font>
-
                             </div>
-
+                            <br>
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary">Create</button>
