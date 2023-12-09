@@ -56,7 +56,6 @@ Route::middleware('auth')->group(function () {
     });
 
     //endSuppliers
-<<<<<<< HEAD
     //Products
     Route::prefix('/product')->name('product.')->group(function(){
         Route::get('/',[ProductsController::class,'index'])->name('index');
@@ -70,9 +69,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}',[ProductsController::class,'delete'])->name('delete');
     });
     //endProducts
-=======
 
->>>>>>> 6ff6d132a2f8fc31dbb2937cba1ac823e1c0dc6f
     //ProductTypes
 
     Route::prefix('/product-types')->name('product-types.')->group(function () {
