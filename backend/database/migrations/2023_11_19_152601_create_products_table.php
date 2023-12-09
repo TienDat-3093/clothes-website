@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->decimal('import_price');
             $table->decimal('sales_price');
-            $table->decimal('star_avg')->nullable();
+            $table->integer('star_avg')->nullable();
             $table->timestamps();
         });
     }

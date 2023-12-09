@@ -21,7 +21,7 @@ class SuppliersController extends Controller
     {
         $keyword = $request->input('data');
         $listSupplier = Suppliers::where('name', 'like', "%$keyword%")->get();
-        return view('supplier\results', compact('listSupplier'));
+        return view('supplier/results', compact('listSupplier'));
     }
     public function create()
     {

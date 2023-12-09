@@ -37,7 +37,7 @@
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="{{ asset('assets/js/config.js')}}"></script>
 
-
+  <!-- <link rel="stylesheet" href="{{ asset('bootstrap-5.2.3/css/bootstrap.min.css')}}" /> -->
 </head>
 
 <body>
@@ -155,7 +155,7 @@
           </li>
 
           <li class="menu-item" onclick="handleItemClick(this)">
-            <a href="#" class="menu-link">
+            <a href="{{route('product.index')}}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-cube"></i>
               <div data-i18n="Basic">Products</div>
             </a>

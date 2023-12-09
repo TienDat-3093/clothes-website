@@ -21,6 +21,7 @@ class ProductsFactory extends Factory
             'description' => $this->faker->sentence,
             'import_price' =>$this->faker->numberBetween(0, 100000),
             'sales_price' =>$this->faker->numberBetween(0, 100000),
+            'star_avg' => $this->faker->numberBetween(0, 5),
             'categories_id' =>$this->faker->numberBetween(1,6),
             'status_id' => $this->faker->numberBetween(1,2),
         ];

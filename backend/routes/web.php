@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AdminsController;
+use App\Http\Controllers\Web\ProductsController;
 use App\Http\Controllers\Web\ProductTypesController;
 use App\Http\Controllers\Web\SuppliersController;
 use App\Models\Suppliers;
@@ -51,7 +52,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}',[SuppliersController::class,'delete'])->name('delete');
     });
     //endSuppliers
-    
+    //Products
+    Route::prefix('/product')->name('product.')->group(function(){
+        Route::get('/',[ProductsController::class,'index'])->name('index');
+        Route::get('/detail/{id}',[ProductsController::class,'detail'])->name('detail');
+        Route::post('/quantity/{id}',[ProductsController::class,'quantity'])->name('quantity');
+        Route::post('/search',[ProductsController::class,'search'])->name('search');
+        Route::get('/create',[ProductsController::class,'create'])->name('create');
+        Route::post('/create',[ProductsController::class,'createHandle'])->name('createHandle');
+        Route::get('/update/{id}',[ProductsController::class,'update'])->name('update');
+        Route::post('/update/{id}',[ProductsController::class,'updateHandle'])->name('updateHandle');
+        Route::get('/delete/{id}',[ProductsController::class,'delete'])->name('delete');
+    });
+    //endProducts
     //ProductTypes
 
     Route::prefix('/product-types')->group(function(){
