@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\AdminsController;
 use App\Http\Controllers\Web\ProductTypesController;
 use App\Http\Controllers\Web\SuppliersController;
 use App\Http\Controllers\Web\CategoriesController;
+use App\Http\Controllers\Web\UsersController;
 use App\Models\Suppliers;
 
 /*
@@ -90,5 +91,15 @@ Route::middleware('auth')->group(function () {
 
     //endCategories
 
+//Users
+
+Route::prefix('/user')->name('user.')->group(function () {
+    Route::get('/', [UsersController::class, 'List'])->name('index');
+    Route::post('/search', [UsersController::class, 'Search'])->name('search');
+
+    Route::get('/delete/{id}', [UsersController::class, 'Delete'])->name('delete');
+});
+
+//endUsers
 
 });
