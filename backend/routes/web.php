@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\ProductTypesController;
 use App\Http\Controllers\Web\SuppliersController;
 use App\Http\Controllers\Web\CategoriesController;
 use App\Http\Controllers\Web\UsersController;
+use App\Http\Controllers\Web\ImportsController;
 use App\Models\Suppliers;
 
 /*
@@ -102,4 +103,16 @@ Route::prefix('/user')->name('user.')->group(function () {
 
 //endUsers
 
+//Imports
+
+Route::prefix('/import')->name('import.')->group(function () {
+    Route::get('/', [ImportsController::class, 'List'])->name('index');
+    Route::post('/search', [ImportsController::class, 'Search'])->name('search');
+
+    Route::get('/detail/{id}', [ImportsController::class, 'Detail'])->name('details');
+
+    Route::get('/delete/{id}', [ImportsController::class, 'Delete'])->name('delete');
+});
+
+//endImports
 });

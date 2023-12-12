@@ -195,7 +195,7 @@
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="" class="menu-link">
+                        <a href="/import" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-file-import"></i>
                             <div data-i18n="Basic">Imports</div>
                         </a>
