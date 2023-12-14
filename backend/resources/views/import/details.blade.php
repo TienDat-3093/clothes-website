@@ -8,9 +8,10 @@
             <tr>
                 <th>Id</th>
                 <th>Product</th>
+                <th>Color</th>
+                <th>Size</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th>Discount</th>
             </tr>
         </thead>
         <tbody class="table-border-bottom-0">
@@ -18,9 +19,10 @@
             <tr>
                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $detail->id }}</strong></td>
                 <td>{{ $detail->products->name }}</td>
+                <td>{{ $detail->colors->name }}</td>
+                <td>{{ $detail->sizes->name }}</td>
                 <td>{{ $detail->price }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ $detail->discounts_id }}</td>
             </tr>
         @endforeach
         </tbody>

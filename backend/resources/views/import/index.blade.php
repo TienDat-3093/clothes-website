@@ -10,7 +10,8 @@
         </div>
     </div>
     <br>
-    <table class="table" id="listUser">
+    <a href="{{route('import.create')}}" class="btn btn-primary me-2">Add</a>
+    <table class="table" id="listImport">
         <thead>
             <tr>
                 <th>Id</th>
@@ -44,7 +45,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(data) {
-                    $('#listUser tbody').html(data);
+                    $('#listImport tbody').html(data);
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);

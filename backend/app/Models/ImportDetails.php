@@ -12,4 +12,10 @@ class ImportDetails extends Model
     public function products(){
         return $this->belongsTo(Products::class);
     }
+    public function colors(){
+        return $this->belongsTo(Colors::class);
+    }
+    public function sizes(){
+        return $this->belongsTo(Sizes::class);
+    }
 }

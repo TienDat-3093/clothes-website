@@ -111,7 +111,12 @@ Route::prefix('/import')->name('import.')->group(function () {
 
     Route::get('/detail/{id}', [ImportsController::class, 'Detail'])->name('details');
 
+    Route::get('/create', [ImportsController::class, 'Create'])->name('create');
+    Route::post('/create', [ImportsController::class, 'createHandle'])->name('create-handle');
+    
     Route::get('/delete/{id}', [ImportsController::class, 'Delete'])->name('delete');
+
+    Route::get('/verify/{id}', [ImportsController::class, 'Verify'])->name('verify');
 });
 
 //endImports
