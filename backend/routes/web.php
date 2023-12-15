@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\SuppliersController;
 use App\Http\Controllers\Web\CategoriesController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\ImportsController;
+use App\Http\Controllers\Web\CommentsController;
 use App\Models\Suppliers;
 
 /*
@@ -120,4 +121,15 @@ Route::prefix('/import')->name('import.')->group(function () {
 });
 
 //endImports
+
+//Comments
+
+Route::prefix('/comment')->name('comment.')->group(function () {
+    Route::get('/', [CommentsController::class, 'List'])->name('index');
+    Route::post('/search', [CommentsController::class, 'Search'])->name('search');
+    
+    Route::get('/delete/{id}', [CommentsController::class, 'Delete'])->name('delete');
+});
+
+//endComments
 });
