@@ -19,10 +19,10 @@ return new class extends Migration
                 table: 'products', indexName: 'import_details_products_id'
             );
             $table->foreignId('colors_id')->constrained(
-                table: 'product_details', indexName: 'import_details_colors_id'
+                table: 'colors', indexName: 'import_details_colors_id'
             );
             $table->foreignId('sizes_id')->constrained(
-                table: 'product_details', indexName: 'import_details_sizes_id'
+                table: 'sizes', indexName: 'import_details_sizes_id'
             );
             $table->foreignId('status_id')->default(1)->constrained(
                 table: 'status', indexName: 'import_details_status_id'

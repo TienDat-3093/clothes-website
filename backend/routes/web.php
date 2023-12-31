@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\CategoriesController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\ImportsController;
 use App\Http\Controllers\Web\CommentsController;
+use App\Http\Controllers\Web\CartsController;
 use App\Models\Suppliers;
 
 /*
@@ -132,4 +133,19 @@ Route::prefix('/comment')->name('comment.')->group(function () {
 });
 
 //endComments
+
+//Imports
+
+Route::prefix('/cart')->name('cart.')->group(function () {
+    Route::get('/', [CartsController::class, 'List'])->name('index');
+    Route::post('/search', [CartsController::class, 'Search'])->name('search');
+
+    Route::get('/detail/{id}', [CartsController::class, 'Detail'])->name('details');
+    
+    Route::get('/delete/{id}', [CartsController::class, 'Delete'])->name('delete');
+
+    Route::get('/verify/{id}', [CartsController::class, 'Verify'])->name('verify');
+});
+
+//endImports
 });
