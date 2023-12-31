@@ -207,7 +207,7 @@
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="" class="menu-link">
+                        <a href="/comment" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-message-rounded-add"></i>
                             <div data-i18n="Basic">Comments</div>
                         </a>
@@ -224,7 +224,12 @@
                             <div data-i18n="Basic">Discounts</div>
                         </a>
                     </li>
-
+                    <li class="menu-item" onclick="handleItemClick(this)">
+                        <a href="/cart" class="menu-link">
+                            <i class="menu-icon tf-icons bx bxs-discount"></i>
+                            <div data-i18n="Basic">Cart</div>
+                        </a>
+                    </li>
 
 
 

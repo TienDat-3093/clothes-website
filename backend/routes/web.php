@@ -7,6 +7,8 @@ use App\Http\Controllers\Web\SuppliersController;
 use App\Http\Controllers\Web\CategoriesController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\ImportsController;
+use App\Http\Controllers\Web\CommentsController;
+use App\Http\Controllers\Web\CartsController;
 use App\Models\Suppliers;
 
 /*
@@ -117,6 +119,32 @@ Route::prefix('/import')->name('import.')->group(function () {
     Route::get('/delete/{id}', [ImportsController::class, 'Delete'])->name('delete');
 
     Route::get('/verify/{id}', [ImportsController::class, 'Verify'])->name('verify');
+});
+
+//endImports
+
+//Comments
+
+Route::prefix('/comment')->name('comment.')->group(function () {
+    Route::get('/', [CommentsController::class, 'List'])->name('index');
+    Route::post('/search', [CommentsController::class, 'Search'])->name('search');
+    
+    Route::get('/delete/{id}', [CommentsController::class, 'Delete'])->name('delete');
+});
+
+//endComments
+
+//Imports
+
+Route::prefix('/cart')->name('cart.')->group(function () {
+    Route::get('/', [CartsController::class, 'List'])->name('index');
+    Route::post('/search', [CartsController::class, 'Search'])->name('search');
+
+    Route::get('/detail/{id}', [CartsController::class, 'Detail'])->name('details');
+    
+    Route::get('/delete/{id}', [CartsController::class, 'Delete'])->name('delete');
+
+    Route::get('/verify/{id}', [CartsController::class, 'Verify'])->name('verify');
 });
 
 //endImports
