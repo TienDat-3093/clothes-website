@@ -1,4 +1,5 @@
 import React, { useState,useEffect  } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Slider from "../components/home/Slider";
 import Banner from "../components/home/Banner";
@@ -7,7 +8,14 @@ import Footer from "../components/Footer";
 import {fetchAllProduct} from "../services/UserService";
 export default function Home() {
   const [listProducts,setProducts] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
+    //Demo rằng buột phải đăng nhập mới vào trang
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+    
     //getUser();
     getProduct();
   }, []);
