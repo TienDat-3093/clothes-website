@@ -1,7 +1,36 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import $ from "jquery";
+import axios from "axios";
 export default function Header() {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/logout',
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            Accept: 'application/json',
+          },
+        });
+      if (response.data.message == "Successfully logged out") {
+        localStorage.removeItem('token');
+        navigate('/login');
+      } else {
+        if(response.data.message == "Token has expired")
+        {
+          localStorage.removeItem('token');
+          navigate('/login');
+        }
+        console.error('Logout failed:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error during logout:', error.message);
+    }
+  };
   const menuDesktopRef = useRef(null);
   const wrapMenuDesktopRef = useRef(null);
   const [originalTop, setOriginalTop] = useState(0);
@@ -61,9 +90,9 @@ export default function Header() {
                 <NavLink to="/login" className="flex-c-m trans-04 p-lr-25">
                   Login
                 </NavLink>
-                <NavLink to="#" className="flex-c-m trans-04 p-lr-25">
+                <a href="#" className="flex-c-m trans-04 p-lr-25" onClick={handleLogout}>
                   Logout
-                </NavLink>
+                </a>
               </div>
             </div>
           </div>
