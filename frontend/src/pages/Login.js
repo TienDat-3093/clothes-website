@@ -29,7 +29,7 @@ export default function Login() {
           }
         }
       );
-      // localStorage.setItem('user', JSON.stringify(user.data.user));
+      localStorage.setItem('user', JSON.stringify(user.data.user));
       // console.log(user.data.user);
       navigate("/");
     }catch(error){
