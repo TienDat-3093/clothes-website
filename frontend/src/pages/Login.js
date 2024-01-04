@@ -7,14 +7,6 @@ export default function Login() {
   const [token,setToken]=useState('');
   const input_email = useRef();
   const input_password = useRef();
-  //Đã đăng nhập rồi không được vào login nữa cho đến khi logout
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/');
-    }
-  }, []);
-
   const handleLogin = async () => {
     var email = input_email.current.value;
     var password = input_password.current.value;
@@ -27,10 +19,19 @@ export default function Login() {
       setLoggedin(true);
       setToken(response.data.access_token);
       localStorage.setItem('token',response.data.access_token);
-      console.log('Token ',response.data.access_token);
-      // localStorage.setItem('user',JSON.stringify(user.data));
+      const token = localStorage.getItem('token');
+      // console.log('Token ',response.data.access_token);
+      const user = await axios.get(
+        'http://127.0.0.1:8000/api/me',{
+          headers: { 
+            'Authorization': 'Bearer '+ token,
+            'Accept': 'application/json',
+          }
+        }
+      );
+      // localStorage.setItem('user', JSON.stringify(user.data.user));
+      // console.log(user.data.user);
       navigate("/");
-      // console.log(user.data);
     }catch(error){
       console.error('Login failed: ',error);
       alert("Sai mật khẩu hoặc email!")
