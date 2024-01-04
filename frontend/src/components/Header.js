@@ -21,12 +21,12 @@ export default function Header() {
         });
       if (response.data.message == "Successfully logged out") {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
       } else {
         if(response.data.message == "Token has expired")
         {
           localStorage.removeItem('token');
-          navigate('/login');
+          navigate('/');
         }
         console.error('Logout failed:', response.data.message);
       }

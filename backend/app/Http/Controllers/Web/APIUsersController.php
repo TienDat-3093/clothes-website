@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Web;
 use App\Models\Users;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class APIUsersController extends Controller
 {
-    public function testFunction(){
-        return response()->json([
-            'message' =>"tested"
-        ]);
+    public function getUser(){
+        $user = Auth::user();
+        return response()->json(['user' => $user]);
     }
     public function login()
     {
