@@ -9,4 +9,10 @@ class Carts extends Model
 {
     use HasFactory;
     protected $table ='carts';
+    public function status(){
+        return $this->belongsTo(Status::class);
+    }
+    public function users(){
+        return $this->belongsTo(Users::class);
+    }
 }

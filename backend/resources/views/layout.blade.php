@@ -174,25 +174,25 @@
             </a>
           </li>
           <li class="menu-item" onclick="handleItemClick(this)">
-            <a href="#" class="menu-link">
+            <a href="/user" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
               <div data-i18n="Basic">Users</div>
             </a>
           </li>
           <li class="menu-item" onclick="handleItemClick(this)">
-            <a href="#" class="menu-link">
+            <a href="import" class="menu-link">
               <i class="menu-icon tf-icons bx bxs-file-import"></i>
               <div data-i18n="Basic">Imports</div>
             </a>
           </li>
           <li class="menu-item" onclick="handleItemClick(this)">
-            <a href="#" class="menu-link">
+            <a href="/cart" class="menu-link">
               <i class="menu-icon tf-icons bx bx-cart"></i>
               <div data-i18n="Basic">Bills</div>
             </a>
           </li>
           <li class="menu-item" onclick="handleItemClick(this)">
-            <a href="#" class="menu-link">
+            <a href="/comment" class="menu-link">
               <i class="menu-icon tf-icons bx bx-message-rounded-add"></i>
               <div data-i18n="Basic">Comments</div>
             </a>

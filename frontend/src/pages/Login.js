@@ -1,4 +1,42 @@
+import { useEffect,useState,useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Login() {
+  const navigate = useNavigate();
+  const [isLoggedin,setLoggedin]=useState(false);
+  const [token,setToken]=useState('');
+  const input_email = useRef();
+  const input_password = useRef();
+  const handleLogin = async () => {
+    var email = input_email.current.value;
+    var password = input_password.current.value;
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/login',
+        { email, password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      setLoggedin(true);
+      setToken(response.data.access_token);
+      localStorage.setItem('token',response.data.access_token);
+      const token = localStorage.getItem('token');
+      // console.log('Token ',response.data.access_token);
+      const user = await axios.get(
+        'http://127.0.0.1:8000/api/me',{
+          headers: { 
+            'Authorization': 'Bearer '+ token,
+            'Accept': 'application/json',
+          }
+        }
+      );
+      localStorage.setItem('user', JSON.stringify(user.data.user));
+      // console.log(user.data.user);
+      navigate("/");
+    }catch(error){
+      console.error('Login failed: ',error);
+      alert("Sai mật khẩu hoặc email!")
+    }
+  };
   return (
     <>
       <div className="container-xxl">
@@ -102,12 +140,11 @@ export default function Login() {
                 <p className="mb-4">
                   Please sign-in to your account and start the adventure
                 </p>
-                <form
+                {/* <form
                   id="formAuthentication"
                   className="mb-3"
-                  action="index.html"
                   method="POST"
-                >
+                > */}
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">
                       Email or Username
@@ -116,9 +153,10 @@ export default function Login() {
                       type="text"
                       className="form-control"
                       id="email"
-                      name="email-username"
+                      name="email"
                       placeholder="Enter your email or username"
                       autofocus=""
+                      ref={input_email}
                     />
                   </div>
                   <div className="mb-3 form-password-toggle">
@@ -138,6 +176,7 @@ export default function Login() {
                         name="password"
                         placeholder="············"
                         aria-describedby="password"
+                        ref={input_password}
                       />
                       <span className="input-group-text cursor-pointer">
                         <i className="bx bx-hide" />
@@ -152,20 +191,16 @@ export default function Login() {
                         id="remember-me"
                       />
                       <label className="form-check-label" htmlFor="remember-me">
-                        {" "}
-                        Remember Me{" "}
+                        Remember Me
                       </label>
                     </div>
                   </div>
                   <div className="mb-3">
-                    <button
-                      className="btn btn-primary w-100"
-                      type="submit"
-                    >
+                    <button className="btn btn-primary w-100" onClick={handleLogin}>
                       Sign in
                     </button>
                   </div>
-                </form>
+                {/* </form> */}
                 <p className="text-center">
                   <span>New on our platform?</span>
                   <a href="auth-register-basic.html">

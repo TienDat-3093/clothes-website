@@ -18,8 +18,11 @@ return new class extends Migration
             $table->foreignId('products_id')->constrained(
                 table: 'products', indexName: 'cart_details_products_id'
             );
-            $table->foreignId('discounts_id')->constrained(
-                table: 'discounts', indexName: 'cart_details_discounts_id'
+            $table->foreignId('colors_id')->constrained(
+                table: 'colors', indexName: 'cart_details_colors_id'
+            );
+            $table->foreignId('sizes_id')->constrained(
+                table: 'sizes', indexName: 'cart_details_sizes_id'
             );
             $table->foreignId('status_id')->default(1)->constrained(
                 table: 'status', indexName: 'cart_details_status_id'

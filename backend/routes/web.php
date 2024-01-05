@@ -6,6 +6,10 @@ use App\Http\Controllers\Web\ProductsController;
 use App\Http\Controllers\Web\ProductTypesController;
 use App\Http\Controllers\Web\SuppliersController;
 use App\Http\Controllers\Web\CategoriesController;
+use App\Http\Controllers\Web\UsersController;
+use App\Http\Controllers\Web\ImportsController;
+use App\Http\Controllers\Web\CommentsController;
+use App\Http\Controllers\Web\CartsController;
 use App\Models\Suppliers;
 
 /*
@@ -105,5 +109,58 @@ Route::middleware('auth')->group(function () {
 
     //endCategories
 
+//Users
 
+Route::prefix('/user')->name('user.')->group(function () {
+    Route::get('/', [UsersController::class, 'List'])->name('index');
+    Route::post('/search', [UsersController::class, 'Search'])->name('search');
+
+    Route::get('/delete/{id}', [UsersController::class, 'Delete'])->name('delete');
+});
+
+//endUsers
+
+//Imports
+
+Route::prefix('/import')->name('import.')->group(function () {
+    Route::get('/', [ImportsController::class, 'List'])->name('index');
+    Route::post('/search', [ImportsController::class, 'Search'])->name('search');
+
+    Route::get('/detail/{id}', [ImportsController::class, 'Detail'])->name('details');
+
+    Route::get('/create', [ImportsController::class, 'Create'])->name('create');
+    Route::post('/create', [ImportsController::class, 'createHandle'])->name('create-handle');
+    
+    Route::get('/delete/{id}', [ImportsController::class, 'Delete'])->name('delete');
+
+    Route::get('/verify/{id}', [ImportsController::class, 'Verify'])->name('verify');
+});
+
+//endImports
+
+//Comments
+
+Route::prefix('/comment')->name('comment.')->group(function () {
+    Route::get('/', [CommentsController::class, 'List'])->name('index');
+    Route::post('/search', [CommentsController::class, 'Search'])->name('search');
+    
+    Route::get('/delete/{id}', [CommentsController::class, 'Delete'])->name('delete');
+});
+
+//endComments
+
+//Imports
+
+Route::prefix('/cart')->name('cart.')->group(function () {
+    Route::get('/', [CartsController::class, 'List'])->name('index');
+    Route::post('/search', [CartsController::class, 'Search'])->name('search');
+
+    Route::get('/detail/{id}', [CartsController::class, 'Detail'])->name('details');
+    
+    Route::get('/delete/{id}', [CartsController::class, 'Delete'])->name('delete');
+
+    Route::get('/verify/{id}', [CartsController::class, 'Verify'])->name('verify');
+});
+
+//endImports
 });

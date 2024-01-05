@@ -1,7 +1,41 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import $ from "jquery";
+import axios from "axios";
 export default function Header() {
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user);
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/logout',
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+            Accept: 'application/json',
+          },
+        });
+      if (response.data.message == "Successfully logged out") {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/');
+      } else {
+        if(response.data.message == "Token has expired")
+        {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          navigate('/');
+        }
+        console.error('Logout failed:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error during logout:', error.message);
+    }
+  };
   const menuDesktopRef = useRef(null);
   const wrapMenuDesktopRef = useRef(null);
   const [originalTop, setOriginalTop] = useState(0);
@@ -55,15 +89,23 @@ export default function Header() {
                 <a href="#" className="flex-c-m trans-04 p-lr-25">
                   Help &amp; FAQs
                 </a>
-                <a href="#" className="flex-c-m trans-04 p-lr-25">
-                  My Account
-                </a>
-                <NavLink to="/login" className="flex-c-m trans-04 p-lr-25">
+                {!token ? (
+                  <>
+                  <NavLink to="/login" className="flex-c-m trans-04 p-lr-25">
                   Login
-                </NavLink>
-                <NavLink to="#" className="flex-c-m trans-04 p-lr-25">
-                  Logout
-                </NavLink>
+                  </NavLink>
+                  </>
+                ) : null}
+                {token ? (
+                  <>
+                  <a href="user" className="flex-c-m trans-04 p-lr-25">
+                  {user.username}
+                  </a>
+                  <a href="#" className="flex-c-m trans-04 p-lr-25" onClick={handleLogout}>
+                    Logout
+                  </a>
+                  </>
+                ) : null}
               </div>
             </div>
           </div>

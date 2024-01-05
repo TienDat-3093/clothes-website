@@ -18,8 +18,11 @@ return new class extends Migration
             $table->foreignId('products_id')->constrained(
                 table: 'products', indexName: 'import_details_products_id'
             );
-            $table->foreignId('discounts_id')->constrained(
-                table: 'discounts', indexName: 'import_details_discounts_id'
+            $table->foreignId('colors_id')->constrained(
+                table: 'colors', indexName: 'import_details_colors_id'
+            );
+            $table->foreignId('sizes_id')->constrained(
+                table: 'sizes', indexName: 'import_details_sizes_id'
             );
             $table->foreignId('status_id')->default(1)->constrained(
                 table: 'status', indexName: 'import_details_status_id'
@@ -33,9 +36,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('import_details', function (Blueprint $table) {
-            $table->dropForeign(['imports_id','products_id','discounts_id','status_id']);
+            $table->dropForeign(['imports_id','products_id','colors_id','sizes_id','status_id']);
 
-            $table->dropColumn(['imports_id','products_id','discounts_id','status_id']);
+            $table->dropColumn(['imports_id','products_id','colors_id','sizes_id','status_id']);
         });
     }
 };
