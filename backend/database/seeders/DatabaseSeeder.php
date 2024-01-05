@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\ProductDetails;
 use App\Models\ProductTypes;
 use Illuminate\Database\Seeder;
 
@@ -29,6 +30,11 @@ class DatabaseSeeder extends Seeder
             AdminsSeeder::class,
             SuppliersSeeder::class,
             ProductsSeeder::class,
+            ProductImagesSeeder::class,
+            SizesSeeder::class,
+            ColorsSeeder::class,
+            ProductDetailsSeeder::class,
         ]);
     }
 }
+

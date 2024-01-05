@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>Clothes Website</title>
-
+    <meta name="csrfToken" content="{{ csrf_token() }}">
     <meta name="description" content="" />
     <!-- SweetAlert -->
     <link rel="stylesheet" href="{{ asset('sweetalert2/sweetalert2.min.css') }}">
@@ -36,7 +36,9 @@
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
-    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+    <script src="{{ asset('bootstrap-5.2.3/css/bootstrap.min.css') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -53,7 +55,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
+                    <a href="index.html" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -112,7 +114,7 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                        <a href="index.html" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
@@ -120,7 +122,7 @@
 
                     <!-- Layouts -->
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="" class="menu-link menu-toggle">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-layout"></i>
                             <div data-i18n="Layouts">Layouts</div>
                         </a>
@@ -171,7 +173,7 @@
                     </li>
 
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="#" class="menu-link">
+                        <a href="{{ route('product.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-cube"></i>
                             <div data-i18n="Basic">Products</div>
                         </a>
@@ -195,13 +197,13 @@
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="/import" class="menu-link">
+                        <a href="import" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-file-import"></i>
                             <div data-i18n="Basic">Imports</div>
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="" class="menu-link">
+                        <a href="/cart" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-cart"></i>
                             <div data-i18n="Basic">Bills</div>
                         </a>
@@ -213,23 +215,18 @@
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="" class="menu-link">
+                        <a href="#" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-slideshow"></i>
                             <div data-i18n="Basic">Slideshows</div>
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="{{ route('discounts.index') }}" class="menu-link">
+                        <a href="#" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-discount"></i>
                             <div data-i18n="Basic">Discounts</div>
                         </a>
                     </li>
-                    <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="/cart" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-discount"></i>
-                            <div data-i18n="Basic">Cart</div>
-                        </a>
-                    </li>
+
 
 
 
@@ -280,9 +277,9 @@
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <!-- Place this tag where you want the button to render. -->
                             <li class="nav-item lh-1 me-3">
-                                <a class="card-title text-primary" href="#" data-size="large"
+                                <a class="github-button" href="#" data-icon="octicon-star" data-size="large"
                                     data-show-count="true"
-                                    aria-label="Star theme selection/sneat-html-admin-template-free on GitHub">{{ Auth::User()->fullname }}</a>
+                                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">{{ Auth::User()->fullname }}</a>
                             </li>
 
                             <!-- User -->
@@ -409,6 +406,7 @@
         <a href="https://github.com/TienDat-3093/clothes-website/commits/master" target="_blank"
             class="btn btn-danger btn-buy-now">GitHub</a>
     </div>
+
     <!-- onclick -->
     <script>
         function handleItemClick(element) {
@@ -447,8 +445,17 @@
     <!-- Page JS -->
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

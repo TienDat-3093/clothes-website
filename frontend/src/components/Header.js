@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
 export default function Header() {
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user);
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -12,18 +15,20 @@ export default function Header() {
         {},
         {
           headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            Authorization: 'Bearer ' + token,
             Accept: 'application/json',
           },
         });
       if (response.data.message == "Successfully logged out") {
         localStorage.removeItem('token');
-        navigate('/login');
+        localStorage.removeItem('user');
+        navigate('/');
       } else {
         if(response.data.message == "Token has expired")
         {
           localStorage.removeItem('token');
-          navigate('/login');
+          localStorage.removeItem('user');
+          navigate('/');
         }
         console.error('Logout failed:', response.data.message);
       }
@@ -84,15 +89,23 @@ export default function Header() {
                 <a href="#" className="flex-c-m trans-04 p-lr-25">
                   Help &amp; FAQs
                 </a>
-                <a href="#" className="flex-c-m trans-04 p-lr-25">
-                  My Account
-                </a>
-                <NavLink to="/login" className="flex-c-m trans-04 p-lr-25">
+                {!token ? (
+                  <>
+                  <NavLink to="/login" className="flex-c-m trans-04 p-lr-25">
                   Login
-                </NavLink>
-                <a href="#" className="flex-c-m trans-04 p-lr-25" onClick={handleLogout}>
-                  Logout
-                </a>
+                  </NavLink>
+                  </>
+                ) : null}
+                {token ? (
+                  <>
+                  <a href="user" className="flex-c-m trans-04 p-lr-25">
+                  {user.username}
+                  </a>
+                  <a href="#" className="flex-c-m trans-04 p-lr-25" onClick={handleLogout}>
+                    Logout
+                  </a>
+                  </>
+                ) : null}
               </div>
             </div>
           </div>
