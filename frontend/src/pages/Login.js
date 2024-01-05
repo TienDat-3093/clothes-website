@@ -7,6 +7,11 @@ export default function Login() {
   const [token,setToken]=useState('');
   const input_email = useRef();
   const input_password = useRef();
+  useEffect(() => {
+      if(localStorage.getItem('token')&&localStorage.getItem('user')){
+        navigate('/');
+      }
+  }, []);
   const handleLogin = async () => {
     var email = input_email.current.value;
     var password = input_password.current.value;
