@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
   <title>Clothes Website</title>
-
+  <meta name="csrfToken" content="{{ csrf_token() }}">
   <meta name="description" content="" />
   <!-- SweetAlert -->
   <link rel="stylesheet" href="{{ asset('sweetalert2/sweetalert2.min.css')}}">
@@ -31,8 +30,10 @@
 
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
 
-  <script src="{{ asset('assets/vendor/js/helpers.js')}}"></script>
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
 
+  <script src="{{ asset('bootstrap-5.2.3/css/bootstrap.min.css')}}"></script>
+  
   <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="{{ asset('assets/js/config.js')}}"></script>
@@ -96,7 +97,7 @@
         <ul class="menu-inner py-1">
           <!-- Dashboard -->
           <li class="menu-item" onclick="handleItemClick(this)">
-            <a href="index.html" class="menu-link" >
+            <a href="index.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -147,7 +148,7 @@
               <div data-i18n="Account Settings">Product Types</div>
             </a>
           </li>
-          <li class="menu-item" onclick="handleItemClick(this)" >
+          <li class="menu-item" onclick="handleItemClick(this)">
             <a href="{{route('categories.index')}}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-align-justify"></i>
               <div data-i18n="Basic">Categories</div>
@@ -370,6 +371,7 @@
   <div class="buy-now">
     <a href="https://github.com/TienDat-3093/clothes-website/commits/master" target="_blank" class="btn btn-danger btn-buy-now">GitHub</a>
   </div>
+
   <!-- onclick -->
   <script>
     function handleItemClick(element) {
@@ -408,8 +410,11 @@
   <!-- Page JS -->
   <script src="{{ asset('assets/js/dashboards-analytics.js')}}"></script>
 
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

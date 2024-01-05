@@ -1,6 +1,8 @@
 @extends('layout')
 
 @section('content')
+
+<!--End color Modal -->
 <div class="row">
     <div class="col-xl">
         <div class="card mb-4">
@@ -19,13 +21,10 @@
                         <textarea readonly id="basic-default-message" class="form-control" placeholder="{{$product->description}}"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Import Price</label>
-                        <input type="text" value="{{$product->import_price}}" readonly class="form-control" id="basic-default-fullname" placeholder="John Doe">
+                        <label class="form-label" for="basic-default-fullname">Price</label>
+                        <input type="text" value="{{$product->price}}" readonly class="form-control" id="basic-default-fullname" placeholder="John Doe">
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Sales Price</label>
-                        <input type="text" value="{{$product->sales_price}}" readonly class="form-control" id="basic-default-fullname" placeholder="John Doe">
-                    </div>
+                    
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Star Avg</label>
                         @if(!empty($product->star_avg))
@@ -58,16 +57,17 @@
                     <div class="mb-3">
                         <label for="exampleFormControlSelect1" class="form-label">Color</label>
                         <select class="form-select" id="color" aria-label="Default select example">
-                        <option >Chọn màu</option>
+                            <option>Chọn màu</option>
                             @foreach($listColor as $detail)
                             <option value="{{$detail->colors_id}}">{{$detail->color[0]->name}}</option>
                             @endforeach
                         </select>
+                        
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlSelect1" class="form-label">Size</label>
                         <select class="form-select" id="size" aria-label="Default select example">
-                        <option >Chọn size</option>
+                            <option>Chọn size</option>
                             @foreach($listSize as $detail)
                             <option value="{{$detail->sizes_id}}">{{$detail->size[0]->name}}</option>
                             @endforeach
@@ -75,9 +75,9 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Quantity</label>
-                        <input type="text" name="quantity" id="quantity"  readonly class="form-control" id="basic-default-fullname">
+                        <input type="text" name="quantity" id="quantity" readonly class="form-control" id="basic-default-fullname">
                     </div>
-                    
+
 
                 </form>
             </div>
@@ -86,12 +86,13 @@
 </div>
 <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
 <script>
-    $(document).ready(function(){
-        $('select#color, select#size').change(function(){
-            var colorId = $('select#color').val();
-            var sizeId = $('select#size').val();
-            
-            $.ajax({
+    var $j = jQuery.noConflict();
+    $j(document).ready(function() {
+        $j('select#color, select#size').change(function() {
+            var colorId = $j('select#color').val();
+            var sizeId = $j('select#size').val();
+            console.log(colorId, sizeId)
+            $j.ajax({
                 url: "{{ route('product.quantity', ['id' => $product->id]) }}",
                 type: 'POST',
                 data: {
@@ -99,9 +100,11 @@
                     'color_id': colorId,
                     'size_id': sizeId
                 },
-                success: function (data) {
-                    $('#quantity').val(data.quantity);
-                    console.log(data.quantity);
+
+                success: function(data) {
+                    $j('#quantity').val(data.quantity);
+
+                    console.log(data);
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);

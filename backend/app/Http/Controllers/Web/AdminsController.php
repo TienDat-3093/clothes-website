@@ -22,7 +22,6 @@ class AdminsController extends Controller
     }
     public function loginHandle(LoginRequest $request)
     {
-
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('admin.dashboard');
         }

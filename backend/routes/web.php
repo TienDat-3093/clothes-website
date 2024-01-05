@@ -62,11 +62,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/detail/{id}',[ProductsController::class,'detail'])->name('detail');
         Route::post('/quantity/{id}',[ProductsController::class,'quantity'])->name('quantity');
         Route::post('/search',[ProductsController::class,'search'])->name('search');
-        Route::get('/create',[ProductsController::class,'create'])->name('create');
-        Route::post('/create',[ProductsController::class,'createHandle'])->name('createHandle');
+        Route::post('/create',[ProductsController::class,'create'])->name('create');
         Route::get('/update/{id}',[ProductsController::class,'update'])->name('update');
+        Route::post('/delete-image',[ProductsController::class,'deleteImage'])->name('deleteImage');
         Route::post('/update/{id}',[ProductsController::class,'updateHandle'])->name('updateHandle');
         Route::get('/delete/{id}',[ProductsController::class,'delete'])->name('delete');
+
     });
     //endProducts
 
