@@ -10,15 +10,19 @@ class APIUsersController extends Controller
 {
     public function getUser(){
         $user = Auth::user();
+        if ($user->status_id === 2) {
+            Auth::logout();
+            return response()->json(['error' => 'Tài khoản đã bị khóa bởi admin!'], 401);
+        }
         return response()->json(['user' => $user]);
     }
     public function login()
     {
         $credentials = request(['email', 'password']);
         if (! $token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Sai mật khẩu, email hoặc không có tài khoản này!'], 401);
         }
-
+        
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
