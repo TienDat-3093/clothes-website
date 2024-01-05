@@ -40,7 +40,7 @@
         function searchSuppliers() {
             let keyword = $('#searchInput').val();
             $.ajax({
-                url: '{{ route('admin.search') }}',
+                url: "{{route('admin.search')}}",
                 type: 'POST',
                 data: {
                     data: keyword,

@@ -9,5 +9,21 @@ class Products extends Model
 {
     use HasFactory;
     protected $table = 'products';
-
+    public function listImage()
+    {
+        return $this->hasMany(ProductImages::class);
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+    public function productDetail()
+    {
+        return $this->hasMany(ProductDetails::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Categories::class,'categories_id');
+    }
+    
 }
