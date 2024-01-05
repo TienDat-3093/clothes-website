@@ -9,5 +9,16 @@ class Comments extends Model
 {
     use HasFactory;
     protected $table = 'comments';
-
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+    public function users()
+    {
+        return $this->belongsTo(Users::class);
+    }
+    public function products()
+    {
+        return $this->belongsTo(Products::class);
+    }
 }
