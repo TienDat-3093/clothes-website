@@ -33,8 +33,9 @@ export default function Login() {
       // console.log(user.data.user);
       navigate("/");
     }catch(error){
-      console.error('Login failed: ',error);
-      alert("Sai mật khẩu hoặc email!")
+      alert('Login failed: '+ error.response.data.error)
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
     }
   };
   return (
