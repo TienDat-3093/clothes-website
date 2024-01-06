@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->decimal('price');
+            $table->float('price');
             $table->integer('star_avg')->default(0);
             $table->timestamps();
         });
