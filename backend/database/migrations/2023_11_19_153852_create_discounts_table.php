@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('amount_discounts');
+            $table->float('amount_discounts');
             $table->boolean('type_discount');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
