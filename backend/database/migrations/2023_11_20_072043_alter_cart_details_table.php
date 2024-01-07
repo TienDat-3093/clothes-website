@@ -28,7 +28,7 @@ return new class extends Migration
                 table: 'sizes',
                 indexName: 'cart_details_sizes_id'
             );
-            $table->foreignId('status_id')->default(1)->after('discounts_id')->constrained(
+            $table->foreignId('status_id')->default(1)->constrained(
                 table: 'status',
                 indexName: 'cart_details_status_id'
             );
