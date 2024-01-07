@@ -85,7 +85,7 @@ class CategoriesController extends Controller
            
         }
         if ($categories->status_id == 2) {
-            return redirect()->route('categories.index')->with('alert', 'Đã xóa danh mục sản phẩm');
+            return redirect()->route('categories.index')->with('alert', 'Danh mục sản phẩm đã xóa trước đó rồi');
         }
         $categories->status_id = 2;
         $categories->save();

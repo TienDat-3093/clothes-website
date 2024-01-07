@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->foreignId('product_types_id')->constrained(
+            $table->foreignId('product_types_id')->after('name')->constrained(
                 table: 'product_types', indexName: 'categories_product_types_id'
             );
-            $table->foreignId('status_id')->default(1)->constrained(
+            $table->foreignId('status_id')->default(1)->after('product_types_id')->constrained(
                 table: 'status', indexName: 'categories_status_id'
             );
         });

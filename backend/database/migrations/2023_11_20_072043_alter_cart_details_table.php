@@ -12,20 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('cart_details', function (Blueprint $table) {
-            $table->foreignId('carts_id')->constrained(
-                table: 'carts', indexName: 'cart_details_carts_id'
+            $table->foreignId('carts_id')->after('price')->constrained(
+                table: 'carts',
+                indexName: 'cart_details_carts_id'
             );
-            $table->foreignId('products_id')->constrained(
-                table: 'products', indexName: 'cart_details_products_id'
+            $table->foreignId('products_id')->after('carts_id')->constrained(
+                table: 'products',
+                indexName: 'cart_details_products_id'
             );
             $table->foreignId('colors_id')->constrained(
-                table: 'colors', indexName: 'cart_details_colors_id'
+                table: 'colors',
+                indexName: 'cart_details_colors_id'
             );
             $table->foreignId('sizes_id')->constrained(
-                table: 'sizes', indexName: 'cart_details_sizes_id'
+                table: 'sizes',
+                indexName: 'cart_details_sizes_id'
             );
             $table->foreignId('status_id')->default(1)->constrained(
-                table: 'status', indexName: 'cart_details_status_id'
+                table: 'status',
+                indexName: 'cart_details_status_id'
             );
         });
     }
@@ -36,9 +41,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('cart_details', function (Blueprint $table) {
-            $table->dropForeign(['carts_id','products_id','discounts_id','status_id']);
+            $table->dropForeign(['carts_id', 'products_id', 'discounts_id', 'status_id']);
 
-            $table->dropColumn(['carts_id','products_id','discounts_id','status_id']);
+            $table->dropColumn(['carts_id', 'products_id', 'discounts_id', 'status_id']);
         });
     }
 };

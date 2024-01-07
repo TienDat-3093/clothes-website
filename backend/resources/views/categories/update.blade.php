@@ -12,8 +12,8 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" value="{{ $categories->name }}" class="form-control"
-                                        id="basic-default-name" placeholder=" " />
+                                    <input type="text" name="name" value="{{ $categories->name }}"
+                                        class="form-control" id="basic-default-name" placeholder=" " />
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -46,7 +46,10 @@
                             </div>
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
+
                                     <button type="submit" class="btn btn-primary">Change</button>
+                                    <a href="{{ route('categories.index') }}" class="btn btn-outline-secondary">Cancel</a>
+
                                 </div>
                             </div>
                         </form>
