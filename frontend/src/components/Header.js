@@ -6,7 +6,6 @@ import axios from "axios";
 export default function Header() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -23,17 +22,14 @@ export default function Header() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         navigate('/');
-      } else {
-        if(response.data.message == "Token has expired")
-        {
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          navigate('/');
-        }
-        console.error('Logout failed:', response.data.message);
       }
     } catch (error) {
-      console.error('Error during logout:', error.message);
+      if(error.response.data.message == "Token has expired"){
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/');
+      }
+      console.log('Error during logout:', error.response.data.message);
     }
   };
   const menuDesktopRef = useRef(null);
