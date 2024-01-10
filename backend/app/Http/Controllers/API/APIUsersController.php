@@ -6,16 +6,32 @@ use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class APIUsersController extends Controller
 {
     public function Edit(){
-        $request = request(['id','username','fullname','email']);
+        $request = request(['id','username','fullname','email','password','current_password','phone_number']);
         $keys = array_keys($request);
         $values = array_values($request);
         $user = Users::where('id',$request['id'])->first();
         if ($user) {
-            $user->{$keys[1]} = $values[1];
+            if($keys[1] == 'password')
+            {
+                if (password_verify($values[2], $user->password))
+                    if($values[2] == $values[1])
+                        return response()->json(['message'=>'New password is the same as current password']);
+                    else
+                        $user->{$keys[1]} = Hash::make($values[1]);
+                else
+                    return response()->json(['message'=>'Current password is not correct']);
+            }
+            else
+            {
+                if($values[1] == $user->{$keys[1]})
+                    return response()->json(['message'=>'New '.$keys[1].' is the same as current '.$keys[1]]);
+                $user->{$keys[1]} = $values[1];
+            }
             $user->save();
         }else{
             return response()->json(['error'=>'Unable to find user']);
@@ -27,7 +43,7 @@ class APIUsersController extends Controller
         $user = Auth::user();
         if ($user->status_id === 2) {
             Auth::logout();
-            return response()->json(['error' => 'Tài khoản đã bị khóa bởi admin!'], 401);
+            return response()->json(['message' => 'Tài khoản đã bị khóa bởi admin!'], 401);
         }
         return response()->json(['user' => $user]);
     }
@@ -35,7 +51,7 @@ class APIUsersController extends Controller
     {
         $credentials = request(['email', 'password']);
         if (!$token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Sai mật khẩu, email hoặc không có tài khoản này!'], 401);
+            return response()->json(['message' => 'Sai mật khẩu, email hoặc không có tài khoản này!'], 401);
         }
 
         return response()->json([

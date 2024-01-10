@@ -20,7 +20,6 @@ export default function FullnameEdit() {
     const handleEdit = async () => {
         var fullname = input_fullname.current.value;
         var id = user.id;
-        console.log(id);
         try {
           const response = await axios.post(
             'http://127.0.0.1:8000/api/edit',
@@ -30,7 +29,9 @@ export default function FullnameEdit() {
                 'Accept': 'application/json',
             } }
           );
-          getUser();
+          alert(response.data.message);
+          if(response.data.message != "New fullname is the same as current fullname")
+            getUser();
         }catch(error){
             alert('Error: '+ error.response.data.message)
         }

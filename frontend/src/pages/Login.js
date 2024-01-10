@@ -38,7 +38,7 @@ export default function Login() {
       // console.log(user.data.user);
       navigate("/");
     }catch(error){
-      alert('Login failed: '+ error.response.data.error)
+      alert('Login failed: '+ error.response.data.message)
       localStorage.removeItem('token');
       localStorage.removeItem('user');
     }
