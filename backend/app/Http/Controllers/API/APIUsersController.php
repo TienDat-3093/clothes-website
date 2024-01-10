@@ -9,6 +9,19 @@ use Illuminate\Http\Request;
 
 class APIUsersController extends Controller
 {
+    public function Edit(){
+        $request = request(['id','username','fullname','email']);
+        $keys = array_keys($request);
+        $values = array_values($request);
+        $user = Users::where('id',$request['id'])->first();
+        if ($user) {
+            $user->{$keys[1]} = $values[1];
+            $user->save();
+        }else{
+            return response()->json(['error'=>'Unable to find user']);
+        }
+        return response()->json(['message'=>'Edited '.$keys[1]]);
+    }
     public function getUser()
     {
         $user = Auth::user();

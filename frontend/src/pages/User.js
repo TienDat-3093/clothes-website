@@ -1,75 +1,30 @@
-import React from "react";
+import {React,useState} from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
+import UserInfo from "../components/user/UserInfo";
+import MyOrders from "../components/user/MyOrders";
 export default function Detail() {
-const user = JSON.parse(localStorage.getItem('user'));
+const [selectedMenu, setSelectedMenu] = useState("userInfo");
   return (
     <>
-      <div>
         <Header />
-      <section className="sec-product-detail bg0 p-t-100 p-b-60">
+      <section className="bg0 p-t-104 p-b-116">
         <div className="container">
-        <div>
+          <div className="flex-w flex-tr">
+        <div style={{width:"25%"}} className="p-lr-70 p-lr-15-lg w-full-md">
+          <button onClick={() => setSelectedMenu('userInfo')} style={{ border: "1px solid #e6e6e6", margin:"10px", padding: "10px", paddingTop:"10px",marginTop:"0px"}}>
             User Infomations
+          </button>
+          <button onClick={() => setSelectedMenu('myOrders')} style={{ border: "1px solid #e6e6e6", margin:"10px", padding: "10px"}}>
+            My Orders
+          </button>
         </div>
-        <form>
-            <div>
-              <div className="form-group">
-                <label>Username</label>
-                <input
-                  type="text"
-                  className="form-control border-input"
-                  disabled=""
-                  placeholder="Username"
-                  defaultValue={user.username}
-                />
-              </div>
-              <div className="form-group">
-                <label>Fullname</label>
-                <input
-                  type="text"
-                  className="form-control border-input"
-                  disabled=""
-                  placeholder="Fullname"
-                  defaultValue={user.fullname}
-                />
-              </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="text"
-                  className="form-control border-input"
-                  disabled=""
-                  placeholder="Email"
-                  defaultValue={user.email}
-                />
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  type="text"
-                  className="form-control border-input"
-                  disabled=""
-                  placeholder="Password"
-                  defaultValue="***"
-                />
-              </div>
-              <div className="form-group">
-                <label>Phone Number</label>
-                <input
-                  type="text"
-                  className="form-control border-input"
-                  disabled=""
-                  placeholder="Phone Number"
-                  defaultValue={user.phone_number}
-                />
-              </div>
-            </div>
-        </form></div>
+        {selectedMenu === 'userInfo' && <UserInfo />}
+        {selectedMenu === 'myOrders' && <MyOrders />}
+        </div>
+        </div>
         </section>
         <Footer />
-      </div>
     </>
   );
 }
