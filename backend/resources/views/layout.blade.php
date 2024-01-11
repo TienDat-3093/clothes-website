@@ -168,6 +168,12 @@
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
+                        <a href="{{ route('discounts.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bxs-discount"></i>
+                            <div data-i18n="Basic">Discounts</div>
+                        </a>
+                    </li>
+                    <li class="menu-item" onclick="handleItemClick(this)">
                         <a href="/cart" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-cart"></i>
                             <div data-i18n="Basic">Bills</div>
@@ -185,12 +191,7 @@
                             <div data-i18n="Basic">Slideshows</div>
                         </a>
                     </li>
-                    <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="{{ route('discounts.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-discount"></i>
-                            <div data-i18n="Basic">Discounts</div>
-                        </a>
-                    </li>
+
                 </ul>
             </aside>
             <!-- / Menu -->

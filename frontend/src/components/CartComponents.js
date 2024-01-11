@@ -32,16 +32,16 @@ export default function CartComponents() {
                                             <td>
                                                 <div className="input-group mb-3" style={{ maxWidth: 120 }}>
                                                     <div className="input-group-prepend">
-                                                        <button className="btn btn-outline-primary js-btn-minus" type="button">−</button>
+                                                        <button className="btn  btn-outline-primary js-btn-minus" type="button">−</button>
                                                     </div>
-                                                    <input type="text" className="form-control text-center" defaultValue={1} placeholder aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                                                    <input type="text" className="form-control  text-center" defaultValue={1} placeholder aria-label="Example text with button addon" aria-describedby="button-addon1" />
                                                     <div className="input-group-append">
-                                                        <button className="btn btn-outline-primary js-btn-plus" type="button">+</button>
+                                                        <button className="btn  btn-outline-primary js-btn-plus" type="button">+</button>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>$49.00</td>
-                                            <td><a href="#" className="btn btn-primary btn-sm">X</a></td>
+                                            <td><a href="#" className="btn  btn-primary btn-sm">X</a></td>
                                         </tr>
                                         <tr>
                                             <td className="product-thumbnail">
@@ -58,7 +58,7 @@ export default function CartComponents() {
                                                     </div>
                                                     <input type="text" className="form-control text-center" defaultValue={1} placeholder aria-label="Example text with button addon" aria-describedby="button-addon1" />
                                                     <div className="input-group-append">
-                                                        <button className="btn btn-outline-primary js-btn-plus" type="button">+</button>
+                                                        <button className="btn  btn-outline-primary js-btn-plus" type="button">+</button>
                                                     </div>
                                                 </div>
                                             </td>

@@ -18,7 +18,7 @@ class DiscountsController extends Controller
         return view("discounts.create", compact("discounts"));
     }
 
-    public function createHandler(CreateDiscountsRequest $re)
+    public function createHandler(Request $re)
     {
         $discounts = new Discounts();
 
@@ -36,9 +36,8 @@ class DiscountsController extends Controller
     public function List()
     {
         $listDiscounts = Discounts::all();
-        $status = Status::all();
 
-        return view("discounts/index", compact('listDiscounts', 'status'));
+        return view("discounts/index", compact('listDiscounts'));
     }
 
     public function Search(Request $re)
@@ -52,16 +51,15 @@ class DiscountsController extends Controller
     public function Update($id)
     {
         $discounts = Discounts::find($id);
-        $status = Status::all();
 
         if (empty($discounts)) {
             return redirect()->route("discounts.index")->with("alert", "Mã giảm giá không tồn tại");
         }
 
-        return view("discounts.index", compact("discounts,status"));
+        return view("discounts.index", compact("discounts"));
     }
 
-    public function updateHandler(CreateDiscountsRequest $re, $id)
+    public function updateHandler(Request $re, $id)
     {
         $discounts = Discounts::find($id);
 
@@ -88,11 +86,11 @@ class DiscountsController extends Controller
             return redirect()->route("discounts.index")->with("alert", "Mã giảm giá không tồn tại");
         }
 
-        if ($discounts->status_id == 2) {
+        if ($discounts->end_date == null) {
             return redirect()->route('discounts.index')->with('alert', 'Mã giảm giá đã xóa trước đó rồi');
         }
 
-        $discounts->status_id = 2;
+        $discounts->end_date = null;
         $discounts->save();
 
         return redirect()->route('discounts.index')->with('alert', 'Xóa mã giảm giá sản phẩm thành công');
