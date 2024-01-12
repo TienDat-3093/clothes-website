@@ -3,7 +3,7 @@ import React from 'react'
 export default function CartComponents() {
     return (
         <>
-            <form className="bg0 p-t-125 p-b-85">
+            <form className="bg0 p-t-145 p-b-75">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-10 col-xl-9 m-lr-auto m-b-50">
@@ -108,18 +108,6 @@ export default function CartComponents() {
                                             contact us if you need any help.
                                         </p>
                                         <div className="p-t-15">
-                                            <span className="stext-112 cl8">
-                                                Calculate Shipping
-                                            </span>
-                                            <div className="bor8 bg0 m-b-12">
-                                                <input className="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="city" placeholder="City" />
-                                            </div>
-                                            <div className="bor8 bg0 m-b-12">
-                                                <input className="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Street" />
-                                            </div>
-                                            <div className="bor8 bg0 m-b-22">
-                                                <input className="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Postcode / Zip" />
-                                            </div>
                                             <div className="flex-w">
                                                 <div className="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
                                                     Update Totals
@@ -140,7 +128,7 @@ export default function CartComponents() {
                                         </span>
                                     </div>
                                 </div>
-                                <button className="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                <button className="flex-c-m stext-101 cl2 size-116 bg1 bor13 hov-btn3 p-lr-15 trans-04 pointer">
                                     Proceed to Checkout
                                 </button>
                             </div>
@@ -148,7 +136,6 @@ export default function CartComponents() {
                     </div>
                 </div>
             </form>
-
         </>
     )
 }
