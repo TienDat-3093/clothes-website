@@ -35,11 +35,11 @@ class CategoriesController extends Controller
     public function List()
     {
         $listCategories = Categories::all();
-        $status = Status::all();
-        return view("categories.index", compact("listCategories", "status"));
+        return view("categories.index", compact("listCategories"));
     }
 
-    public function Search(Request $re){
+    public function Search(Request $re)
+    {
         $keyword = $re->input('data');
         $listCategories = Categories::where('name', 'like', "%$keyword%")->get();
 
@@ -82,7 +82,6 @@ class CategoriesController extends Controller
 
         if (empty($categories)) {
             return redirect()->route('categories.index')->with("alert", "Danh mục loại sản phẩm không tồn tại");
-           
         }
         if ($categories->status_id == 2) {
             return redirect()->route('categories.index')->with('alert', 'Danh mục sản phẩm đã xóa trước đó rồi');
