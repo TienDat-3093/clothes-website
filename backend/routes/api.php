@@ -27,6 +27,7 @@ Route::group([
     'middleware' => 'api',
 ], function ($router) {
 
+    Route::post('register',[APIUsersController::class,"Register"]);
     Route::post('login', [APIUsersController::class,"login"]);
     Route::post('logout', [APIUsersController::class,"logout"]);
 
