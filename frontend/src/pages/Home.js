@@ -13,9 +13,12 @@ export default function Home() {
   }, []);
   const getProduct  =async()=>{
     let res = await fetchAllProduct();
+
     if(res && res.data && res.data.data)
     {
-      setProducts(res.data.data);
+      const product = res.data.data; 
+      console.log('product',product)
+      setProducts(product);
     }
   }
   return (

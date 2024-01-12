@@ -6,7 +6,7 @@ import axios from "axios";
 export default function Header() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
+
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -113,12 +113,12 @@ export default function Header() {
             <nav className="limiter-menu-desktop container">
               {/* Logo desktop */}
               <a href="#" className="logo">
-                <img src="images/icons/logo-01.png" alt="IMG-LOGO" />
+                <img src="../images/icons/logo-01.png" alt="IMG-LOGO" />
               </a>
               {/* Menu desktop */}
               <div className="menu-desktop">
                 <ul className="main-menu">
-                  <li className="active-menu">
+                  <li className="">
                     <NavLink to="/">Home</NavLink>
                     <ul className="sub-menu">
                       <li>

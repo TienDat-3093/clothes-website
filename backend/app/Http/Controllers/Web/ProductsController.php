@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Requests\CreateProductsRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\Colors;
