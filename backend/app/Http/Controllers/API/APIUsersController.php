@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class APIUsersController extends Controller
 {
     public function Edit(){
-        $request = request(['id','username','fullname','email','password','current_password','phone_number']);
+        $request = request(['id','username','fullname','email','address','password','current_password','phone_number']);
         $keys = array_keys($request);
         $values = array_values($request);
         $user = Users::where('id',$request['id'])->first();

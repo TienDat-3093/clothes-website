@@ -209,7 +209,7 @@ export default function Login() {
                 {/* </form> */}
                 <p className="text-center">
                   <span>New on our platform?</span>
-                  <a href="auth-register-basic.html">
+                  <a href="/register">
                     <span>Create an account</span>
                   </a>
                 </p>

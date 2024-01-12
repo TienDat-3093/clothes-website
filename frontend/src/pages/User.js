@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import UserInfo from "../components/user/UserInfo";
 import MyOrders from "../components/user/MyOrders";
+import MyRatings from "../components/user/MyRatings";
 export default function Detail() {
 const [selectedMenu, setSelectedMenu] = useState("userInfo");
   return (
@@ -18,9 +19,13 @@ const [selectedMenu, setSelectedMenu] = useState("userInfo");
           <button onClick={() => setSelectedMenu('myOrders')} style={{ border: "1px solid #e6e6e6", margin:"10px", padding: "10px"}}>
             My Orders
           </button>
+          <button onClick={() => setSelectedMenu('myRatings')} style={{ border: "1px solid #e6e6e6", margin:"10px", padding: "10px"}}>
+            My Ratings
+          </button>
         </div>
         {selectedMenu === 'userInfo' && <UserInfo />}
         {selectedMenu === 'myOrders' && <MyOrders />}
+        {selectedMenu === 'myRatings' && <MyRatings />}
         </div>
         </div>
         </section>

@@ -1,9 +1,9 @@
 import {React,useRef} from "react";
 import axios from "axios";
-export default function PhoneNumberEdit() {
+export default function AddressEdit() {
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
-    const input_phone_number = useRef();
+    const input_address = useRef();
     const getUser = async () => {
         const user = await axios.get(
             'http://127.0.0.1:8000/api/me',{
@@ -18,26 +18,22 @@ export default function PhoneNumberEdit() {
           window.location.reload();
     };
     const handleEdit = async () => {
-        var phone_number = input_phone_number.current.value;
+        var address = input_address.current.value;
         var id = user.id;
-        if(!phone_number){
-          return alert('Missing input fields');
-        }
-        const phoneRegex = /^0\d{10}$/;
-        const isValid = phoneRegex.test(phone_number);
-        if(!isValid)
-        return alert('Phone number is invalid');
+        if(!address){
+            return alert('Missing input fields');
+          }
         try {
           const response = await axios.post(
             'http://127.0.0.1:8000/api/edit',
-            { id,phone_number },
+            { id,address },
             { headers: { 
                 'Authorization': 'Bearer '+ token,
                 'Accept': 'application/json',
             } }
           );
           alert(response.data.message);
-          if(response.data.message != "New phone_number is the same as current phone_number")
+          if(response.data.message != "New address is the same as current address")
             getUser();
         }catch(error){
             alert('Error: '+ error.response.data.message)
@@ -45,7 +41,7 @@ export default function PhoneNumberEdit() {
     }
     return(
         <>
-          <label>New Phone Number</label><input type="number" name="phone_number" ref={input_phone_number} className="form-control border-input"></input>
+          <label>New Address</label><textarea name="address" ref={input_address} className="form-control border-input"></textarea>
           <button onClick={handleEdit}>Confirm</button>
           </>
     )

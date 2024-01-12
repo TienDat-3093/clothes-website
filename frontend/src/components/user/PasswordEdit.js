@@ -24,6 +24,9 @@ export default function PasswordEdit() {
         var password = input_password.current.value;
         var conf_password = input_conf_password.current.value;
         var id = user.id;
+        if(!current_password||!password||!conf_password){
+          return alert('Missing input fields');
+        }
         const passRegex = /^.{6,}$/;
         const isValid = passRegex.test(password);
         if(!isValid)
@@ -54,7 +57,7 @@ export default function PasswordEdit() {
             <label>Current Password</label><input type="text" name="current_password" ref={input_current_password} className="form-control border-input"></input>
             <label>New Password</label><input type="text" name="password" ref={input_password} className="form-control border-input"></input>
             <label>Confirm Password</label><input type="text" name="conf_password" ref={input_conf_password} className="form-control border-input"></input>
-            <button onClick={handleEdit}>Submit</button>
+            <button onClick={handleEdit}>Confirm</button>
         </>
     )
 }

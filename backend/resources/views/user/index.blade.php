@@ -17,6 +17,7 @@
                 <th>Username</th>
                 <th>Fullname</th>
                 <th>Email</th>
+                <th>Address</th>
                 <th>Phone Number</th>
                 <th>Last Login</th>
                 <th>Status</th>

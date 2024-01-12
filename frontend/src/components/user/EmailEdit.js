@@ -20,6 +20,9 @@ export default function EmailEdit() {
     const handleEdit = async () => {
         var email = input_email.current.value;
         var id = user.id;
+        if(!email){
+          return alert('Missing input fields');
+        }
         const gmailRegex = /^[^\s@]+@gmail\.com$/;
         const isValid = gmailRegex.test(email);
         if(!isValid)
@@ -43,7 +46,7 @@ export default function EmailEdit() {
     return(
         <>
           <label>New Email</label><input type="text" name="email" ref={input_email} className="form-control border-input"></input>
-          <button onClick={handleEdit}>Submit</button>
+          <button onClick={handleEdit}>Confirm</button>
           </>
     )
 }
