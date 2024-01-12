@@ -22,8 +22,8 @@ class CreateDiscountsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255|min:1',
-            'amount_discounts' => 'require',
+            'name' => 'required|unique|max:255|min:1',
+            'amount_discounts' => 'require|max:100|min:5',
             'type_discount' => 'require',
             'start_date' => 'require',
             'end_date' => 'require',

@@ -7,7 +7,7 @@
             <div class="col-xxl">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('discounts.update-handler', ['id' => $categories->id]) }}">
+                        <form method="POST" action="{{ route('discounts.update-handler', ['id' => $discounts->id]) }}">
                             @csrf
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Type Discounts</label>
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Type Discount</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="type_discount" value="{{ $discounts->type_discount }}"
                                         class="form-control" id="basic-default-name" placeholder=" " />
@@ -42,6 +42,20 @@
                                 <div class="col-sm-10">
                                     <input type="text" name="end_date" value="{{ $discounts->end_date }}"
                                         class="form-control" id="basic-default-name" placeholder=" " />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-phone"> Status</label>
+                                <div class="col-sm-10">
+                                    <select name="status_id" class="form-select" id="exampleFormControlSelect1"
+                                        aria-label="Default select example">
+                                        @foreach ($status as $sta)
+                                            <option value="{{ $sta->id }}"
+                                                @if ($sta->id == $discounts->status_id) selected @endif>
+                                                {{ $sta->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="row justify-content-end">

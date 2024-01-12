@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('product_types', function (Blueprint $table) {
+        Schema::table('discounts', function (Blueprint $table) {
 
-            $table->foreignId('status_id')->default(1)->after('name')->constrained(
+            $table->foreignId('status_id')->default(1)->after('end_date')->constrained(
                 table: 'status',
-                indexName: 'product_types_status_id'
+                indexName: 'discounts_status_id'
             );
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('product_types', function (Blueprint $table) {
+        Schema::table('discounts', function (Blueprint $table) {
             $table->dropForeign(['status_id']);
 
             $table->dropColumn(['status_id']);
