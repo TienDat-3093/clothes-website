@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Discounts;
-use App\Models\Products;
 use App\Models\Status;
 use App\Http\Requests\CreateDiscountsRequest;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class DiscountsController extends Controller
         return view("discounts.create", compact("discounts"));
     }
 
-    public function createHandler(CreateDiscountsRequest $re)
+    public function createHandler(Request $re)
     {
         $discounts = new Discounts();
 
@@ -36,9 +35,8 @@ class DiscountsController extends Controller
     public function List()
     {
         $listDiscounts = Discounts::all();
-        $status = Status::all();
 
-        return view("discounts/index", compact('listDiscounts', 'status'));
+        return view("discounts.index", compact("listDiscounts"));
     }
 
     public function Search(Request $re)
@@ -46,7 +44,7 @@ class DiscountsController extends Controller
         $keyword = $re->input("data");
         $listDiscounts = Discounts::where('name', 'like', "%$keyword%")->get();
 
-        return view("discounts.search", compact('listDiscounts'));
+        return view('discounts.search', compact('listDiscounts'));
     }
 
     public function Update($id)
@@ -58,10 +56,10 @@ class DiscountsController extends Controller
             return redirect()->route("discounts.index")->with("alert", "Mã giảm giá không tồn tại");
         }
 
-        return view("discounts.index", compact("discounts,status"));
+        return view("discounts.update", compact("discounts", "status"));
     }
 
-    public function updateHandler(CreateDiscountsRequest $re, $id)
+    public function updateHandler(Request $re, $id)
     {
         $discounts = Discounts::find($id);
 
@@ -74,6 +72,7 @@ class DiscountsController extends Controller
         $discounts->type_discount = $re->type_discount;
         $discounts->start_date = $re->start_date;
         $discounts->end_date = $re->end_date;
+        $discounts->status_id = $re->status_id;
 
         $discounts->save();
 
@@ -91,7 +90,6 @@ class DiscountsController extends Controller
         if ($discounts->status_id == 2) {
             return redirect()->route('discounts.index')->with('alert', 'Mã giảm giá đã xóa trước đó rồi');
         }
-
         $discounts->status_id = 2;
         $discounts->save();
 

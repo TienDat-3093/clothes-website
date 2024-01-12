@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('amount_discounts');
-            $table->boolean('type_discount');
+            $table->string('type_discount');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->timestamps();

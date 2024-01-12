@@ -25,11 +25,12 @@
                             <th>Type Discounts</th>
                             <th>Start Date</th>
                             <th>End Date</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        @include('discounts/search')
+                        @include('discounts.search')
                     </tbody>
                 </table>
             </div>
