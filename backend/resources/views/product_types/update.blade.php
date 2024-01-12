@@ -39,6 +39,9 @@
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary">Change</button>
+                                    <a href="{{ route('product-types.index') }}"
+                                        class="btn btn-outline-secondary">Cancel</a>
+
                                 </div>
                             </div>
                         </form>

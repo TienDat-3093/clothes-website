@@ -47,7 +47,7 @@ export default function ProductDetail(props) {
                 selectedSize === item.size[0].id ? "btn btn-info" : ""
               }`}
               style={{
-                maxWidth: "60px",
+                maxWidth: "70px",
               }}
               onClick={() => {
                 handleSizeClick(item.size[0].id);
@@ -72,7 +72,7 @@ export default function ProductDetail(props) {
                 selectedColor === item.color[0].id ? "btn btn-info" : ""
               }`}
               style={{
-                maxWidth: "60px",
+                maxWidth: "70px",
               }}
               onClick={() => {
                 handleColorClick(item.color[0].id);

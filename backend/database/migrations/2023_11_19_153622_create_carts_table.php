@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->float('total_price');
+            $table->double('total_price');
             $table->timestamps();
         });
     }

@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Web\APIUsersController;
+
 use App\Http\Controllers\Api\APIProductsController;
+use App\Http\Controllers\API\APIUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->group(function(){
     Route::get('me', [APIUsersController::class,"getUser"]);
+    Route::post('edit',[APIUsersController::class,"Edit"]);
 });
 Route::group([
 

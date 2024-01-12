@@ -1,16 +1,16 @@
-import { useEffect,useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 export default function Login() {
   const navigate = useNavigate();
-  const [isLoggedin,setLoggedin]=useState(false);
-  const [token,setToken]=useState('');
+  const [isLoggedin, setLoggedin] = useState(false);
+  const [token, setToken] = useState('');
   const input_email = useRef();
   const input_password = useRef();
   useEffect(() => {
-      if(localStorage.getItem('token')&&localStorage.getItem('user')){
-        navigate('/');
-      }
+    if (localStorage.getItem('token') && localStorage.getItem('user')) {
+      navigate('/');
+    }
   }, []);
   const handleLogin = async () => {
     var email = input_email.current.value;
@@ -23,22 +23,22 @@ export default function Login() {
       );
       setLoggedin(true);
       setToken(response.data.access_token);
-      localStorage.setItem('token',response.data.access_token);
+      localStorage.setItem('token', response.data.access_token);
       const token = localStorage.getItem('token');
       // console.log('Token ',response.data.access_token);
       const user = await axios.get(
-        'http://127.0.0.1:8000/api/me',{
-          headers: { 
-            'Authorization': 'Bearer '+ token,
-            'Accept': 'application/json',
-          }
+        'http://127.0.0.1:8000/api/me', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
         }
+      }
       );
       localStorage.setItem('user', JSON.stringify(user.data.user));
       // console.log(user.data.user);
       navigate("/");
-    }catch(error){
-      alert('Login failed: '+ error.response.data.error)
+    } catch (error) {
+      alert('Login failed: ' + error.response.data.message)
       localStorage.removeItem('token');
       localStorage.removeItem('user');
     }
@@ -151,61 +151,61 @@ export default function Login() {
                   className="mb-3"
                   method="POST"
                 > */}
-                  <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                      Email or Username
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Email or Username
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email or username"
+                    autofocus=""
+                    ref={input_email}
+                  />
+                </div>
+                <div className="mb-3 form-password-toggle">
+                  <div className="d-flex justify-content-between">
+                    <label className="form-label" htmlFor="password">
+                      Password
                     </label>
+                    <a href="auth-forgot-password-basic.html">
+                      <small>Forgot Password?</small>
+                    </a>
+                  </div>
+                  <div className="input-group input-group-merge">
                     <input
-                      type="text"
+                      type="password"
+                      id="password"
                       className="form-control"
-                      id="email"
-                      name="email"
-                      placeholder="Enter your email or username"
-                      autofocus=""
-                      ref={input_email}
+                      name="password"
+                      placeholder="············"
+                      aria-describedby="password"
+                      ref={input_password}
                     />
+                    <span className="input-group-text cursor-pointer">
+                      <i className="bx bx-hide" />
+                    </span>
                   </div>
-                  <div className="mb-3 form-password-toggle">
-                    <div className="d-flex justify-content-between">
-                      <label className="form-label" htmlFor="password">
-                        Password
-                      </label>
-                      <a href="auth-forgot-password-basic.html">
-                        <small>Forgot Password?</small>
-                      </a>
-                    </div>
-                    <div className="input-group input-group-merge">
-                      <input
-                        type="password"
-                        id="password"
-                        className="form-control"
-                        name="password"
-                        placeholder="············"
-                        aria-describedby="password"
-                        ref={input_password}
-                      />
-                      <span className="input-group-text cursor-pointer">
-                        <i className="bx bx-hide" />
-                      </span>
-                    </div>
+                </div>
+                <div className="mb-3">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="remember-me"
+                    />
+                    <label className="form-check-label" htmlFor="remember-me">
+                      Remember Me
+                    </label>
                   </div>
-                  <div className="mb-3">
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="remember-me"
-                      />
-                      <label className="form-check-label" htmlFor="remember-me">
-                        Remember Me
-                      </label>
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <button className="btn btn-primary w-100" onClick={handleLogin}>
-                      Sign in
-                    </button>
-                  </div>
+                </div>
+                <div className="mb-3">
+                  <button className="btn btn-primary w-100" onClick={handleLogin}>
+                    Sign in
+                  </button>
+                </div>
                 {/* </form> */}
                 <p className="text-center">
                   <span>New on our platform?</span>
