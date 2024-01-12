@@ -4,6 +4,7 @@
         <td>{{ $user->username }}</td>
         <td>{{ $user->fullname }}</td>
         <td>{{ $user->email }}</td>
+        <td>{{ $user->address }}</td>
         <td>{{ $user->phone_number }}</td>
         <td><span class="badge bg-label-info me-1">{{ $user->login_at }}</span></td>
         <td><span class="badge bg-label-primary me-1">{{ $user->status->name }}</span></td>

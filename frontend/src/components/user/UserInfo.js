@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import UsernameEdit from "./UsernameEdit";
 import FullnameEdit from "./FullnameEdit";
 import EmailEdit from "./EmailEdit";
+import AddressEdit from "./AddressEdit";
 import PasswordEdit from "./PasswordEdit";
 import PhoneNumberEdit from "./PhoneNumberEdit";
 const user = JSON.parse(localStorage.getItem('user'));
@@ -24,6 +25,7 @@ const UserInfo = () => {
         {selectedComponent === "UsernameEdit" && <UsernameEdit />}
         {selectedComponent === "FullnameEdit" && <FullnameEdit />}
         {selectedComponent === "EmailEdit" && <EmailEdit />}
+        {selectedComponent === "AddressEdit" && <AddressEdit />}
         {selectedComponent === "PasswordEdit" && <PasswordEdit />}
         {selectedComponent === "PhoneNumberEdit" && <PhoneNumberEdit />}
         </Modal>
@@ -44,6 +46,12 @@ const UserInfo = () => {
               <div className="form-group" style={{ display: 'flex', alignItems: 'center' }}>
               <div className="form-control border-input">{user.email}</div>
                 <button style={{border: "1px solid #e6e6e6",padding:"6px"}} onClick={()=>openModal("EmailEdit")}>Edit</button>
+              </div>
+
+              <label>Address</label>
+              <div className="form-group" style={{ display: 'flex', alignItems: 'center' }}>
+                <div className="form-control border-input">{user.address}</div>
+                <button style={{border: "1px solid #e6e6e6",padding:"6px"}} onClick={()=>openModal("AddressEdit")}>Edit</button>
               </div>
 
               <label>Password</label>

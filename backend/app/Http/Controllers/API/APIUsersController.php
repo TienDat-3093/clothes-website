@@ -10,8 +10,20 @@ use Illuminate\Support\Facades\Hash;
 
 class APIUsersController extends Controller
 {
+    public function Register(){
+        $request = request(['username','fullname','email','address','password','phone_number']);
+        $user = new Users();
+        $user->username = $request['username'];
+        $user->fullname = $request['fullname'];
+        $user->email = $request['email'];
+        $user->address = $request['address'];
+        $user->password = Hash::make($request['password']);
+        $user->phone_number = $request['phone_number'];
+        $user->save();
+        return response()->json(['message'=>'Register successful']);
+    }
     public function Edit(){
-        $request = request(['id','username','fullname','email','password','current_password','phone_number']);
+        $request = request(['id','username','fullname','email','address','password','current_password','phone_number']);
         $keys = array_keys($request);
         $values = array_values($request);
         $user = Users::where('id',$request['id'])->first();
