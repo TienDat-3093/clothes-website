@@ -1,13 +1,11 @@
 import axios from "axios";
 
-const fetchAllProduct = () => {
-    return axios.get('http://localhost:8000/api/product');
+const fetchAllProduct =()=>{
+    return axios.get('http://localhost:8000/api/product/index');
 }
+export {fetchAllProduct};
 
-export { fetchAllProduct };
-
-const fetchAllUser = () => {
-    return axios.get('http://localhost:8000/api/product');
+const fetchDetail =(id)=>{
+    return axios.get(`http://localhost:8000/api/product/show/${id}`);
 }
-
-export { fetchAllUser };
+export {fetchDetail};
