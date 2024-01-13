@@ -22,6 +22,7 @@ class UsersFactory extends Factory
             'username' => $this->faker->userName,
             'fullname' => $this->faker->firstName . ' ' . $this->faker->lastName,
             'email' => $this->faker->userName.'@gmail.com',
+            'address' => $this->faker->address,
             'password' => Hash::make('123456'),
             'phone_number' =>'0'.$this->faker->numerify('##########'),
             'status_id' => $this->faker->numberBetween(1,2),

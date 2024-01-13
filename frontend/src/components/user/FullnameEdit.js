@@ -20,6 +20,9 @@ export default function FullnameEdit() {
     const handleEdit = async () => {
         var fullname = input_fullname.current.value;
         var id = user.id;
+        if(!fullname){
+          return alert('Missing input fields');
+        }
         try {
           const response = await axios.post(
             'http://127.0.0.1:8000/api/edit',
@@ -39,7 +42,7 @@ export default function FullnameEdit() {
     return(
         <>
           <label>New Fullname</label><input type="text" name="fullname" ref={input_fullname} className="form-control border-input"></input>
-          <button onClick={handleEdit}>Submit</button>
+          <button onClick={handleEdit}>Confirm</button>
           </>
     )
 }
