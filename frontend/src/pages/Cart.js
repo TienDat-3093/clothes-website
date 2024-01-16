@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import CartComponents from '../components/CartComponents';
+import CartDetail from '../components/cart/CartDetail';
 
 export default function Cart() {
     return (
         <div>
             <Header />
-            <CartComponents />
+            <CartDetail />
             <Footer />
         </div>
     )

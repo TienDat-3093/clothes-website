@@ -1,19 +1,19 @@
 import { useState } from "react";
 import ProductImage from "./ProductImage";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 export default function ProductDetail(props) {
   const { id } = useParams();
-  console.log("id", id);
   const data = props.props[0];
   let sizes;
   let colors;
+  
 
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantityProduct, setQuantityProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-
+  const [error, setError] = useState(null);
   console.log("size", selectedSize, "color", selectedColor);
 
   if (data) {
@@ -103,7 +103,9 @@ export default function ProductDetail(props) {
       }
     };
     const increaseQuantity = () => {
-      if (quantity < quantityProduct) setQuantity(quantity + 1);
+      if (quantity < quantityProduct) {
+        setQuantity(quantity + 1);
+      }
     };
     const checkstore = () => {
       if (quantityProduct !== null) {
@@ -115,6 +117,36 @@ export default function ProductDetail(props) {
       }
     };
 
+    const checkAddCart = () => {
+      if (selectedColor !== null && selectedSize !== null) {
+        if (quantityProduct !== 0) {
+          addCart();
+        } else {
+          return setError("Sản phẩm đã hết");
+        }
+      } else {
+        return setError("Vui lòng phân loại sản phẩm");
+      }
+    };
+
+    const addCart = () => {
+      const itemAdd = {
+        id: props.props[0].id,
+        name: props.props[0].name,
+        price: props.props[0].price,
+        img: props.props[0].img[0].url,
+        totail_price: quantity,
+        color: selectedColor,
+        size: selectedSize,
+      };
+      console.log("product", itemAdd);
+      
+      
+      /* window.location.href = "/cart"; */
+      return <></>;
+    };
+    console.log("soluong_sp", quantityProduct);
+    console.log("error", error);
     return (
       <>
         <div className="container"></div>
@@ -153,7 +185,6 @@ export default function ProductDetail(props) {
                         </div>
                       </div>
                     </div>
-
                     <div className="flex-w flex-r-m p-b-10">
                       <div className="size-204 flex-w flex-m respon6-next">
                         <div className="wrap-num-product flex-w m-r-20 m-tb-10 text-truncate">
@@ -179,7 +210,20 @@ export default function ProductDetail(props) {
                         {checkstore()}
                       </div>
                     </div>
-                    <button className="ml-4 flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                    {quantityProduct == null && error !== null ? (
+                      <div
+                        style={{ color: "red" }}
+                        className="mt-1 m-3 text-left"
+                      >
+                        {error}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      onClick={checkAddCart}
+                      className="ml-4 flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+                    >
                       Add to cart
                     </button>
                   </div>
