@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('status_id')->default(1)->after('products_id')->constrained(
                 table: 'status', indexName: 'comments_status_id'
             );
+            $table->unique(['users_id', 'products_id']);
         });
     }
 

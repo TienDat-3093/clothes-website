@@ -9,3 +9,8 @@ const fetchDetail =(id)=>{
     return axios.get(`http://localhost:8000/api/product/show/${id}`);
 }
 export {fetchDetail};
+
+const fetchAllComment =(id)=>{
+    return axios.get(`http://localhost:8000/api/comment/${id}`);
+}
+export {fetchAllComment};
