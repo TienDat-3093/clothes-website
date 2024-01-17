@@ -186,7 +186,7 @@
                         </a>
                     </li>
                     <li class="menu-item" onclick="handleItemClick(this)">
-                        <a href="#" class="menu-link">
+                        <a href="/slideshow" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-slideshow"></i>
                             <div data-i18n="Basic">Slideshows</div>
                         </a>

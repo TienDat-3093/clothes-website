@@ -11,6 +11,7 @@ use App\Http\Controllers\Web\ImportsController;
 use App\Http\Controllers\Web\CommentsController;
 use App\Http\Controllers\Web\CartsController;
 use App\Http\Controllers\Web\DiscountsController;
+use App\Http\Controllers\Web\SlideShowController;
 use App\Models\Suppliers;
 
 /*
@@ -61,6 +62,19 @@ Route::middleware('auth')->group(function () {
     });
 
     //endSuppliers
+    //Slideshow
+    Route::prefix('/slideshow')->name('slideshow.')->group(function () {
+        Route::get('/', [SlideShowController::class, 'index'])->name('index');
+        Route::post('/create', [SlideShowController::class, 'create'])->name('create');
+        Route::get('/delete/{id}', [SlideShowController::class, 'delete'])->name('delete');
+        /* Route::post('/search', [SuppliersController::class, 'search'])->name('search');
+        Route::get('/create', [SuppliersController::class, 'create'])->name('create');
+        Route::post('/create', [SuppliersController::class, 'createHandle'])->name('createHandle');
+        Route::get('/update/{id}', [SuppliersController::class, 'update'])->name('update');
+        Route::post('/update/{id}', [SuppliersController::class, 'updateHandle'])->name('updateHandle');
+        Route::get('/delete/{id}', [SuppliersController::class, 'delete'])->name('delete'); */
+    });
+    //endSlideshow
     //Products
     Route::prefix('/product')->name('product.')->group(function(){
         Route::get('/',[ProductsController::class,'index'])->name('index');
