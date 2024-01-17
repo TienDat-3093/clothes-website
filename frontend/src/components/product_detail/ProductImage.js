@@ -1,6 +1,6 @@
 export default function ProductImage(props) {
   const data = props.props;
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <div className="col-md-6 col-lg-5 p-b-30">
