@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\APIProductsController;
 use App\Http\Controllers\API\APIUsersController;
+use App\Http\Controllers\API\APICommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:api')->group(function(){
     Route::get('me', [APIUsersController::class,"getUser"]);
     Route::post('edit',[APIUsersController::class,"Edit"]);
-    Route::post('edit',[APIUsersController::class,"Edit"]);
+    Route::post('comment',[APICommentsController::class,"Comment"]);
 });
 Route::group([
 
@@ -39,4 +40,8 @@ Route::group([
 Route::prefix('/product')->group(function(){
     Route::get('/index',[APIProductsController::class,'index']);
     Route::get('/show/{id}',[APIProductsController::class,'show']);
+});
+
+Route::prefix('/comment')->group(function(){
+    Route::get('/{id}',[APICommentsController::class,'getComment']);
 });

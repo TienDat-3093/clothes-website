@@ -1,9 +1,56 @@
-import { useState } from "react";
+import { useState,useRef,useEffect } from "react";
 import ProductImage from "./ProductImage";
 import { NavLink, useParams } from "react-router-dom";
+import UserRating from "./UserRating";
+import Ratings from "./Ratings";
+import { fetchAllComment } from "../../services/UserService";
+import axios from "axios";
 
 export default function ProductDetail(props) {
   const { id } = useParams();
+  const [listComments, setComments] = useState([]);
+  useEffect(() => {
+    getComment();
+  }, [id]);
+  const getComment = async () => {
+    let res = await fetchAllComment(id);
+
+    if(res && res.data && res.data.data)
+    {
+      const comment = res.data.data; 
+      console.log(comment);
+      setComments(comment);
+    }
+  }
+  const submitReview=async()=>{
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(!token || !user)
+      return alert("Vui lòng đăng nhập để đánh giá sản phẩm!");
+    let content = input_content.current.value;
+    let ratings = selectedRating;
+    let users_id = user.id;
+    let products_id = id;
+    try {
+        const response = await axios.post(
+          'http://127.0.0.1:8000/api/comment',
+          { content,ratings,users_id,products_id },
+          { headers: { 
+              'Authorization': 'Bearer '+ token,
+              'Accept': 'application/json',
+          } }
+        );
+        alert(response.data.message);
+      }catch(error){
+        if(error.response.data.exception == "Illuminate\\Database\\UniqueConstraintViolationException")
+          return alert("Bạn đã đánh giá sản phẩm này rồi");
+          alert('Error: '+ error.response.data.message)
+      }
+    console.log(input_content.current.value,selectedRating,user.id,id);
+  }
+  const handleRatingChange = (newValue) => {
+    setSelectedRating(newValue);
+  };
   const data = props.props[0];
   let sizes;
   let colors;
@@ -14,11 +61,13 @@ export default function ProductDetail(props) {
   const [quantityProduct, setQuantityProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState(null);
-  console.log("size", selectedSize, "color", selectedColor);
+  const [selectedRating, setSelectedRating] = useState(null);
+  const input_content = useRef();
+  // console.log("size", selectedSize, "color", selectedColor);
 
   if (data) {
     const details = data.detail;
-    console.log("detail", details);
+    // console.log("detail", details);
     const updateQuantity = () => {
       if (selectedSize !== null && selectedColor !== null) {
         const detail = details.find(
@@ -139,14 +188,14 @@ export default function ProductDetail(props) {
         color: selectedColor,
         size: selectedSize,
       };
-      console.log("product", itemAdd);
+      // console.log("product", itemAdd);
       
       
       /* window.location.href = "/cart"; */
       return <></>;
     };
-    console.log("soluong_sp", quantityProduct);
-    console.log("error", error);
+    // console.log("soluong_sp", quantityProduct);
+    // console.log("error", error);
     return (
       <>
         <div className="container"></div>
@@ -383,54 +432,17 @@ export default function ProductDetail(props) {
                       <div className="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                         <div className="p-b-30 m-lr-15-sm">
                           {/* Review */}
-                          <div className="flex-w flex-t p-b-68">
-                            <div className="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                              <img src="images/avatar-01.jpg" alt="AVATAR" />
-                            </div>
-                            <div className="size-207">
-                              <div className="flex-w flex-sb-m p-b-17">
-                                <span className="mtext-107 cl2 p-r-20">
-                                  Ariana Grande
-                                </span>
-                                <span className="fs-18 cl11">
-                                  <i className="zmdi zmdi-star" />
-                                  <i className="zmdi zmdi-star" />
-                                  <i className="zmdi zmdi-star" />
-                                  <i className="zmdi zmdi-star" />
-                                  <i className="zmdi zmdi-star-half" />
-                                </span>
-                              </div>
-                              <p className="stext-102 cl6">
-                                Quod autem in homine praestantissimum atque
-                                optimum est, id deseruit. Apud ceteros autem
-                                philosophos
-                              </p>
-                            </div>
-                          </div>
+                          <Ratings data={listComments}/>
                           {/* Add review */}
-                          <form className="w-full">
                             <h5 className="mtext-108 cl2 p-b-7">
                               Add a review
                             </h5>
-                            <p className="stext-102 cl6">
-                              Your email address will not be published. Required
-                              fields are marked *
-                            </p>
                             <div className="flex-w flex-m p-t-50 p-b-23">
                               <span className="stext-102 cl3 m-r-16">
-                                Your Rating
+                                Your UserRating
                               </span>
                               <span className="wrap-rating fs-18 cl11 pointer">
-                                <i className="item-rating pointer zmdi zmdi-star-outline" />
-                                <i className="item-rating pointer zmdi zmdi-star-outline" />
-                                <i className="item-rating pointer zmdi zmdi-star-outline" />
-                                <i className="item-rating pointer zmdi zmdi-star-outline" />
-                                <i className="item-rating pointer zmdi zmdi-star-outline" />
-                                <input
-                                  className="dis-none"
-                                  type="number"
-                                  name="rating"
-                                />
+                                <UserRating onRatingChange={handleRatingChange}/>
                               </span>
                             </div>
                             <div className="row p-b-25">
@@ -445,39 +457,14 @@ export default function ProductDetail(props) {
                                   className="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
                                   id="review"
                                   name="review"
+                                  ref={input_content}
                                   defaultValue={""}
                                 />
                               </div>
-                              <div className="col-sm-6 p-b-5">
-                                <label className="stext-102 cl3" htmlFor="name">
-                                  Name
-                                </label>
-                                <input
-                                  className="size-111 bor8 stext-102 cl2 p-lr-20"
-                                  id="name"
-                                  type="text"
-                                  name="name"
-                                />
-                              </div>
-                              <div className="col-sm-6 p-b-5">
-                                <label
-                                  className="stext-102 cl3"
-                                  htmlFor="email"
-                                >
-                                  Email
-                                </label>
-                                <input
-                                  className="size-111 bor8 stext-102 cl2 p-lr-20"
-                                  id="email"
-                                  type="text"
-                                  name="email"
-                                />
-                              </div>
                             </div>
-                            <button className="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+                            <button onClick={submitReview} className="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
                               Submit
                             </button>
-                          </form>
                         </div>
                       </div>
                     </div>
