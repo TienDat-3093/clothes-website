@@ -8,6 +8,24 @@ use Illuminate\Http\Request;
 
 class APICommentsController extends Controller
 {
+    public function getUserComment($id){
+        $usercomment = Comments::join('users', 'comments.users_id', '=', 'users.id')
+        ->select('comments.*', 'users.username')
+        ->where('comments.users_id', $id)
+        ->get();
+        return response()->json([
+            'success'=>true,
+            'data' => $usercomment,
+        ]);
+    }
+    public function deleteUserComment($id){
+        $comment = Comments::find($id);
+        $comment->delete();
+        return response()->json([
+            'success'=>true,
+            'message' => 'Comment deleted',
+        ]);
+    }
     public function getComment($id){
         $comments = Comments::join('users', 'comments.users_id', '=', 'users.id')
     ->select('comments.*', 'users.username')

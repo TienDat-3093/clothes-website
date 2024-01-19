@@ -21,12 +21,14 @@ export default function Header() {
             if (response.data.message == "Successfully logged out") {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
+                localStorage.removeItem('comment');
                 navigate('/');
             }
         } catch (error) {
             if (error.response.data.message == "Token has expired") {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
+                localStorage.removeItem('comment');
                 navigate('/');
             }
             console.log('Error during logout:', error.response.data.message);
@@ -94,9 +96,9 @@ export default function Header() {
                                 ) : null}
                                 {token ? (
                                     <>
-                                        <a href="user" className="flex-c-m trans-04 p-lr-25">
+                                        <NavLink to="/user" className="flex-c-m trans-04 p-lr-25">
                                             {user.username}
-                                        </a>
+                                        </NavLink>
                                         <a href="#" className="flex-c-m trans-04 p-lr-25" onClick={handleLogout}>
                                             Logout
                                         </a>

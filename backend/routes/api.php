@@ -24,7 +24,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:api')->group(function(){
     Route::get('me', [APIUsersController::class,"getUser"]);
     Route::post('edit',[APIUsersController::class,"Edit"]);
-    Route::post('comment',[APICommentsController::class,"Comment"]);
+    
+    Route::prefix('/comment')->group(function(){
+        Route::post('',[APICommentsController::class,"Comment"]);
+        Route::get('user/{id}',[APICommentsController::class,'getUserComment']);
+        Route::delete('/{id}',[APICommentsController::class,'deleteUserComment']);
+    });
 });
 Route::group([
 

@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const fetchAllProduct =()=>{
     return axios.get('http://localhost:8000/api/product/index');
 }
@@ -14,3 +13,53 @@ const fetchAllComment =(id)=>{
     return axios.get(`http://localhost:8000/api/comment/${id}`);
 }
 export {fetchAllComment};
+
+const fetchUserComment = async (id, token) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/comment/user/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+        }
+      });
+  
+      const userComments = response.data.data;
+      localStorage.setItem('comment', JSON.stringify(userComments));
+  
+      return userComments;
+    } catch (error) {
+      console.error("Error fetching user comments: ", error);
+      return [];
+    }
+  };
+export {fetchUserComment};
+
+const fetchUserDetail = async (token)=>{
+    try {
+        const response = await axios.get(`http://localhost:8000/api/me`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+          }
+        });
+    
+        const user = response.data.user;
+        localStorage.setItem('user', JSON.stringify(user));
+    
+        return user;
+      } catch (error) {
+        console.error("Error fetching user details: ", error);
+        return null;
+      }
+    };
+export {fetchUserDetail};
+
+const deleteUserComment =(id,token)=>{
+    return axios.delete(`http://localhost:8000/api/comment/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+        }
+    });
+}
+export {deleteUserComment};
