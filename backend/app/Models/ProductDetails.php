@@ -11,14 +11,14 @@ class ProductDetails extends Model
     protected $table = 'product_details';
     public function product()
     {
-        return $this->belongsTo(Products::class,'products_id');
+        return $this->belongsTo(Products::class, 'products_id');
     }
     public function color()
     {
-        return $this->hasMany(Colors::class,'id','colors_id');
+        return $this->hasMany(Colors::class, 'id', 'colors_id');
     }
     public function size()
     {
-        return $this->hasMany(Sizes::class,'id','sizes_id');
+        return $this->hasMany(Sizes::class, 'id', 'sizes_id');
     }
 }

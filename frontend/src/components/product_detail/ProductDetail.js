@@ -9,6 +9,8 @@ export default function ProductDetail(props) {
     let sizes;
     let colors;
 
+    const [nameSize, setNameSize] = useState(null);
+    const [nameColor, setNameColor] = useState(null);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
     const [quantityProduct, setQuantityProduct] = useState(null);
@@ -16,56 +18,62 @@ export default function ProductDetail(props) {
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
-        // Load cart from local storage on component mount
         const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
         setCart(storedCart);
     }, []);
 
     const addToCart = () => {
-        if (selectedSize !== null && selectedColor !== null && quantityProduct > 0) {
-            const existingItemIndex = cart.findIndex(
-                item => item.id === data.id && item.size === selectedSize && item.color === selectedColor
-            );
+        if (selectedColor !== null && selectedSize !== null && quantityProduct > 0) {
+            // console.log('cart', cart)
+            // const existingItemIndex = cart.findIndex(
+            //     item => item.products_id == id && item.sizes_id == selectedSize && item.colors_id == selectedColor
 
+            // );
+            let existingItemIndex = -1;
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].products_id === id && cart[i].sizes_id === selectedSize && cart[i].colors_id === selectedColor) {
+                    existingItemIndex = i;
+                    break;
+                }
+            }
+
+            // console.log('check dk', existingItemIndex)
             if (existingItemIndex !== -1) {
-                // Product already exists in the cart, update the quantity
+                // console.log('ton tai')
+
                 const updatedCart = [...cart];
                 updatedCart[existingItemIndex].quantity += quantity;
 
-                // Update cart state
                 setCart(updatedCart);
-
-                // Save updated cart to local storage
                 localStorage.setItem("cart", JSON.stringify(updatedCart));
             } else {
-                // Product doesn't exist in the cart, add a new item
+
                 const newItem = {
                     quantity: quantity,
                     price: data.price,
-                    products_id: data.id,
+                    products_id: id,
                     name: data.name,
                     sizes_id: selectedSize,
+                    sizes_name: nameSize,
                     colors_id: selectedColor,
+                    colors_name: nameColor,
                     image: data.img[0],
                 };
 
-                // Update cart state
                 setCart([...cart, newItem]);
 
-                // Save updated cart to local storage
                 localStorage.setItem("cart", JSON.stringify([...cart, newItem]));
             }
 
-            // Optionally, you can show a message
             alert("Sản phẩm đã được thêm vào giỏ hàng");
         }
     };
 
-    console.log("size", selectedSize, "color", selectedColor);
+    // console.log("size", selectedSize, "color", selectedColor);
 
     if (data) {
         const details = data.detail;
-        console.log("detail", details);
+        // console.log("detail", details);
         const updateQuantity = () => {
             if (selectedSize !== null && selectedColor !== null) {
                 const detail = details.find(
@@ -96,7 +104,11 @@ export default function ProductDetail(props) {
                                 maxWidth: "70px",
                             }}
                             onClick={() => {
-                                handleSizeClick(item.size[0].id);
+                                // handleSizeClick(item.size[0].id);
+                                handleSizeClick({
+                                    id: item.size[0].id,
+                                    name: item.size[0].name,
+                                });
                                 updateQuantity();
                             }}
                         >
@@ -108,6 +120,7 @@ export default function ProductDetail(props) {
         });
         const uniqueColors = new Set();
         colors = details.map(function (item, index) {
+            console.log('item color', item)
             if (!uniqueColors.has(item.color[0].id)) {
                 uniqueColors.add(item.color[0].id);
                 return (
@@ -120,7 +133,11 @@ export default function ProductDetail(props) {
                                 maxWidth: "70px",
                             }}
                             onClick={() => {
-                                handleColorClick(item.color[0].id);
+                                handleColorClick({
+                                    id: item.color[0].id,
+                                    name: item.color[0].name,
+                                });
+                                // handleColorClick(item.color[0].id);
                                 updateQuantity();
                             }}
                         >
@@ -132,13 +149,13 @@ export default function ProductDetail(props) {
         });
 
         const handleColorClick = (color) => {
-            setSelectedColor(color);
-
+            setSelectedColor(color.id);
+            setNameColor(color.name)
             setQuantity(1);
         };
         const handleSizeClick = (size) => {
-            setSelectedSize(size);
-
+            setSelectedSize(size.id);
+            setNameSize(size.name)
             setQuantity(1);
         };
 
@@ -224,7 +241,7 @@ export default function ProductDetail(props) {
                                                 {checkstore()}
                                             </div>
                                         </div>
-                                        <button onClick={addToCart} className="ml-4 flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                        <button onClick={() => addToCart()} className="ml-4 flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                             Add to cart
                                         </button>
                                     </div>

@@ -5,11 +5,12 @@ import { NavLink } from 'react-router-dom';
 export default function CartDetail() {
 
     const [cart, setCart] = useState([]);
-    var storedCart = JSON.parse(localStorage.getItem('cart')) || [];
 
     useEffect(() => {
+        const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+
         console.log(cart);
-        // Set default quantity to 1 for new items in the cart
+
         const updatedCart = storedCart.map(item => ({
             ...item,
             quantity: item.quantity || 1,
@@ -19,7 +20,6 @@ export default function CartDetail() {
     }, []);
 
     const updateCart = updatedCart => {
-        // Save updated cart to local storage
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         setCart(updatedCart);
     };
@@ -28,10 +28,6 @@ export default function CartDetail() {
         return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     };
 
-    const checkOut = (storedCart) => {
-        console.log(storedCart);
-    }
-
     const removeFromCart = index => {
         const updatedCart = [...cart];
         updatedCart.splice(index, 1);
@@ -39,7 +35,6 @@ export default function CartDetail() {
     };
 
     const handleChangeQuantity = (index, newQuantity) => {
-        // Ensure that the new quantity is greater than 0
         newQuantity = Math.max(1, newQuantity);
 
         const updatedCart = [...cart];
@@ -52,8 +47,8 @@ export default function CartDetail() {
             <div className="bg0 p-t-145 p-b-85">
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-                            <div className="m-l-25 m-r--38 m-lr-0-xl">
+                        <div className="col-lg-10 col-xl-8 m-l-0 m-r-70">
+                            <div className="m-l-5 m-r--80 m-r-5">
                                 <div className="wrap-table-shopping-cart">
                                     <table className="table-shopping-cart">
                                         <tbody>
@@ -61,9 +56,11 @@ export default function CartDetail() {
                                                 <th className="column-0">Images</th>
                                                 <th className="column-0">Product</th>
                                                 <th className="column-3">Price</th>
+                                                <th className="column-3">Color</th>
+                                                <th className="column-3">Size</th>
                                                 <th className="column-3">Quantity</th>
                                                 <th className="column-5">Total</th>
-                                                <th className="column-6">Remove</th>
+                                                <th className="column-5">Remove</th>
                                             </tr>
                                             {cart.map((item, index) => (
                                                 <tr key={index} className="table_row">
@@ -74,7 +71,9 @@ export default function CartDetail() {
                                                         </div>
                                                     </td>
                                                     <td className="column-3" >{item.name}</td>
-                                                    <td className="column-3" style={{ textAlign: "center" }}>${item.price}</td>
+                                                    <td className="column-4" style={{ textAlign: "center" }}>${item.price}</td>
+                                                    <td className="column-3" style={{ textAlign: "center" }}>{item.colors_name}</td>
+                                                    <td className="column-3" style={{ textAlign: "center" }}>{item.sizes_name}</td>
 
                                                     <td className="column-4">
                                                         <div className="wrap-num-product flex-w m-l-auto m-r-0">
@@ -107,7 +106,7 @@ export default function CartDetail() {
                                                         </div>
                                                     </td>
                                                     <td className="column-5">${item.price * item.quantity}</td>
-                                                    <td className="column-6">
+                                                    <td className="column-5">
                                                         <button
                                                             onClick={() => removeFromCart(index)}
                                                             className="btn btn-sm btn-icon"
@@ -138,8 +137,8 @@ export default function CartDetail() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-                            <div className="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+                        <div className="col-5 col-xl-3 m-l-35 m-r-5">
+                            <div className="bor10 p-lr-30 p-t-20 p-b-40 m-r-5">
                                 <h4 className="mtext-109 cl2 p-b-30">Cart Totals</h4>
                                 <div className="flex-w flex-t bor12 p-b-13">
                                     <div className="size-208">
@@ -168,7 +167,7 @@ export default function CartDetail() {
                                         <span className="mtext-110 cl2">${calculateSubtotal()}</span>
                                     </div>
                                 </div>
-                                <button onClick={() => checkOut(storedCart)}
+                                <button
                                     className="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 
                                 >
