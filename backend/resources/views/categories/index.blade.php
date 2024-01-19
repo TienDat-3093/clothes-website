@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Categories /</span> Index </h4>
-        
+
         <div class="mt-2 d-flex align-items-center">
             <a href="{{ route('categories.create') }}" class="btn btn-primary me-5">Add</a>
             <div class="input-group input-group-merge">
@@ -12,6 +12,8 @@
                     aria-describedby="basic-addon-search31">
             </div>
         </div>
+        <button class="btn"><a href="{{ route('categories.pdf') }}">View PDF</a></button>
+
         <br>
 
         <div class="card">

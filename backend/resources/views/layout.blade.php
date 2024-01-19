@@ -348,7 +348,7 @@
     <!-- / Layout wrapper -->
 
     <div class="buy-now">
-        <a href="https://github.com/TienDat-3093/clothes-website/commits/master" target="_blank"
+        <a href="https://github.com/TienDat-3093/clothes-website" target="_blank"
             class="btn btn-danger btn-buy-now">GitHub</a>
     </div>
 
@@ -389,8 +389,6 @@
 
     <!-- Page JS -->
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
-
-
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">

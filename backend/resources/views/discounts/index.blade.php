@@ -21,8 +21,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Amount Discounts</th>
-                            <th>Type Discounts</th>
+                            <th>Amount</th>
+                            <th>Type </th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Status</th>

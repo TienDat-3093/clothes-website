@@ -136,18 +136,26 @@ export default function Header() {
                             </div>
                             {/* Icon header */}
                             <div className="wrap-icon-header flex-w flex-r-m">
-                                <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                    <i className="zmdi zmdi-search" />
+                                <div className="col-lg-6 col-6 text-left">
+                                    <form action>
+                                        <div className="input-group" >
+                                            <input type="text" className="form-control" id="search-input" placeholder="Search for products" />
+                                            <div className="input-group-append">
+                                                <span className="input-group-text icon-header-item cl2 hov-cl1 js-show-modal-search trans-04 text-primary">
+                                                    <i id="search" className="fa fa-search" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
+
                                 <NavLink to="/cart"
-                                    className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                                    data-notify={2}
+                                    className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart"
                                 >
                                     <i className="zmdi zmdi-shopping-cart" />
                                 </NavLink>
                                 <NavLink to="/wishlist"
-                                    className="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                                    data-notify={0}
+                                    className="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 "
                                 >
                                     <i className="zmdi zmdi-favorite-outline" />
                                 </NavLink>

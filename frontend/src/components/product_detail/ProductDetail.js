@@ -23,26 +23,43 @@ export default function ProductDetail(props) {
 
     const addToCart = () => {
         if (selectedSize !== null && selectedColor !== null && quantityProduct > 0) {
-            const newItem = {
-                id: data.id, // You may need to adjust this based on your product data structure
-                name: data.name,
-                size: selectedSize,
-                color: selectedColor,
-                quantity: quantity,
-                price: data.price,
-            };
+            const existingItemIndex = cart.findIndex(
+                item => item.id === data.id && item.size === selectedSize && item.color === selectedColor
+            );
 
-            // Update cart state
-            setCart([...cart, newItem]);
+            if (existingItemIndex !== -1) {
+                // Product already exists in the cart, update the quantity
+                const updatedCart = [...cart];
+                updatedCart[existingItemIndex].quantity += quantity;
 
-            // Save updated cart to local storage
-            localStorage.setItem("cart", JSON.stringify([...cart, newItem]));
+                // Update cart state
+                setCart(updatedCart);
+
+                // Save updated cart to local storage
+                localStorage.setItem("cart", JSON.stringify(updatedCart));
+            } else {
+                // Product doesn't exist in the cart, add a new item
+                const newItem = {
+                    id: data.id,
+                    name: data.name,
+                    size: selectedSize,
+                    color: selectedColor,
+                    quantity: quantity,
+                    price: data.price,
+                    image: data.img[0],
+                };
+
+                // Update cart state
+                setCart([...cart, newItem]);
+
+                // Save updated cart to local storage
+                localStorage.setItem("cart", JSON.stringify([...cart, newItem]));
+            }
 
             // Optionally, you can show a message
             alert("Sản phẩm đã được thêm vào giỏ hàng");
         }
     };
-
 
     console.log("size", selectedSize, "color", selectedColor);
 
@@ -159,7 +176,7 @@ export default function ProductDetail(props) {
                                     <h4 className="mtext-105 cl2 js-name-detail p-b-14">
                                         {data.name}
                                     </h4>
-                                    <span className="mtext-106 cl2">{data.price} đ</span>
+                                    <span className="mtext-106 cl2">$ {data.price}</span>
                                     <p className="stext-102 cl3 p-t-23">{data.description}</p>
                                     {/*  */}
                                     <div className="p-t-33">
@@ -480,4 +497,5 @@ export default function ProductDetail(props) {
             </>
         );
     }
+
 }

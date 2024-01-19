@@ -11,7 +11,6 @@ use App\Http\Controllers\Web\ImportsController;
 use App\Http\Controllers\Web\CommentsController;
 use App\Http\Controllers\Web\CartsController;
 use App\Http\Controllers\Web\DiscountsController;
-use App\Models\Suppliers;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,17 +61,16 @@ Route::middleware('auth')->group(function () {
 
     //endSuppliers
     //Products
-    Route::prefix('/product')->name('product.')->group(function(){
-        Route::get('/',[ProductsController::class,'index'])->name('index');
-        Route::get('/detail/{id}',[ProductsController::class,'detail'])->name('detail');
-        Route::post('/quantity/{id}',[ProductsController::class,'quantity'])->name('quantity');
-        Route::post('/search',[ProductsController::class,'search'])->name('search');
-        Route::post('/create',[ProductsController::class,'create'])->name('create');
-        Route::get('/update/{id}',[ProductsController::class,'update'])->name('update');
-        Route::post('/delete-image',[ProductsController::class,'deleteImage'])->name('deleteImage');
-        Route::post('/update/{id}',[ProductsController::class,'updateHandle'])->name('updateHandle');
-        Route::get('/delete/{id}',[ProductsController::class,'delete'])->name('delete');
-
+    Route::prefix('/product')->name('product.')->group(function () {
+        Route::get('/', [ProductsController::class, 'index'])->name('index');
+        Route::get('/detail/{id}', [ProductsController::class, 'detail'])->name('detail');
+        Route::post('/quantity/{id}', [ProductsController::class, 'quantity'])->name('quantity');
+        Route::post('/search', [ProductsController::class, 'search'])->name('search');
+        Route::post('/create', [ProductsController::class, 'create'])->name('create');
+        Route::get('/update/{id}', [ProductsController::class, 'update'])->name('update');
+        Route::post('/delete-image', [ProductsController::class, 'deleteImage'])->name('deleteImage');
+        Route::post('/update/{id}', [ProductsController::class, 'updateHandle'])->name('updateHandle');
+        Route::get('/delete/{id}', [ProductsController::class, 'delete'])->name('delete');
     });
     //endProducts
 
@@ -106,6 +104,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id}', [CategoriesController::class, 'updateHandler'])->name('update-handler');
 
         Route::get('/delete/{id}', [CategoriesController::class, 'Delete'])->name('delete');
+
+        Route::get('/viewpdf', [CategoriesController::class, 'viewPDF'])->name('pdf');
     });
 
     //endCategories

@@ -3,7 +3,6 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product Types/</span> Index </h4>
-        <hr class="my-5" />
 
         <div class="mt-2 d-flex align-items-center">
             <a href="{{ route('product-types.create') }}" class="btn btn-primary me-5">Add</a>
@@ -44,7 +43,7 @@
                 });
             });
 
-            function searchProductTypes() {                            
+            function searchProductTypes() {
                 let keyword = $('#searchInput').val();
                 $.ajax({
                     url: '{{ route('product-types.search') }}',

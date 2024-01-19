@@ -13,9 +13,8 @@ class ColorsSeeder extends Seeder
      */
     public function run(): void
     {
-        $listColor = ['Xanh','Đỏ','Nâu','Vàng','Xám','Đen','Trắng'];
-        foreach($listColor as $color)
-        {
+        $listColor = ['Xanh', 'Đỏ', 'Nâu', 'Vàng', 'Xám', 'Đen', 'Trắng', 'Cam', 'Tím'];
+        foreach ($listColor as $color) {
             Colors::create([
                 'name' => $color,
             ]);
