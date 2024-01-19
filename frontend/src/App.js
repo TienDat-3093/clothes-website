@@ -7,7 +7,6 @@ import Cart from './pages/Cart';
 import WishList from './pages/WishList';
 import Detail from './pages/Detail';
 import User from './pages/User';
-import Checkout from './pages/Checkout';
 import Register from './pages/Register';
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
       <Route path="/register" element={<Register />}></Route>
       <Route path="/user" element={<User />}></Route>
       <Route path="/cart" element={<Cart />}></Route>
-      <Route path="/checkout" element={<Checkout />}></Route>
       <Route path="/wishlist" element={<WishList />}></Route>
     </Routes>
   );

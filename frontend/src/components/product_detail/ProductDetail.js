@@ -40,12 +40,12 @@ export default function ProductDetail(props) {
             } else {
                 // Product doesn't exist in the cart, add a new item
                 const newItem = {
-                    id: data.id,
-                    name: data.name,
-                    size: selectedSize,
-                    color: selectedColor,
                     quantity: quantity,
                     price: data.price,
+                    products_id: data.id,
+                    name: data.name,
+                    sizes_id: selectedSize,
+                    colors_id: selectedColor,
                     image: data.img[0],
                 };
 

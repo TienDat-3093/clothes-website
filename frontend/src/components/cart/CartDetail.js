@@ -5,11 +5,10 @@ import { NavLink } from 'react-router-dom';
 export default function CartDetail() {
 
     const [cart, setCart] = useState([]);
+    var storedCart = JSON.parse(localStorage.getItem('cart')) || [];
 
     useEffect(() => {
-        // Load cart from local storage on component mount
-        const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-
+        console.log(cart);
         // Set default quantity to 1 for new items in the cart
         const updatedCart = storedCart.map(item => ({
             ...item,
@@ -29,6 +28,10 @@ export default function CartDetail() {
         return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     };
 
+    const checkOut = (storedCart) => {
+        console.log(storedCart);
+    }
+
     const removeFromCart = index => {
         const updatedCart = [...cart];
         updatedCart.splice(index, 1);
@@ -46,7 +49,7 @@ export default function CartDetail() {
 
     return (
         <>
-            <form className="bg0 p-t-145 p-b-85">
+            <div className="bg0 p-t-145 p-b-85">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -165,20 +168,17 @@ export default function CartDetail() {
                                         <span className="mtext-110 cl2">${calculateSubtotal()}</span>
                                     </div>
                                 </div>
-                                <NavLink
-                                    to={{
-                                        pathname: "/checkout",
-                                        state: { cartTotal: calculateSubtotal() } // Add the cart total to the state
-                                    }}
+                                <button onClick={() => checkOut(storedCart)}
                                     className="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+
                                 >
                                     Proceed to Checkout
-                                </NavLink>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form >
+            </div >
         </>
     );
 }
