@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Products;
@@ -14,7 +14,7 @@ class APIProductsController extends Controller
 {
     public function index()
     {
-        $listProduct = Products::get();
+        $listProduct = Products::where('status_id','=',1)->get();
         $processedProducts = [];
         foreach ($listProduct as $product) {
             $productID = $product->id;
@@ -83,8 +83,7 @@ class APIProductsController extends Controller
         ]);
     }
 
-    public function quantity($id)
-    {
-        
-    }
+    
+
+   
 }
