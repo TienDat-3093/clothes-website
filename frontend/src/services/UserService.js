@@ -28,7 +28,7 @@ const fetchUserComment = async (id, token) => {
   
       return userComments;
     } catch (error) {
-      console.error("Error fetching user comments: ", error);
+      alert(error.response.data.message);
       return [];
     }
   };
@@ -48,7 +48,7 @@ const fetchUserDetail = async (token)=>{
     
         return user;
       } catch (error) {
-        console.error("Error fetching user details: ", error);
+        alert(error.response.data.message);
         return null;
       }
     };

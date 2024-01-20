@@ -24,11 +24,13 @@ export default function Login() {
             });
             const token = await localStorage.getItem('token');
             await fetchUserDetail(token).then(response=>{
-                return fetchUserComment(response.id,token);
+                if(response===null)
+                return;
+                fetchUserComment(response.id,token);
+                navigate("/");
             })
-            navigate("/");
         } catch (error) {
-            alert('Login failed: ' + error)
+            alert('Login failed: ' + error.response.data.message);
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             localStorage.removeItem('comment');
