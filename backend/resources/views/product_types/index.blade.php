@@ -33,11 +33,11 @@
             </div>
         </div>
 
-        <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
-
+        <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
         <script>
-            $(document).ready(function() {
-                $('#searchInput').on('keyup', function(event) {
+        var $j = jQuery.noConflict();
+            $j(document).ready(function() {
+                $j('#searchInput').on('keyup', function(event) {
                     if (event.key === 'Enter') {
                         searchProductTypes();
                     }
@@ -45,8 +45,8 @@
             });
 
             function searchProductTypes() {                            
-                let keyword = $('#searchInput').val();
-                $.ajax({
+                let keyword = $j('#searchInput').val();
+                $j.ajax({
                     url: '{{ route('product-types.search') }}',
                     type: 'POST',
                     data: {
@@ -54,7 +54,7 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(data) {
-                        $('#listProductTypes tbody').html(data);
+                        $j('#listProductTypes tbody').html(data);
                     },
                     error: function(xhr) {
                         console.error(xhr.responseText);

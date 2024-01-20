@@ -25,10 +25,11 @@
             @include('comment/results')
         </tbody>
     </table>
-    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $('#searchInput').on('keyup', function(event) {
+    var $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            $j('#searchInput').on('keyup', function(event) {
                 if (event.key === 'Enter') {
                     searchComments();
                 }
@@ -36,8 +37,8 @@
         });
 
         function searchComments() {
-            let keyword = $('#searchInput').val();
-            $.ajax({
+            let keyword = $j('#searchInput').val();
+            $j.ajax({
                 url: '{{ route('comment.search') }}',
                 type: 'POST',
                 data: {
@@ -45,7 +46,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(data) {
-                    $('#listComment tbody').html(data);
+                    $j('#listComment tbody').html(data);
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);

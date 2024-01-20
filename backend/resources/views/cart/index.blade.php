@@ -24,19 +24,20 @@
             @include('cart/results')
         </tbody>
     </table>
-    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $('#searchInput').on('keyup', function(event) {
+    var $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            $j('#searchInput').on('keyup', function(event) {
                 if (event.key === 'Enter') {
-                    searchSuppliers();
+                    search();
                 }
             });
         });
 
-        function searchSuppliers() {
-            let keyword = $('#searchInput').val();
-            $.ajax({
+        function search() {
+            let keyword = $j('#searchInput').val();
+            $j.ajax({
                 url: '{{ route('cart.search') }}',
                 type: 'POST',
                 data: {
@@ -44,7 +45,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(data) {
-                    $('#listCart tbody').html(data);
+                    $j('#listCart tbody').html(data);
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);

@@ -48,8 +48,9 @@
 
 <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
 <script>
-    $(document).ready(function() {
-        $('#searchInput').on('keyup', function(event) {
+    var $j = jQuery.noConflict();
+    $j(document).ready(function() {
+        $j('#searchInput').on('keyup', function(event) {
             if (event.key === 'Enter') {
                 searchSuppliers();
             }
@@ -57,8 +58,8 @@
     });
 
     function searchSuppliers() {
-        let keyword = $('#searchInput').val();
-        $.ajax({
+        let keyword = $j('#searchInput').val();
+        $j.ajax({
             url: '{{ route("supplier.search") }}',
             type: 'POST',
             data: {
@@ -66,7 +67,7 @@
                 _token: '{{ csrf_token() }}'
             },
             success: function(data) {
-                $('#listSupplier tbody').html(data);
+                $j('#listSupplier tbody').html(data);
             },
             error: function(xhr) {
                 console.error(xhr.responseText);
