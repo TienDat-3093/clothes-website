@@ -23,8 +23,19 @@ class CartsController extends Controller
     public function Search(Request $request)
     {
         $keyword = $request->input('data');
-        $userId = Users::where('username', 'like', "%$keyword%")->pluck('id');
-        $listCart = Carts::where('user_id', $userId)->get();
+
+        if (empty($keyword)) {
+            $listCart = Carts::all();
+        } else {
+            $userId = Users::where('username', 'like', "%$keyword%")->pluck('id')->toArray();
+
+            if (!empty($userId)) {
+                $listCart = Carts::whereIn('users_id', $userId)->get();
+            } else {
+                $listCart = [];
+            }
+        }
+
         return view('cart/results', compact('listCart'));
     }
     public function Verify($id)

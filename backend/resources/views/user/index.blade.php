@@ -27,19 +27,20 @@
             @include('user/results')
         </tbody>
     </table>
-    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $('#searchInput').on('keyup', function(event) {
+    var $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            $j('#searchInput').on('keyup', function(event) {
                 if (event.key === 'Enter') {
-                    searchSuppliers();
+                    search();
                 }
             });
         });
 
-        function searchSuppliers() {
-            let keyword = $('#searchInput').val();
-            $.ajax({
+        function search() {
+            let keyword = $j('#searchInput').val();
+            $j.ajax({
                 url: '{{ route('user.search') }}',
                 type: 'POST',
                 data: {
@@ -47,7 +48,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(data) {
-                    $('#listUser tbody').html(data);
+                    $j('#listUser tbody').html(data);
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);

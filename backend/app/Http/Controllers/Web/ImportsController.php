@@ -23,8 +23,19 @@ class ImportsController extends Controller
     public function Search(Request $request)
     {
         $keyword = $request->input('data');
-        $supplierId = Suppliers::where('name', 'like', "%$keyword%")->pluck('id');
-        $listImport = Imports::where('supplier_id', $supplierId)->get();
+
+        if (empty($keyword)) {
+            $listImport = Imports::all();
+        } else {
+            $supplierIds = Suppliers::where('name', 'like', "%$keyword%")->pluck('id')->toArray();
+
+            if (!empty($supplierIds)) {
+                $listImport = Imports::whereIn('suppliers_id', $supplierIds)->get();
+            } else {
+                $listImport = [];
+            }
+        }
+
         return view('import/results', compact('listImport'));
     }
     public function Delete($id)
