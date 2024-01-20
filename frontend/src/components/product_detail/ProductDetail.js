@@ -29,6 +29,8 @@ export default function ProductDetail(props) {
       return alert("Vui lòng đăng nhập để đánh giá sản phẩm!");
     let content = input_content.current.value;
     let ratings = selectedRating;
+    if(!ratings || ratings == 0)
+      return alert("Vui lòng đánh giá sản phẩm!");
     let users_id = user.id;
     let products_id = id;
     try {
