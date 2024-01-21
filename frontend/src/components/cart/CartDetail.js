@@ -19,6 +19,7 @@ export default function CartDetail() {
         setCart(updatedCart);
     }, []);
 
+
     const updateCart = updatedCart => {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         setCart(updatedCart);
@@ -71,7 +72,7 @@ export default function CartDetail() {
                                                         </div>
                                                     </td>
                                                     <td className="column-3" style={{ textAlign: "center" }} >{item.name}</td>
-                                                    <td className="column-4" style={{ textAlign: "center" }}>{item.price} VND</td>
+                                                    <td className="column-4" style={{ textAlign: "center" }}>{item.price}</td>
                                                     <td className="column-3" style={{ textAlign: "center" }}>{item.colors_name}</td>
                                                     <td className="column-3" style={{ textAlign: "center" }}>{item.sizes_name}</td>
 
@@ -105,7 +106,7 @@ export default function CartDetail() {
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td className="column-5">${item.price * item.quantity}</td>
+                                                    <td className="column-5">{item.price * item.quantity}</td>
                                                     <td className="column-5">
                                                         <button
                                                             onClick={() => removeFromCart(index)}
@@ -145,7 +146,7 @@ export default function CartDetail() {
                                         <span className="stext-110 cl2">Subtotal:</span>
                                     </div>
                                     <div className="size-209">
-                                        <span className="mtext-110 cl2">${calculateSubtotal()}</span>
+                                        <span className="mtext-110 cl2">{calculateSubtotal()} VND</span>
                                     </div>
                                 </div>
                                 <div className="flex-w flex-t bor12 p-t-15 p-b-30">
@@ -164,12 +165,11 @@ export default function CartDetail() {
                                         <span className="mtext-101 cl2">Total:</span>
                                     </div>
                                     <div className="size-209 p-t-1">
-                                        <span className="mtext-110 cl2">${calculateSubtotal()}</span>
+                                        <span className="mtext-110 cl2">{calculateSubtotal()} VND</span>
                                     </div>
                                 </div>
                                 <button
                                     className="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
-
                                 >
                                     Proceed to Checkout
                                 </button>

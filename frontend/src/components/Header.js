@@ -22,6 +22,7 @@ export default function Header() {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 localStorage.removeItem('comment');
+                localStorage.removeItem('cart');
                 navigate('/');
             }
         } catch (error) {
@@ -29,6 +30,7 @@ export default function Header() {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 localStorage.removeItem('comment');
+                localStorage.removeItem('cart');
                 navigate('/');
             }
             console.log('Error during logout:', error.response.data.message);
@@ -263,7 +265,7 @@ export default function Header() {
                         <button className="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
                             <img src="../images/icons/icon-close2.png" alt="CLOSE" />
                         </button>
-                        <form className="wrap-search-header flex-w p-l-15">
+                        <div className="wrap-search-header flex-w p-l-15">
                             <button className="flex-c-m trans-04">
                                 <i className="zmdi zmdi-search" />
                             </button>
@@ -273,7 +275,7 @@ export default function Header() {
                                 name="search"
                                 placeholder="Search..."
                             />
-                        </form>
+                        </div>
                     </div>
                 </div>
             </header>
