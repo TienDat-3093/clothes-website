@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\APIProductsController;
 use App\Http\Controllers\API\APIUsersController;
 use App\Http\Controllers\API\APICommentsController;
+use App\Http\Controllers\API\APICartsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,11 @@ Route::middleware('auth:api')->group(function(){
         Route::post('',[APICommentsController::class,"Comment"]);
         Route::get('user/{id}',[APICommentsController::class,'getUserComment']);
         Route::delete('/{id}',[APICommentsController::class,'deleteUserComment']);
+    });
+
+    Route::prefix('/cart')->group(function(){
+        Route::get('user/{id}',[APICartsController::class,'getUserCart']);
+        Route::delete('/{id}',[APICartsController::class,'cancelCart']);
     });
 });
 Route::group([

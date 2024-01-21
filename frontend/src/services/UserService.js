@@ -63,3 +63,36 @@ const deleteUserComment = (id, token) => {
     });
 }
 export { deleteUserComment };
+
+const fetchUserCart = async (id, token) => {
+    try {
+        const response = await axios.get(`http://localhost:8000/api/cart/user/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json',
+            }
+        });
+
+        const userCart = response.data.carts;
+        localStorage.setItem('cart', JSON.stringify(userCart));
+
+        const userCartDetail = response.data.cart_details;
+        localStorage.setItem('cartDetail', JSON.stringify(userCartDetail));
+        console.log(userCart,userCartDetail);
+        return true;
+    } catch (error) {
+        alert(error.response.data.message);
+        return [];
+    }
+};
+export { fetchUserCart };
+
+const cancelUserCart = (id, token) => {
+    return axios.delete(`http://localhost:8000/api/cart/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+        }
+    });
+}
+export { cancelUserCart };

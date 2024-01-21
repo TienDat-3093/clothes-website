@@ -20,9 +20,9 @@ return new class extends Migration
                 table: 'discounts',
                 indexName: 'cart_details_discounts_id'
             );
-            $table->foreignId('status_id')->default(1)->constrained(
-                table: 'status',
-                indexName: 'carts_status_id'
+            $table->foreignId('status_carts_id')->default(1)->constrained(
+                table: 'status_carts',
+                indexName: 'carts_status_carts_id'
             );
         });
     }
