@@ -78,7 +78,7 @@ const fetchUserCart = async (id, token) => {
 
         const userCartDetail = response.data.cart_details;
         localStorage.setItem('cartDetail', JSON.stringify(userCartDetail));
-        console.log(userCart,userCartDetail);
+        console.log(userCart, userCartDetail);
         return true;
     } catch (error) {
         alert(error.response.data.message);
@@ -96,3 +96,30 @@ const cancelUserCart = (id, token) => {
     });
 }
 export { cancelUserCart };
+
+const checkout = async (user_id, token, usercart) => {
+    try {
+        const response = await axios.post(`http://localhost:8000/api/cart/checkout`, {
+            user_id,usercart
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json',
+            }
+        });
+
+        if (response.data.success) {
+            localStorage.removeItem('usercart');
+
+            return true;
+        } else {
+            alert(response.data.message);
+            return false;
+        }
+    } catch (error) {
+        console.error(error);
+        alert('An error occurred during checkout. Please try again.');
+        return false;
+    }
+};
+export { checkout };
