@@ -1,10 +1,14 @@
-import {React} from "react";
+import {React,useEffect} from "react";
 import { fetchUserCart,cancelUserCart } from "../../services/UserService";
 export default function MyOrders(){
+   const user = JSON.parse(localStorage.getItem('user'));
    const token = localStorage.getItem('token');
+   useEffect(()=>{
+      fetchUserCart(user.id,token);
+   })
    const cart = JSON.parse(localStorage.getItem('cart'))|| [];
    const cartDetail = JSON.parse(localStorage.getItem('cartDetail'))|| [];
-   const user = JSON.parse(localStorage.getItem('user'));
+   console.log(cartDetail);
    const CancelCart = async (id) =>{
       try{
             await cancelUserCart(id,token).then(response=>{
@@ -72,7 +76,7 @@ export default function MyOrders(){
     <>
     <div style={{width:"75%"}} className="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
     <p>My Order Menu</p>
-    {listUserCart}
+    {listUserCart.length > 0 ? listUserCart : "No orders from you yet!"}
     </div>
     </>
  );

@@ -41,7 +41,7 @@ class CartsController extends Controller
     public function Verify($id)
     {
         $cart = Carts::where('id', $id)->get();
-        $cart[0]->status_id = 2;
+        $cart[0]->status_carts_id = 2;
         $cart[0]->save();
         return redirect()->route('cart.index')->with('alert','Duyệt hóa đơn thành công!');
     }
@@ -59,7 +59,7 @@ class CartsController extends Controller
         }
         }
         $cart = Carts::where('id', $id)->get();
-        $cart[0]->status_id = 2;
+        $cart[0]->status_carts_id = 3;
         $cart[0]->save();
         return redirect()->route('cart.index')->with('alert','Xóa hóa đơn thành công!');
     }

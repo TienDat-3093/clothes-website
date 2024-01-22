@@ -97,10 +97,10 @@ const cancelUserCart = (id, token) => {
 }
 export { cancelUserCart };
 
-const checkout = async (user_id, token) => {
+const checkout = async (user_id, token, usercart) => {
     try {
         const response = await axios.post(`http://localhost:8000/api/cart/checkout`, {
-            users_id: user_id,
+            user_id,usercart
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -109,8 +109,7 @@ const checkout = async (user_id, token) => {
         });
 
         if (response.data.success) {
-            localStorage.removeItem('cart');
-            localStorage.removeItem('cartDetail');
+            localStorage.removeItem('usercart');
 
             return true;
         } else {

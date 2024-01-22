@@ -1,16 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { checkout } from '../../services/UserService';
+import { checkout,fetchUserCart } from '../../services/UserService';
 
 export default function CartDetail() {
 
-    const [cart, setCart] = useState([]);
+    const [usercart, setCart] = useState([]);
 
     useEffect(() => {
-        const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-        console.log(cart);
+        const storedCart = JSON.parse(localStorage.getItem("usercart")) || [];
 
         const updatedCart = storedCart.map(item => ({
             ...item,
@@ -19,19 +17,19 @@ export default function CartDetail() {
 
         setCart(updatedCart);
     }, []);
-
+    console.log(usercart);
 
     const updateCart = updatedCart => {
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        localStorage.setItem('usercart', JSON.stringify(updatedCart));
         setCart(updatedCart);
     };
 
     const calculateSubtotal = () => {
-        return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+        return usercart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     };
 
     const removeFromCart = index => {
-        const updatedCart = [...cart];
+        const updatedCart = [...usercart];
         updatedCart.splice(index, 1);
         updateCart(updatedCart);
     };
@@ -39,7 +37,7 @@ export default function CartDetail() {
     const handleChangeQuantity = (index, newQuantity) => {
         newQuantity = Math.max(1, newQuantity);
 
-        const updatedCart = [...cart];
+        const updatedCart = [...usercart];
         updatedCart[index].quantity = newQuantity;
         updateCart(updatedCart);
     };
@@ -53,10 +51,12 @@ export default function CartDetail() {
         }
 
         try {
-            const success = await checkout(user.id, token);
+            const success = await checkout(user.id, token, usercart);
 
             if (success) {
                 alert('Đặt hàng thành công!');
+                await fetchUserCart(user.id,token);
+                updateCart([]);
             }
         } catch (error) {
             console.error(error);
@@ -73,7 +73,7 @@ export default function CartDetail() {
     //     }
 
     //     try {
-    //         const success = await checkout(user.id, token, cart);
+    //         const success = await checkout(user.id, token, usercart);
 
     //         if (success) {
     //             alert('Đặt hàng thành công');
@@ -104,7 +104,7 @@ export default function CartDetail() {
                                                 <th className="column-5">Total</th>
                                                 <th className="column-5">Remove</th>
                                             </tr>
-                                            {cart.map((item, index) => (
+                                            {usercart.map((item, index) => (
                                                 <tr key={index} className="table_row">
                                                     <td className="column-1">
                                                         <div className="how-itemcart1">

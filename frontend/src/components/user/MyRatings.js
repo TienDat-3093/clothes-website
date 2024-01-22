@@ -1,10 +1,13 @@
-import {React} from "react";
+import {React,useEffect} from "react";
 import Rating from '@mui/material/Rating';
 import { deleteUserComment,fetchUserComment } from "../../services/UserService";
 export default function MyRatings(){
    const token = localStorage.getItem('token');
-   const comment = JSON.parse(localStorage.getItem('comment'))|| [];
    const user = JSON.parse(localStorage.getItem('user'));
+   useEffect(()=>{
+      fetchUserComment(user.id,token);
+   })
+   const comment = JSON.parse(localStorage.getItem('comment'))|| [];
    const RemoveComment = async (id) =>{
       try{
       await deleteUserComment(id,token).then(response=>{

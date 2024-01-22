@@ -24,6 +24,7 @@ export default function Header() {
                 localStorage.removeItem('comment');
                 localStorage.removeItem('cart');
                 localStorage.removeItem('cartDetail');
+                localStorage.removeItem('usercart');
                 navigate('/');
             }
         } catch (error) {
@@ -34,6 +35,7 @@ export default function Header() {
                 localStorage.removeItem('comment');
                 localStorage.removeItem('cart');
                 localStorage.removeItem('cartDetail');
+                localStorage.removeItem('usercart');
                 navigate('/');
             }
             console.log('Error during logout:', error.response.data.message);

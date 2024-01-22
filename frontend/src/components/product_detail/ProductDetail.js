@@ -10,6 +10,7 @@ export default function ProductDetail(props) {
     const { id } = useParams();
     const [listComments, setComments] = useState([]);
 
+    const cartDetail = JSON.parse(localStorage.getItem('cartDetail'));
     const data = props.props[0];
     let sizes;
     let colors;
@@ -29,14 +30,17 @@ export default function ProductDetail(props) {
     const submitReview = async () => {
         const token = localStorage.getItem('token');
         const user = JSON.parse(localStorage.getItem('user'));
+        let products_id = id;
         if (!token || !user)
             return alert("Vui lòng đăng nhập để đánh giá sản phẩm!");
+        if(!(cartDetail.some((detail) => detail.products_id == products_id))){
+            return alert("Bạn không thể đánh sản phẩm chưa mua!")
+        }
         let content = input_content.current.value;
         let ratings = selectedRating;
         if (!ratings || ratings == 0)
             return alert("Vui lòng đánh giá sản phẩm!");
         let users_id = user.id;
-        let products_id = id;
         try {
             const response = await axios.post(
                 'http://127.0.0.1:8000/api/comment',
@@ -74,11 +78,11 @@ export default function ProductDetail(props) {
     const [selectedRating, setSelectedRating] = useState(null);
 
     const input_content = useRef();
-    const [cart, setCart] = useState([]);
+    const [usercart, setCart] = useState([]);
     // console.log("size", selectedSize, "color", selectedColor);
 
     useEffect(() => {
-        const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+        const storedCart = JSON.parse(localStorage.getItem("usercart")) || [];
         setCart(storedCart);
     }, []);
 
@@ -214,15 +218,15 @@ export default function ProductDetail(props) {
             } else
                 return setError("Vui lòng chọn màu sản phẩm");
             if (selectedColor !== null && selectedSize !== null && quantityProduct > 0) {
-                // console.log('cart', cart)
-                // const existingItemIndex = cart.findIndex(
+                // console.log('usercart', usercart)
+                // const existingItemIndex = usercart.findIndex(
                 //     item => item.products_id == id && item.sizes_id == selectedSize && item.colors_id == selectedColor
 
                 // );
 
                 let existingItemIndex = -1;
-                for (let i = 0; i < cart.length; i++) {
-                    if (cart[i].products_id === id && cart[i].sizes_id === selectedSize && cart[i].colors_id === selectedColor) {
+                for (let i = 0; i < usercart.length; i++) {
+                    if (usercart[i].products_id === id && usercart[i].sizes_id === selectedSize && usercart[i].colors_id === selectedColor) {
                         existingItemIndex = i;
                         break;
                     }
@@ -232,11 +236,11 @@ export default function ProductDetail(props) {
                 if (existingItemIndex !== -1) {
                     // console.log('ton tai')
 
-                    const updatedCart = [...cart];
+                    const updatedCart = [...usercart];
                     updatedCart[existingItemIndex].quantity += quantity;
 
                     setCart(updatedCart);
-                    localStorage.setItem("cart", JSON.stringify(updatedCart));
+                    localStorage.setItem("usercart", JSON.stringify(updatedCart));
                 } else {
 
                     const newItem = {
@@ -251,9 +255,9 @@ export default function ProductDetail(props) {
                         image: data.img[0],
                     };
 
-                    setCart([...cart, newItem]);
+                    setCart([...usercart, newItem]);
 
-                    localStorage.setItem("cart", JSON.stringify([...cart, newItem]));
+                    localStorage.setItem("usercart", JSON.stringify([...usercart, newItem]));
                 }
 
                 alert("Sản phẩm đã được thêm vào giỏ hàng");
@@ -273,7 +277,7 @@ export default function ProductDetail(props) {
             // console.log("product", itemAdd);
 
 
-            /* window.location.href = "/cart"; */
+            /* window.location.href = "/usercart"; */
             return <></>;
         };
         // console.log("soluong_sp", quantityProduct);
@@ -355,7 +359,7 @@ export default function ProductDetail(props) {
                                             onClick={addToCart}
                                             className="ml-4 flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
                                         >
-                                            Add to cart
+                                            Add to usercart
                                         </button>
                                     </div>
 
