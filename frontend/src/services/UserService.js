@@ -63,3 +63,64 @@ const deleteUserComment = (id, token) => {
     });
 }
 export { deleteUserComment };
+
+const fetchUserCart = async (id, token) => {
+    try {
+        const response = await axios.get(`http://localhost:8000/api/cart/user/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json',
+            }
+        });
+
+        const userCart = response.data.carts;
+        localStorage.setItem('cart', JSON.stringify(userCart));
+
+        const userCartDetail = response.data.cart_details;
+        localStorage.setItem('cartDetail', JSON.stringify(userCartDetail));
+        console.log(userCart, userCartDetail);
+        return true;
+    } catch (error) {
+        alert(error.response.data.message);
+        return [];
+    }
+};
+export { fetchUserCart };
+
+const cancelUserCart = (id, token) => {
+    return axios.delete(`http://localhost:8000/api/cart/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+        }
+    });
+}
+export { cancelUserCart };
+
+const checkout = async (user_id, token) => {
+    try {
+        const response = await axios.post(`http://localhost:8000/api/cart/checkout`, {
+            users_id: user_id,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json',
+            }
+        });
+
+        if (response.data.success) {
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cartDetail');
+
+            return true;
+        } else {
+            alert(response.data.message);
+            return false;
+        }
+    } catch (error) {
+        console.error(error);
+        alert('An error occurred during checkout. Please try again.');
+        return false;
+    }
+};
+export { checkout };

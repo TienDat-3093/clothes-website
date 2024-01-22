@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\APIProductsController;
 use App\Http\Controllers\API\APIUsersController;
-use App\Http\Controllers\API\APICartController;
 use App\Http\Controllers\API\APICommentsController;
+use App\Http\Controllers\API\APICartsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,7 @@ use App\Http\Controllers\API\APICommentsController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::middleware('auth:api')->group(function () {
     Route::get('me', [APIUsersController::class, "getUser"]);
     Route::post('edit', [APIUsersController::class, "Edit"]);
@@ -31,7 +32,14 @@ Route::middleware('auth:api')->group(function () {
         Route::get('user/{id}', [APICommentsController::class, 'getUserComment']);
         Route::delete('/{id}', [APICommentsController::class, 'deleteUserComment']);
     });
+
+    Route::prefix('/cart')->group(function () {
+        Route::get('user/{id}', [APICartsController::class, 'getUserCart']);
+        Route::delete('/{id}', [APICartsController::class, 'cancelCart']);
+        Route::post('/checkout', [APICartsController::class, 'checkout']);
+    });
 });
+
 Route::group([
 
     'middleware' => 'api',
@@ -49,8 +57,4 @@ Route::prefix('/product')->group(function () {
 
 Route::prefix('/comment')->group(function () {
     Route::get('/{id}', [APICommentsController::class, 'getComment']);
-});
-
-Route::prefix('/cart')->group(function () {
-    Route::post('/checkout', [APICartController::class, 'checkout']);
 });

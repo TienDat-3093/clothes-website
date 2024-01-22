@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { checkout } from '../../services/UserService';
 
 export default function CartDetail() {
 
@@ -42,6 +43,46 @@ export default function CartDetail() {
         updatedCart[index].quantity = newQuantity;
         updateCart(updatedCart);
     };
+    const handleCheckout = async () => {
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+        console.log(token);
+        console.log(user);
+        if (!token || !user) {
+            return alert("Vui lòng đăng nhập để thanh toán!");
+        }
+
+        try {
+            const success = await checkout(user.id, token);
+
+            if (success) {
+                alert('Đặt hàng thành công!');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.');
+        }
+    };
+
+    // const handleCheckout = async () => {
+    //     const token = localStorage.getItem('token');
+    //     const user = JSON.parse(localStorage.getItem('user'));
+
+    //     if (!token || !user) {
+    //         return alert("Vui lòng đăng nhập để thanh toán!");
+    //     }
+
+    //     try {
+    //         const success = await checkout(user.id, token, cart);
+
+    //         if (success) {
+    //             alert('Đặt hàng thành công');
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //         alert('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.');
+    //     }
+    // };
 
     return (
         <>
@@ -169,6 +210,7 @@ export default function CartDetail() {
                                     </div>
                                 </div>
                                 <button
+                                    onClick={handleCheckout}
                                     className="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
                                 >
                                     Proceed to Checkout

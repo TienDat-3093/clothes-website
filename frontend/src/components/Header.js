@@ -23,14 +23,17 @@ export default function Header() {
                 localStorage.removeItem('user');
                 localStorage.removeItem('comment');
                 localStorage.removeItem('cart');
+                localStorage.removeItem('cartDetail');
                 navigate('/');
             }
         } catch (error) {
+            console.log(error);
             if (error.response.data.message == "Token has expired") {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 localStorage.removeItem('comment');
                 localStorage.removeItem('cart');
+                localStorage.removeItem('cartDetail');
                 navigate('/');
             }
             console.log('Error during logout:', error.response.data.message);
