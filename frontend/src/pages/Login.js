@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchUserComment,fetchUserDetail } from "../services/UserService";
 import axios from "axios";
 export default function Login() {
     const navigate = useNavigate();
-    const [isLoggedin, setLoggedin] = useState(false);
-    const [token, setToken] = useState('');
     const input_email = useRef();
     const input_password = useRef();
     useEffect(() => {
@@ -16,31 +15,25 @@ export default function Login() {
         var email = input_email.current.value;
         var password = input_password.current.value;
         try {
-            const response = await axios.post(
+            await axios.post(
                 'http://127.0.0.1:8000/api/login',
                 { email, password },
                 { headers: { 'Content-Type': 'application/json' } }
-            );
-            setLoggedin(true);
-            setToken(response.data.access_token);
+            ).then(response=>{
             localStorage.setItem('token', response.data.access_token);
-            const token = localStorage.getItem('token');
-            // console.log('Token ',response.data.access_token);
-            const user = await axios.get(
-                'http://127.0.0.1:8000/api/me', {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Accept': 'application/json',
-                }
-            }
-            );
-            localStorage.setItem('user', JSON.stringify(user.data.user));
-            // console.log(user.data.user);
-            navigate("/");
+            });
+            const token = await localStorage.getItem('token');
+            await fetchUserDetail(token).then(response=>{
+                if(response===null)
+                return;
+                fetchUserComment(response.id,token);
+                navigate("/");
+            })
         } catch (error) {
-            alert('Login failed: ' + error.response.data.message)
+            alert('Login failed: ' + error.response.data.message);
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+            localStorage.removeItem('comment');
         }
     };
     return (

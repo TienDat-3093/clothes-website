@@ -1,4 +1,30 @@
-export default function Filter() {
+import { useEffect, useState } from "react";
+import { fetchProductFilter } from "../../services/UserService";
+
+export default function Filter(props) {
+  const [sort, setSort] = useState(0);
+  const [price, setPrice] = useState(0);
+  console.log('sort',sort,'price',price)
+
+  const handleSortClick =(value)=>{
+    setSort(value)
+    getFilter()
+  }
+  const handlePriceClick =(value)=>{
+    setPrice(value)
+    getFilter()
+  }
+  const getFilter = async ()=>{
+    let res = await fetchProductFilter(sort,price);
+    if(res && res.data && res.data.data)
+    {
+      console.log('filter',res.data.data)
+      props.onFilterResults(res.data.data)
+    }
+  }
+  useEffect(()=>{
+    getFilter();
+  },[])
   return (
     <>
       <div className="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
@@ -6,37 +32,36 @@ export default function Filter() {
           <div className="mtext-102 cl2 p-b-15">Sort By</div>
           <ul>
             <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
-                Default
-              </a>
-            </li>
-            <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
-                Popularity
-              </a>
-            </li>
-            <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
-                Average rating
-              </a>
-            </li>
-            <li className="p-b-6">
-              <a
-                href="#"
-                className="filter-link stext-106 trans-04 filter-link-active"
+              <button
+                onClick={() => handleSortClick(0)}
+                className="filter-link stext-106 trans-04"
               >
-                Newness
-              </a>
+                Default
+              </button>
             </li>
             <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
+              <button
+                onClick={() => handleSortClick(3)}
+                className="filter-link stext-106 trans-04"
+              >
+                Average rating
+              </button>
+            </li>
+            <li className="p-b-6">
+              <button
+                onClick={() => handleSortClick(1)}
+                className="filter-link stext-106 trans-04"
+              >
                 Price: Low to High
-              </a>
+              </button>
             </li>
             <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
+              <button
+                onClick={() => handleSortClick(2)}
+                className="filter-link stext-106 trans-04"
+              >
                 Price: High to Low
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -44,37 +69,37 @@ export default function Filter() {
           <div className="mtext-102 cl2 p-b-15">Price</div>
           <ul>
             <li className="p-b-6">
-              <a
-                href="#"
+              <button
+                onClick={()=>handlePriceClick(6)}
                 className="filter-link stext-106 trans-04 filter-link-active"
               >
                 All
-              </a>
+              </button>
             </li>
             <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
+              <button onClick={()=>handlePriceClick(1)} className="filter-link stext-106 trans-04">
                 $0.00 - $50.00
-              </a>
+              </button>
             </li>
             <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
+              <button onClick={()=>handlePriceClick(2)} className="filter-link stext-106 trans-04">
                 $50.00 - $100.00
-              </a>
+              </button>
             </li>
             <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
+              <button onClick={()=>handlePriceClick(3)} className="filter-link stext-106 trans-04">
                 $100.00 - $150.00
-              </a>
+              </button>
             </li>
             <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
+              <button onClick={()=>handlePriceClick(4)} className="filter-link stext-106 trans-04">
                 $150.00 - $200.00
-              </a>
+              </button>
             </li>
             <li className="p-b-6">
-              <a href="#" className="filter-link stext-106 trans-04">
+              <button onClick={()=>handlePriceClick(5)} className="filter-link stext-106 trans-04">
                 $200.00+
-              </a>
+              </button>
             </li>
           </ul>
         </div>

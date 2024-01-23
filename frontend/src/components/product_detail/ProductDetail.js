@@ -3,7 +3,7 @@ import ProductImage from "./ProductImage";
 import { NavLink, useParams } from "react-router-dom";
 import UserRating from "./UserRating";
 import Ratings from "./Ratings";
-import { fetchAllComment } from "../../services/UserService";
+import { fetchAllComment,fetchUserComment } from "../../services/UserService";
 import axios from "axios";
 
 export default function ProductDetail(props) {
@@ -40,6 +40,7 @@ export default function ProductDetail(props) {
               'Accept': 'application/json',
           } }
         );
+        await fetchUserComment(user.id,token);
         alert(response.data.message);
       }catch(error){
         if(error.response.data.exception == "Illuminate\\Database\\UniqueConstraintViolationException")

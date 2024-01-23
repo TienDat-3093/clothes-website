@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ProductTypes;
 use App\Models\Categories;
 use App\Models\Products;
+use App\Models\ProductImages;
 use Illuminate\Http\Request;
 
 class APIProductTypesController extends Controller
@@ -30,12 +31,18 @@ class APIProductTypesController extends Controller
         $listProducts = [];
         if (!empty($listCategories)) {
             foreach ($listCategories as $category) {
-                $product = Products::where('categories_id', '=', $category->id)->where('status_id', '=', 1)->get();
-                $listProducts[] = [
-                    'categoryID' => $category->id,
-                    'categoryName' => $category->name,
-                    'product' => $product
-                ];
+                $products = Products::where('categories_id', '=', $category->id)->where('status_id', '=', 1)->get();
+                foreach ($products as $product) {
+                    $productImage = ProductImages::where('products_id', $product->id)->first();
+                    $listProducts[] = [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'description' => $product->description,
+                        'price' => $product->price,
+                        'star_avg' => $product->star_avg,
+                        'url' => $productImage ? $productImage->url : null,
+                    ];
+                }
             }
         }
         if (!empty($listProducts)) {

@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const fetchAllProduct =()=>{
     return axios.get('http://localhost:8000/api/product/index');
 }
@@ -30,6 +29,16 @@ const fetchProductToCategory =(id)=>{
 }
 export {fetchProductToCategory};
 
+const fetchSearchProduct =(keyword)=>{
+  return axios.post(`http://localhost:8000/api/product/search/${keyword}`);
+}
+export {fetchSearchProduct};
+
+const fetchProductFilter =(sort,price)=>{
+  return axios.post(`http://localhost:8000/api/product/filter/${sort}/${price}`);
+}
+export {fetchProductFilter};
+
 const fetchAllComment =(id)=>{
     return axios.get(`http://localhost:8000/api/comment/${id}`);
 }
@@ -39,3 +48,52 @@ const fetchSlideShow =(id)=>{
     return axios.get(`http://localhost:8000/api/slideshow/index`);
 }
 export {fetchSlideShow};
+const fetchUserComment = async (id, token) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/comment/user/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+        }
+      });
+  
+      const userComments = response.data.data;
+      localStorage.setItem('comment', JSON.stringify(userComments));
+  
+      return userComments;
+    } catch (error) {
+      alert(error.response.data.message);
+      return [];
+    }
+  };
+export {fetchUserComment};
+
+const fetchUserDetail = async (token)=>{
+    try {
+        const response = await axios.get(`http://localhost:8000/api/me`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+          }
+        });
+    
+        const user = response.data.user;
+        localStorage.setItem('user', JSON.stringify(user));
+    
+        return user;
+      } catch (error) {
+        alert(error.response.data.message);
+        return null;
+      }
+    };
+export {fetchUserDetail};
+
+const deleteUserComment =(id,token)=>{
+    return axios.delete(`http://localhost:8000/api/comment/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+        }
+    });
+}
+export {deleteUserComment};

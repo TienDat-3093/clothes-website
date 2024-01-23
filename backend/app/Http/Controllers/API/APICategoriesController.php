@@ -40,7 +40,7 @@ class APICategoriesController extends Controller
             ];
         }
         
-        if(!empty($listProducts))
+        if(!empty($processedProducts))
         {
             return response()->json([
                 'success' => true,

@@ -30,6 +30,7 @@ const UserInfo = () => {
         {selectedComponent === "PhoneNumberEdit" && <PhoneNumberEdit />}
         </Modal>
             <div style={{width:"75%"}} className="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
+            <h2>My Ratings</h2>
               <label>Username</label>
               <div className="form-group" style={{ display: 'flex', alignItems: 'center' }}>
               <div className="form-control border-input">{user.username}</div>

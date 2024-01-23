@@ -27,7 +27,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:api')->group(function(){
     Route::get('me', [APIUsersController::class,"getUser"]);
     Route::post('edit',[APIUsersController::class,"Edit"]);
-    Route::post('comment',[APICommentsController::class,"Comment"]);
+    
+    Route::prefix('/comment')->group(function(){
+        Route::post('',[APICommentsController::class,"Comment"]);
+        Route::get('user/{id}',[APICommentsController::class,'getUserComment']);
+        Route::delete('/{id}',[APICommentsController::class,'deleteUserComment']);
+    });
 });
 Route::group([
 
@@ -43,6 +48,8 @@ Route::group([
 Route::prefix('/product')->group(function(){
     Route::get('/index',[APIProductsController::class,'index']);
     Route::get('/show/{id}',[APIProductsController::class,'show']);
+    Route::post('/search/{keyword}',[APIProductsController::class,'search']);
+    Route::post('filter/{sort}/{price}',[APIProductsController::class,'filter']);
 });
 Route::prefix('/producttype')->group(function(){
     Route::get('/index',[APIProductTypesController::class,'index']);
@@ -52,11 +59,6 @@ Route::prefix('/producttype')->group(function(){
 Route::prefix('/category')->group(function(){
     Route::get('/index',[APICategoriesController::class,'index']);
     Route::get('/show/{id}',[APICategoriesController::class,'show']);
-});
-
-Route::prefix('/product')->group(function(){
-    Route::get('/index',[APIProductsController::class,'index']);
-    Route::get('/show/{id}',[APIProductsController::class,'show']);
 });
 
 Route::prefix('/slideshow')->group(function(){

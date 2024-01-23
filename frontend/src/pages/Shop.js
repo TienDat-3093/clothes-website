@@ -1,28 +1,41 @@
-
-import React, { useState,useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import ListProducts from "../components/ListProducts";
 import Footer from "../components/Footer";
-import {fetchAllProduct} from "../services/UserService";
+import { fetchAllProduct, fetchProductToType } from "../services/UserService";
+import { useParams } from "react-router-dom";
 export default function Shop() {
-  const [listProducts,setProducts] = useState([]);
+  const { id } = useParams();
+  console.log("id", id);
+  const [listProducts, setProducts] = useState([]);
+  const [productToType, setProductToType] = useState([]);
   useEffect(() => {
-    //getUser();
     getProduct();
-  }, []);
-  const getProduct  =async()=>{
+    getProductToType();
+  },[]);
+  const getProduct = async () => {
     let res = await fetchAllProduct();
-
-    if(res && res.data && res.data.data)
-    {
+    if (res && res.data && res.data.data) {
       setProducts(res.data.data);
     }
-  }
+  };
+
+  const getProductToType = async () => {
+    let res = await fetchProductToType(id);
+    if (res && res.data && res.data.data) {
+      const products = res.data.data;
+      setProductToType(products);
+    }
+  };
+  const handleProducts = () => {
+    return id ? <ListProducts data={productToType} /> : <ListProducts data={listProducts} />;
+    
+  };
   return (
     <>
       <div className="animsition">
         <Header />
-        <ListProducts data={listProducts}/>
+        {handleProducts()}
         <Footer />
       </div>
     </>

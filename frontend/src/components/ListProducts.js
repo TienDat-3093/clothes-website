@@ -3,29 +3,54 @@ import Product from "./product/Product";
 import Filter from "./home/Filter";
 import { useState, useEffect } from "react";
 import Search from "./home/Search";
-import { fetchAllProductType } from "../services/UserService";
+import {fetchAllCategories,fetchProductToCategory,} from "../services/UserService";
+
 export default function ListProducts(props) {
+  
   const [isFilterVisible, setFilterVisible] = useState(false);
   const [isSearchVisible, setSearchVisible] = useState(false);
-  const [productType, setProductType] = useState(null);
 
-  const getProductType = async () => {
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [categoryID, setCategotyID] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  
+  const getCategories = async () => {
     try {
-      let res = await fetchAllProductType();
+      let res = await fetchAllCategories();
 
       if (res && res.data && res.data.data) {
-        const product_type = res.data.data;
-        console.log("product_types", product_type);
-        setProductType(product_type);
+        const category = res.data.data;
+        setCategories(category);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getCategoryDetail = async () => {
+    try {
+      let res = await fetchProductToCategory(categoryID);
+
+      if (res && res.data && res.data.data) {
+        const product = res.data.data;
+        setSearchResults(product);
       }
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
-    getProductType();
+    getCategories();
+    
   }, []);
 
+  const handleSearchResults = (results) => {
+    setSearchResults(results);
+  };
+  const handleFilterResults = (results) => {
+    setSearchResults(results);
+  };
   const toggleFilter = () => {
     setFilterVisible(!isFilterVisible);
     if (isFilterVisible === true) {
@@ -38,15 +63,61 @@ export default function ListProducts(props) {
       setFilterVisible(false);
     }
   };
+  const CategoryID = (id) => {
+    setCategotyID(id);
+    getCategoryDetail();
+  };
 
-  const listProducts = props.data.map(function (item, index) {
-    return <Product data={item} key={index} />;
-  });
+  const productDislay = searchResults.length > 0 ? searchResults : props.data;
+
+  let listProducts = [];
+
+  if (Array.isArray(productDislay)) {
+    listProducts = productDislay.map(function (item, index) {
+      return <Product data={item} key={index} />;
+    });
+  }
+  const renderProducts = () => {
+    if (listProducts.length > 0) {
+      return <div className="row isotope-grid">{listProducts}</div>;
+    } else {
+      return (
+        <div className="row isotope-grid">
+          <div role="status" className="shopee-search-empty-result-section" style={{ textAlign: "center" }}>
+            <img
+              alt=""
+              src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/search/a60759ad1dabe909c46a817ecbf71878.png"
+              className="shopee-search-empty-result-section__icon"
+            />
+            <div className="shopee-search-empty-result-section__title">
+              Không tìm thấy kết quả nào
+            </div>
+            <div className="shopee-search-empty-result-section__hint">
+              Hãy thử sử dụng các từ khóa chung chung hơn
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
   const listProductType = () => {
-    if (productType !== null) {
-      productType.map(function(item,index){
-        console.log('product_type',item)
-      })
+    if (categories !== null) {
+      const category = categories.map(function (item, index) {
+        return (
+          <button
+            key={index}
+            className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
+            data-filter={item}
+            onClick={() => {
+              CategoryID(item.id);
+            }}
+          >
+            {item.name}
+          </button>
+        );
+      });
+      return category;
     }
   };
   return (
@@ -56,7 +127,7 @@ export default function ListProducts(props) {
           {/* <div className="p-b-10">
             <h3 className="ltext-103 cl5">Product Overview</h3>
           </div> */}
-          {listProductType()}
+
           <div className="flex-w flex-sb-m p-b-52">
             <div className="flex-w flex-l-m filter-tope-group m-tb-10">
               <button
@@ -65,37 +136,7 @@ export default function ListProducts(props) {
               >
                 All Products
               </button>
-              <button
-                className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".women"
-              >
-                Women
-              </button>
-
-              <button
-                className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".men"
-              >
-                Men
-              </button>
-              <button
-                className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".bag"
-              >
-                Bag
-              </button>
-              <button
-                className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".shoes"
-              >
-                Shoes
-              </button>
-              <button
-                className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".watches"
-              >
-                Watches
-              </button>
+              {listProductType()}
             </div>
             <div className="flex-w flex-c-m m-tb-10">
               <div
@@ -135,18 +176,22 @@ export default function ListProducts(props) {
                 className="dis-none panel-search w-full p-t-10 p-b-15"
                 style={{ display: "block" }}
               >
-                {isSearchVisible && <Search />}
+                {isSearchVisible && (
+                  <Search onSearchResults={handleSearchResults} />
+                )}
               </div>
             ) : (
               <div
                 className="dis-none panel-filter w-full p-t-10"
                 style={{ display: "block" }}
               >
-                {isFilterVisible && <Filter />}
+                {isFilterVisible && (
+                  <Filter onFilterResults={handleFilterResults} />
+                )}
               </div>
             )}
           </div>
-          <div className="row isotope-grid">{listProducts}</div>
+          {renderProducts()}
           {/* Load more */}
           <div className="flex-c-m flex-w w-full p-t-45">
             <a
