@@ -11,6 +11,7 @@ export default function ProductDetail(props) {
     const [listComments, setComments] = useState([]);
 
     const cartDetail = JSON.parse(localStorage.getItem('cartDetail'));
+    const cart = JSON.parse(localStorage.getItem('cart'));
     const data = props.props[0];
     let sizes;
     let colors;
@@ -33,33 +34,45 @@ export default function ProductDetail(props) {
         let products_id = id;
         if (!token || !user)
             return alert("Vui lòng đăng nhập để đánh giá sản phẩm!");
-        if(!(cartDetail.some((detail) => detail.products_id == products_id))){
-            return alert("Bạn không thể đánh sản phẩm chưa mua!")
-        }
-        let content = input_content.current.value;
-        let ratings = selectedRating;
-        if (!ratings || ratings == 0)
-            return alert("Vui lòng đánh giá sản phẩm!");
-        let users_id = user.id;
-        try {
-            const response = await axios.post(
-                'http://127.0.0.1:8000/api/comment',
-                { content, ratings, users_id, products_id },
-                {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Accept': 'application/json',
-                    }
+
+        let isValid = false;
+        for (let i = 0; i < cart.length; i++) {
+                const cartItem = cart[i];
+            if (cartItem.status_carts_id == 5) {
+                if (cartDetail.some((detail) => detail.carts_id == cartItem.id && detail.products_id == products_id)) {
+                    isValid = true;
+                    break;
                 }
-            );
-            await fetchUserComment(user.id, token);
-            alert(response.data.message);
-        } catch (error) {
-            if (error.response.data.exception == "Illuminate\\Database\\UniqueConstraintViolationException")
-                return alert("Bạn đã đánh giá sản phẩm này rồi");
-            alert('Error: ' + error.response.data.message)
+            }
         }
-        console.log(input_content.current.value, selectedRating, user.id, id);
+
+        if (isValid) {
+            let content = input_content.current.value;
+            let ratings = selectedRating;
+            if (!ratings || ratings == 0)
+                return alert("Vui lòng đánh giá sản phẩm!");
+            let users_id = user.id;
+            try {
+                const response = await axios.post(
+                    'http://127.0.0.1:8000/api/comment',
+                    { content, ratings, users_id, products_id },
+                    {
+                        headers: {
+                            'Authorization': 'Bearer ' + token,
+                            'Accept': 'application/json',
+                        }
+                    }
+                );
+                await fetchUserComment(user.id, token);
+                alert(response.data.message);
+            } catch (error) {
+                if (error.response.data.exception == "Illuminate\\Database\\UniqueConstraintViolationException")
+                    return alert("Bạn đã đánh giá sản phẩm này rồi");
+                alert('Error: ' + error.response.data.message)
+            }
+        } else {
+            return alert("Bạn không thể đánh sản phẩm chưa mua!");
+        }
     }
     const handleRatingChange = (newValue) => {
         setSelectedRating(newValue);
