@@ -8,6 +8,8 @@ use App\Models\Suppliers;
 use App\Models\Status;
 use App\Models\StatusUsers;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class SuppliersController extends Controller
 {
@@ -59,12 +61,17 @@ class SuppliersController extends Controller
     public function delete($id)
     {
         $supplier = Suppliers::find($id);
-        if($supplier->status_id == 2)
-        {
+        if ($supplier->status_id == 2) {
             return redirect()->route('supplier.index')->with('alert', 'Nhà cung cấp không tồn tại');
         }
         $supplier->status_id = 2;
         $supplier->save();
         return redirect()->route('supplier.index')->with('alert', 'Xóa nhà cung cấp thành công');
+    }
+    public function ViewPDF()
+    {
+        $data = Suppliers::all();
+        $pdf = PDF::loadView('supplier.pdf',  compact('data'));
+        return $pdf->stream('Supplier.pdf');
     }
 }

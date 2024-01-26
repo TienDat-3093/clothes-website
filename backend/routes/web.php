@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/update/{id}', [AdminsController::class, 'update'])->name('update');
         Route::post('/update/{id}', [AdminsController::class, 'updateHandle'])->name('updateHandle');
         Route::get('/delete/{id}', [AdminsController::class, 'delete'])->name('delete');
+        Route::get('/view-pdf', [AdminsController::class, 'ViewPDF'])->name('pdf');
     });
     //endAdmins
 
@@ -58,21 +59,22 @@ Route::middleware('auth')->group(function () {
         Route::get('/update/{id}', [SuppliersController::class, 'update'])->name('update');
         Route::post('/update/{id}', [SuppliersController::class, 'updateHandle'])->name('updateHandle');
         Route::get('/delete/{id}', [SuppliersController::class, 'delete'])->name('delete');
+        Route::get('/view-pdf', [SuppliersController::class, 'ViewPDF'])->name('pdf');
     });
 
     //endSuppliers
     //Products
-    Route::prefix('/product')->name('product.')->group(function(){
-        Route::get('/',[ProductsController::class,'index'])->name('index');
-        Route::get('/detail/{id}',[ProductsController::class,'detail'])->name('detail');
-        Route::post('/quantity/{id}',[ProductsController::class,'quantity'])->name('quantity');
-        Route::post('/search',[ProductsController::class,'search'])->name('search');
-        Route::post('/create',[ProductsController::class,'create'])->name('create');
-        Route::get('/update/{id}',[ProductsController::class,'update'])->name('update');
-        Route::post('/delete-image',[ProductsController::class,'deleteImage'])->name('deleteImage');
-        Route::post('/update/{id}',[ProductsController::class,'updateHandle'])->name('updateHandle');
-        Route::get('/delete/{id}',[ProductsController::class,'delete'])->name('delete');
-
+    Route::prefix('/product')->name('product.')->group(function () {
+        Route::get('/', [ProductsController::class, 'index'])->name('index');
+        Route::get('/detail/{id}', [ProductsController::class, 'detail'])->name('detail');
+        Route::post('/quantity/{id}', [ProductsController::class, 'quantity'])->name('quantity');
+        Route::post('/search', [ProductsController::class, 'search'])->name('search');
+        Route::post('/create', [ProductsController::class, 'create'])->name('create');
+        Route::get('/update/{id}', [ProductsController::class, 'update'])->name('update');
+        Route::post('/delete-image', [ProductsController::class, 'deleteImage'])->name('deleteImage');
+        Route::post('/update/{id}', [ProductsController::class, 'updateHandle'])->name('updateHandle');
+        Route::get('/delete/{id}', [ProductsController::class, 'delete'])->name('delete');
+        Route::get('/view-pdf', [ProductsController::class, 'ViewPDF'])->name('pdf');
     });
     //endProducts
 
@@ -89,6 +91,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id}', [ProductTypesController::class, 'updateHandler'])->name('update-handler');
 
         Route::get('/delete/{id}', [ProductTypesController::class, 'Delete'])->name('delete');
+
+        Route::get('/view-pdf', [ProductTypesController::class, 'ViewPDF'])->name('pdf');
     });
 
     //endProductTypes
@@ -106,6 +110,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id}', [CategoriesController::class, 'updateHandler'])->name('update-handler');
 
         Route::get('/delete/{id}', [CategoriesController::class, 'Delete'])->name('delete');
+
+        Route::get('/view-pdf', [CategoriesController::class, 'ViewPDF'])->name('pdf');
     });
 
     //endCategories
@@ -123,6 +129,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id}', [DiscountsController::class, 'updateHandler'])->name('update-handler');
 
         Route::get('/delete/{id}', [DiscountsController::class, 'Delete'])->name('delete');
+
+        Route::get('/view-pdf', [DiscountsController::class, 'ViewPDF'])->name('pdf');
     });
 
     //endDiscounts
@@ -134,6 +142,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/search', [UsersController::class, 'Search'])->name('search');
 
         Route::get('/delete/{id}', [UsersController::class, 'Delete'])->name('delete');
+
+        Route::get('/view-pdf', [UsersController::class, 'ViewPDF'])->name('pdf');
     });
 
     //endUsers
@@ -152,6 +162,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}', [ImportsController::class, 'Delete'])->name('delete');
 
         Route::get('/verify/{id}', [ImportsController::class, 'Verify'])->name('verify');
+
+        Route::get('/view-pdf', [ImportsController::class, 'ViewPDF'])->name('pdf');
     });
 
     //endImports
@@ -163,11 +175,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/search', [CommentsController::class, 'Search'])->name('search');
 
         Route::get('/delete/{id}', [CommentsController::class, 'Delete'])->name('delete');
+
+        Route::get('/view-pdf', [CommentsController::class, 'ViewPDF'])->name('pdf');
     });
 
     //endComments
 
-    //Imports
+    //Exports
 
     Route::prefix('/cart')->name('cart.')->group(function () {
         Route::get('/', [CartsController::class, 'List'])->name('index');
@@ -178,7 +192,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}', [CartsController::class, 'Delete'])->name('delete');
 
         Route::get('/verify/{id}', [CartsController::class, 'Verify'])->name('verify');
+
+        Route::get('/view-pdf', [CartsController::class, 'ViewPDF'])->name('pdf');
     });
 
-    //endImports
+    //endExports
 });

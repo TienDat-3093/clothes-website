@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Categories;
 use App\Models\ProductTypes;
 use App\Models\Status;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CategoriesController extends Controller
 {
@@ -90,5 +91,12 @@ class CategoriesController extends Controller
         $categories->save();
 
         return redirect()->route('categories.index')->with('alert', 'Xóa danh mục loại sản phẩm thành công');
+    }
+
+    public function ViewPDF()
+    {
+        $data = Categories::all();
+        $pdf = PDF::loadView('categories.pdf',  compact('data'));
+        return $pdf->stream('Categories.pdf');
     }
 }

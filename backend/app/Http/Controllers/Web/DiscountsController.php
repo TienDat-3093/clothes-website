@@ -7,6 +7,8 @@ use App\Models\Discounts;
 use App\Models\Status;
 use App\Http\Requests\CreateDiscountsRequest;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class DiscountsController extends Controller
 {
@@ -94,5 +96,11 @@ class DiscountsController extends Controller
         $discounts->save();
 
         return redirect()->route('discounts.index')->with('alert', 'Xóa mã giảm giá sản phẩm thành công');
+    }
+    public function ViewPDF()
+    {
+        $data = Discounts::all();
+        $pdf = PDF::loadView('discounts.pdf',  compact('data'));
+        return $pdf->stream('Discounts.pdf');
     }
 }

@@ -12,6 +12,8 @@ use App\Models\Colors;
 use App\Models\Sizes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class ImportsController extends Controller
 {
@@ -104,5 +106,11 @@ class ImportsController extends Controller
             $i++;
         }
         return redirect()->route('import.index');
+    }
+    public function ViewPDF()
+    {
+        $data = Imports::all();
+        $pdf = PDF::loadView('import.pdf',  compact('data'));
+        return $pdf->stream('Import.pdf');
     }
 }

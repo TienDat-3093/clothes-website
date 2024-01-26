@@ -8,6 +8,8 @@ use App\Models\ProductTypes;
 use App\Models\Status;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 use App\Http\Requests\CreateProductTypesRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class ProductTypesController extends Controller
@@ -82,5 +84,12 @@ class ProductTypesController extends Controller
         $PDT->save();
 
         return redirect()->route('product-types.index')->with('alert', 'Xóa loại sản phẩm thành công');
+    }
+
+    public function ViewPDF()
+    {
+        $data = ProductTypes::all();
+        $pdf = PDF::loadView('product_types.pdf',  compact('data'));
+        return $pdf->stream('Product Types.pdf');
     }
 }
