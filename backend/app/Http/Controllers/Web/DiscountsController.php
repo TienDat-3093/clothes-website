@@ -8,6 +8,8 @@ use App\Models\Status;
 use App\Http\Requests\CreateDiscountsRequest;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Imports\DiscountsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class DiscountsController extends Controller
@@ -102,5 +104,15 @@ class DiscountsController extends Controller
         $data = Discounts::all();
         $pdf = PDF::loadView('discounts.pdf',  compact('data'));
         return $pdf->stream('Discounts.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new DiscountsImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
     }
 }

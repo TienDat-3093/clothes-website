@@ -45,7 +45,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/update/{id}', [AdminsController::class, 'update'])->name('update');
         Route::post('/update/{id}', [AdminsController::class, 'updateHandle'])->name('updateHandle');
         Route::get('/delete/{id}', [AdminsController::class, 'delete'])->name('delete');
+
         Route::get('/view-pdf', [AdminsController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [AdminsController::class, 'index'])->name('excel');
+        Route::post('/import-excel', [AdminsController::class, 'ImportExcel'])->name('excel');
     });
     //endAdmins
 
@@ -59,7 +63,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/update/{id}', [SuppliersController::class, 'update'])->name('update');
         Route::post('/update/{id}', [SuppliersController::class, 'updateHandle'])->name('updateHandle');
         Route::get('/delete/{id}', [SuppliersController::class, 'delete'])->name('delete');
+
         Route::get('/view-pdf', [SuppliersController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [SuppliersController::class, 'index'])->name('excel');
+        Route::post('/import-excel', [SuppliersController::class, 'ImportExcel'])->name('excel');
     });
 
     //endSuppliers
@@ -74,7 +82,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/delete-image', [ProductsController::class, 'deleteImage'])->name('deleteImage');
         Route::post('/update/{id}', [ProductsController::class, 'updateHandle'])->name('updateHandle');
         Route::get('/delete/{id}', [ProductsController::class, 'delete'])->name('delete');
+
         Route::get('/view-pdf', [ProductsController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [ProductsController::class, 'index'])->name('excel');
+        Route::post('/import-excel', [ProductsController::class, 'ImportExcel'])->name('excel');
     });
     //endProducts
 
@@ -93,6 +105,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}', [ProductTypesController::class, 'Delete'])->name('delete');
 
         Route::get('/view-pdf', [ProductTypesController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [ProductTypesController::class, 'List'])->name('excel');
+        Route::post('/import-excel', [ProductTypesController::class, 'ImportExcel'])->name('excel');
     });
 
     //endProductTypes
@@ -112,6 +127,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}', [CategoriesController::class, 'Delete'])->name('delete');
 
         Route::get('/view-pdf', [CategoriesController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [CategoriesController::class, 'List'])->name('excel');
+        Route::post('/import-excel', [CategoriesController::class, 'ImportExcel'])->name('excel');
     });
 
     //endCategories
@@ -131,6 +149,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}', [DiscountsController::class, 'Delete'])->name('delete');
 
         Route::get('/view-pdf', [DiscountsController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [DiscountsController::class, 'List'])->name('excel');
+        Route::post('/import-excel', [DiscountsController::class, 'ImportExcel'])->name('excel');
     });
 
     //endDiscounts
@@ -144,6 +165,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}', [UsersController::class, 'Delete'])->name('delete');
 
         Route::get('/view-pdf', [UsersController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [UsersController::class, 'List'])->name('excel');
+        Route::post('/import-excel', [UsersController::class, 'ImportExcel'])->name('excel');
     });
 
     //endUsers

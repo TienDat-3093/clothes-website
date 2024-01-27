@@ -7,7 +7,16 @@
 
     </div>
     <br>
+    <form action="{{ route('supplier.excel') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="input-group">
 
+            <input type="file" name="import_file" class="form-control">
+            <br>
+            <button type="submit" class="btn btn-primary me-5">Import</button>
+        </div>
+    </form>
+    <br>
     <div class="input-group input-group-merge">
         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
         <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..."

@@ -9,7 +9,8 @@ use App\Models\Status;
 use App\Models\StatusUsers;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Imports\SuppliersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SuppliersController extends Controller
 {
@@ -73,5 +74,15 @@ class SuppliersController extends Controller
         $data = Suppliers::all();
         $pdf = PDF::loadView('supplier.pdf',  compact('data'));
         return $pdf->stream('Supplier.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new SuppliersImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
     }
 }

@@ -7,7 +7,8 @@ use App\Models\User;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
 {
@@ -39,5 +40,15 @@ class UsersController extends Controller
         $data = Users::all();
         $pdf = PDF::loadView('user.pdf',  compact('data'));
         return $pdf->stream('User.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new UsersImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
     }
 }

@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Imports\AdminsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminsController extends Controller
 {
@@ -103,5 +104,15 @@ class AdminsController extends Controller
         $data = Admins::all();
         $pdf = PDF::loadView('admin.pdf',  compact('data'));
         return $pdf->stream('Admin.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new AdminsImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
     }
 }

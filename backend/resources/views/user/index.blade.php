@@ -3,8 +3,18 @@
 
 @section('content')
     <div class="mt-2 d-flex align-items-center">
-        <a href="{{ route('admin.pdf') }}" class="btn btn-primary me-5">View PDF</a>
+        <a href="{{ route('user.pdf') }}" class="btn btn-primary me-5">View PDF</a>
     </div>
+    <br>
+    <form action="{{ route('user.excel') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="input-group">
+
+            <input type="file" name="import_file" class="form-control">
+            <br>
+            <button type="submit" class="btn btn-primary me-5">Import</button>
+        </div>
+    </form>
     <br>
     <div class="input-group input-group-merge">
         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
