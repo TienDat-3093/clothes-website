@@ -9,6 +9,13 @@ class Discounts extends Model
 {
     use HasFactory;
     protected $table = 'discounts';
+    protected $fillable = [
+        'name',
+        'amount_discounts',
+        'type_discount',
+        'start_date',
+        'end_date',
+    ];
 
     public function status()
     {

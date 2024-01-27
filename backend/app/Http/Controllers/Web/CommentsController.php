@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Comments;
 use App\Models\Users;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CommentsController extends Controller
 {
     public function List()
     {
-        $listComment=Comments::all();
-        return view('comment/index',compact('listComment'));
+        $listComment = Comments::all();
+        return view('comment/index', compact('listComment'));
     }
     public function Search(Request $request)
     {
@@ -38,5 +40,11 @@ class CommentsController extends Controller
         $comment->status_id = 2;
         $comment->save();
         return redirect()->route('comment.index')->with('alert', 'Xóa comment thành công');
+    }
+    public function ViewPDF()
+    {
+        $data = Comments::all();
+        $pdf = PDF::loadView('comment.pdf',  compact('data'));
+        return $pdf->stream('Comment.pdf');
     }
 }

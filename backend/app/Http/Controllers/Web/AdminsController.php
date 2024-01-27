@@ -9,6 +9,9 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Imports\AdminsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminsController extends Controller
 {
@@ -41,8 +44,8 @@ class AdminsController extends Controller
     }
     public function index()
     {
-        $listAdmin=Admins::all();
-        return view('admin/index',compact('listAdmin'));
+        $listAdmin = Admins::all();
+        return view('admin/index', compact('listAdmin'));
     }
     public function search(Request $request)
     {
@@ -88,12 +91,28 @@ class AdminsController extends Controller
     public function delete($id)
     {
         $admin = Admins::find($id);
-        if($admin->status_id == 2)
-        {
+        if ($admin->status_id == 2) {
             return redirect()->route('admin.index')->with('alert', 'Tài khoản admin đã được khóa rồi');
         }
         $admin->status_id = 2;
         $admin->save();
         return redirect()->route('admin.index')->with('alert', 'Khóa tài khoản admin thành công');
+    }
+
+    public function ViewPDF()
+    {
+        $data = Admins::all();
+        $pdf = PDF::loadView('admin.pdf',  compact('data'));
+        return $pdf->stream('Admin.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new AdminsImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
     }
 }

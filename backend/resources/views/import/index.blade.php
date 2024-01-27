@@ -3,14 +3,17 @@
 
 @section('content')
     <div class="mt-2 d-flex align-items-center">
-        <div class="input-group input-group-merge">
-            <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
-            <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..."
-                aria-describedby="basic-addon-search31">
-        </div>
+        <a href="{{ route('import.create') }}" class="btn btn-primary me-2">Add</a>
+        <a href="{{ route('import.pdf') }}" class="btn btn-primary me-5">View PDF</a>
+
     </div>
     <br>
-    <a href="{{route('import.create')}}" class="btn btn-primary me-2">Add</a>
+    <div class="input-group input-group-merge">
+        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..."
+            aria-describedby="basic-addon-search31">
+    </div>
+    <br>
     <table class="table" id="listImport">
         <thead>
             <tr>
@@ -25,8 +28,8 @@
             @include('import/results')
         </tbody>
     </table>
-    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
-        <script>
+    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
+    <script>
         var $j = jQuery.noConflict();
         $j(document).ready(function() {
             $j('#searchInput').on('keyup', function(event) {

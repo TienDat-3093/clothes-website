@@ -13,6 +13,8 @@ use App\Models\Sizes;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Nette\Schema\Expect;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class ProductsController extends Controller
 {
@@ -26,7 +28,7 @@ class ProductsController extends Controller
         $status = Status::all();
         return view('product/index', compact('listProduct', 'productImage', 'listCategory', 'listColor', 'listSize'));
     }
- 
+
     public function search(Request $request)
     {
         $productImage = ProductImages::all();
@@ -153,7 +155,7 @@ class ProductsController extends Controller
             }
             $productImage = ProductImages::all();
             $listProduct = Products::paginate(10);
-            return view('product/results', compact('listProduct','productImage'));
+            return view('product/results', compact('listProduct', 'productImage'));
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error']);
         }
@@ -161,17 +163,22 @@ class ProductsController extends Controller
     public function delete($id)
     {
         $product = Products::find($id);
-        if(!empty($product)){
-            if($product->status_id == 2)
-            {
-                return redirect()->route('product.index')->with('alert' ,'Sản phẩm không tồn tại');
+        if (!empty($product)) {
+            if ($product->status_id == 2) {
+                return redirect()->route('product.index')->with('alert', 'Sản phẩm không tồn tại');
             }
             $product->status_id = 2;
             $product->save();
-            return redirect()->route('product.index')->with('alert' ,'Xóa thành công sản phẩm');
+            return redirect()->route('product.index')->with('alert', 'Xóa thành công sản phẩm');
+        } else {
+            return redirect()->route('product.index')->with('alert', 'Không có sản phẩm có id {$id}');
         }
-        else{
-            return redirect()->route('product.index')->with('alert' ,'Không có sản phẩm có id {$id}');
-        }
+    }
+
+    public function ViewPDF()
+    {
+        $data = Products::all();
+        $pdf = PDF::loadView('product.pdf',  compact('data'));
+        return $pdf->stream('Products.pdf');
     }
 }

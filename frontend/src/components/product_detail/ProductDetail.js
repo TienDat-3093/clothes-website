@@ -37,7 +37,7 @@ export default function ProductDetail(props) {
 
         let isValid = false;
         for (let i = 0; i < cart.length; i++) {
-                const cartItem = cart[i];
+            const cartItem = cart[i];
             if (cartItem.status_carts_id == 5) {
                 if (cartDetail.some((detail) => detail.carts_id == cartItem.id && detail.products_id == products_id)) {
                     isValid = true;
@@ -199,9 +199,16 @@ export default function ProductDetail(props) {
                 setQuantity(quantity - 1);
             }
         };
+        // const increaseQuantity = () => {
+        //     if (quantity < quantityProduct) {
+        //         setQuantity(quantity + 1);
+        //     }
+        // };
         const increaseQuantity = () => {
             if (quantity < quantityProduct) {
                 setQuantity(quantity + 1);
+            } else {
+                alert('Không thể thêm số lượng lớn hơn số lượng sản phẩm đang có.');
             }
         };
         const checkstore = () => {
@@ -214,6 +221,7 @@ export default function ProductDetail(props) {
             }
         };
         const addToCart = () => {
+
             if (selectedSize !== null) {
                 if (quantityProduct !== 0) {
                     addCart();
@@ -222,6 +230,7 @@ export default function ProductDetail(props) {
                 }
             } else
                 return setError("Vui lòng chọn kích cỡ sản phẩm");
+
             if (selectedColor !== null) {
                 if (quantityProduct !== 0) {
                     addCart();
@@ -230,6 +239,7 @@ export default function ProductDetail(props) {
                 }
             } else
                 return setError("Vui lòng chọn màu sản phẩm");
+
             if (selectedColor !== null && selectedSize !== null && quantityProduct > 0) {
                 // console.log('usercart', usercart)
                 // const existingItemIndex = usercart.findIndex(

@@ -3,12 +3,25 @@
 
 @section('content')
     <div class="mt-2 d-flex align-items-center">
-        <a href="{{ route('admin.create') }}" class="btn btn-primary me-5">Add</a>
-        <div class="input-group input-group-merge">
-            <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
-            <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..."
-                aria-describedby="basic-addon-search31">
+        <a href="{{ route('admin.create') }}" class="btn btn-primary me-2">Add</a>
+        <a href="{{ route('admin.pdf') }}" class="btn btn-primary me-5">View PDF</a>
+
+    </div>
+    <br>
+    <form action="{{ route('admin.excel') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="input-group">
+
+            <input type="file" name="import_file" class="form-control">
+            <br>
+            <button type="submit" class="btn btn-primary me-5">Import</button>
         </div>
+    </form>
+    <br>
+    <div class="input-group input-group-merge">
+        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..."
+            aria-describedby="basic-addon-search31">
     </div>
     <br>
     <table class="table" id="listAdmin">
@@ -27,9 +40,9 @@
             @include('admin/results')
         </tbody>
     </table>
-    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
     <script>
-    var $j = jQuery.noConflict();
+        var $j = jQuery.noConflict();
         $j(document).ready(function() {
             $j('#searchInput').on('keyup', function(event) {
                 if (event.key === 'Enter') {
@@ -41,7 +54,7 @@
         function search() {
             let keyword = $j('#searchInput').val();
             $j.ajax({
-                url: "{{route('admin.search')}}",
+                url: "{{ route('admin.search') }}",
                 type: 'POST',
                 data: {
                     data: keyword,

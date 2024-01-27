@@ -1,7 +1,6 @@
 import React from "react";
 import Product from "./product/Product";
 
-
 export default function ListProducts(props) {
 
     const listProducts = props.data.map(function (item, index) {

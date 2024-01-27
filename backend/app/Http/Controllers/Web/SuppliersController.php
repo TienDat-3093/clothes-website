@@ -8,6 +8,9 @@ use App\Models\Suppliers;
 use App\Models\Status;
 use App\Models\StatusUsers;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Imports\SuppliersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SuppliersController extends Controller
 {
@@ -59,12 +62,27 @@ class SuppliersController extends Controller
     public function delete($id)
     {
         $supplier = Suppliers::find($id);
-        if($supplier->status_id == 2)
-        {
+        if ($supplier->status_id == 2) {
             return redirect()->route('supplier.index')->with('alert', 'Nhà cung cấp không tồn tại');
         }
         $supplier->status_id = 2;
         $supplier->save();
         return redirect()->route('supplier.index')->with('alert', 'Xóa nhà cung cấp thành công');
+    }
+    public function ViewPDF()
+    {
+        $data = Suppliers::all();
+        $pdf = PDF::loadView('supplier.pdf',  compact('data'));
+        return $pdf->stream('Supplier.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new SuppliersImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
     }
 }
