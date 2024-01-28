@@ -233,7 +233,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/delete/{id}', [CartsController::class, 'Delete'])->name('delete');
 
-        Route::get('/verify/{id}', [CartsController::class, 'Verify'])->name('verify');
+        Route::get('/status/{id}/{status}', [CartsController::class, 'ChangeStatus'])->name('status');
 
         Route::get('/view-pdf', [CartsController::class, 'ViewPDF'])->name('pdf');
 
