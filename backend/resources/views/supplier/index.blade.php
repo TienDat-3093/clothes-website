@@ -7,7 +7,7 @@
 
     </div>
     <br>
-    <form action="{{ route('supplier.excel') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('supplier.import-excel') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="input-group">
 
@@ -17,6 +17,19 @@
         </div>
     </form>
     <br>
+    <br>
+    <form action="{{ route('supplier.export-excel') }}" method="GET">
+        <div class="input-group">
+            <select name="type" class="form-control" required>
+                <option value="">Select Excel Format</option>
+                <option value="xlsx">XLSX</option>
+                <option value="xls">XLS</option>
+                <option value="html">HTML</option>
+                <option value="csv">CSV</option>
+            </select>
+            <button type="submit" class="btn btn-primary me-5">Export</button>
+        </div>
+    </form>
     <div class="input-group input-group-merge">
         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
         <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..."

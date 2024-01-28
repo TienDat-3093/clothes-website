@@ -5,8 +5,20 @@
     <div class="mt-2 d-flex align-items-center">
         <a href="{{ route('import.create') }}" class="btn btn-primary me-2">Add</a>
         <a href="{{ route('import.pdf') }}" class="btn btn-primary me-5">View PDF</a>
-
     </div>
+    <br>
+    <form action="{{ route('import.export-excel') }}" method="GET">
+        <div class="input-group">
+            <select name="type" class="form-control" required>
+                <option value="">Select Excel Format</option>
+                <option value="xlsx">XLSX</option>
+                <option value="xls">XLS</option>
+                <option value="html">HTML</option>
+                <option value="csv">CSV</option>
+            </select>
+            <button type="submit" class="btn btn-primary me-5">Export</button>
+        </div>
+    </form>
     <br>
     <div class="input-group input-group-merge">
         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>

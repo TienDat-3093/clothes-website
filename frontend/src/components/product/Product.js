@@ -9,11 +9,11 @@ export default function Product(props) {
 
     const [isInWishlist, setIsInWishlist] = useState(false);
 
-    useEffect(() => {
-        // Check if product is already in wishlist on initial render
-        const isAlreadyInWishlist = props.wishlist.some(item => item.id === props.data.id);
-        setIsInWishlist(isAlreadyInWishlist);
-    }, [props.wishlist, props.data.id]);
+    // useEffect(() => {
+    //     // Check if product is already in wishlist on initial render
+    //     const isAlreadyInWishlist = props.wishlist.some(item => item.id === props.data.id);
+    //     setIsInWishlist(isAlreadyInWishlist);
+    // }, [props.wishlist, props.data.id]);
 
     const addToWishlist = () => {
         const { wishlist, setWishlist } = props;
