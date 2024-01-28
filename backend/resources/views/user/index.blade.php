@@ -4,30 +4,28 @@
 @section('content')
     <div class="mt-2 d-flex align-items-center">
         <a href="{{ route('user.pdf') }}" class="btn btn-primary me-5">View PDF</a>
-    </div>
-    <br>
-    <form action="{{ route('user.import-excel') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="input-group">
+        <form action="{{ route('user.import-excel') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="input-group" style="width: 550px">
 
-            <input type="file" name="import_file" class="form-control">
-            <br>
-            <button type="submit" class="btn btn-primary me-5">Import</button>
-        </div>
-    </form>
-    <br>
-    <form action="{{ route('user.export-excel') }}" method="GET">
-        <div class="input-group">
-            <select name="type" class="form-control" required>
-                <option value="">Select Excel Format</option>
-                <option value="xlsx">XLSX</option>
-                <option value="xls">XLS</option>
-                <option value="html">HTML</option>
-                <option value="csv">CSV</option>
-            </select>
-            <button type="submit" class="btn btn-primary me-5">Export</button>
-        </div>
-    </form>
+                <input type="file" name="import_file" class="form-control">
+                <br>
+                <button type="submit" class="btn btn-primary me-5">Import</button>
+            </div>
+        </form>
+        <form action="{{ route('user.export-excel') }}" method="GET">
+            <div class="input-group" style="width: 550px">
+                <select name="type" class="form-control" required>
+                    <option value="">Select Excel Format</option>
+                    <option value="xlsx">XLSX</option>
+                    <option value="xls">XLS</option>
+                    <option value="html">HTML</option>
+                    <option value="csv">CSV</option>
+                </select>
+                <button type="submit" class="btn btn-primary me-5">Export</button>
+            </div>
+        </form>
+    </div>
     <br>
     <div class="input-group input-group-merge">
         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
