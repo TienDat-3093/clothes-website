@@ -14,7 +14,9 @@ use App\Models\Status;
 use Illuminate\Http\Request;
 use Nette\Schema\Expect;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Imports\ProductsImport;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductsController extends Controller
 {
@@ -180,5 +182,42 @@ class ProductsController extends Controller
         $data = Products::all();
         $pdf = PDF::loadView('product.pdf',  compact('data'));
         return $pdf->stream('Products.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new ProductsImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
+    }
+    public function ExportExcel(Request $re)
+    {
+        if ($re->type == 'xlsx') {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        } elseif ($re->type == 'csv') {
+
+            $files = 'csv';
+            $format = \Maatwebsite\Excel\Excel::CSV;
+        } elseif ($re->type == 'xls') {
+
+            $files = 'xls';
+            $format = \Maatwebsite\Excel\Excel::XLS;
+        } elseif ($re->type == 'html') {
+
+            $files = 'html';
+            $format = \Maatwebsite\Excel\Excel::HTML;
+        } else {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        }
+
+        $filename = "Products-" . date('d-m-Y') . "." . $files;
+        return Excel::download(new ProductsExport, $filename, $format);
     }
 }

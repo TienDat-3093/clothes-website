@@ -10,6 +10,29 @@
 
         </div>
         <br>
+        <form action="{{ route('product-types.import-excel') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="input-group">
+
+                <input type="file" name="import_file" class="form-control">
+                <br>
+                <button type="submit" class="btn btn-primary me-5">Import</button>
+            </div>
+        </form>
+        <br>
+        <form action="{{ route('product-types.export-excel') }}" method="GET">
+            <div class="input-group">
+                <select name="type" class="form-control" required>
+                    <option value="">Select Excel Format</option>
+                    <option value="xlsx">XLSX</option>
+                    <option value="xls">XLS</option>
+                    <option value="html">HTML</option>
+                    <option value="csv">CSV</option>
+                </select>
+                <button type="submit" class="btn btn-primary me-5">Export</button>
+            </div>
+        </form>
+        <br>
         <div class="input-group input-group-merge">
             <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
             <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..."

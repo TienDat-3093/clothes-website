@@ -10,6 +10,7 @@ use App\Models\StatusUsers;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Imports\SuppliersImport;
+use App\Exports\SuppliersExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SuppliersController extends Controller
@@ -84,5 +85,32 @@ class SuppliersController extends Controller
         Excel::import(new SuppliersImport, $re->file('import_file'));
 
         return redirect()->back()->with('alert', "Import successfully");
+    }
+    public function ExportExcel(Request $re)
+    {
+        if ($re->type == 'xlsx') {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        } elseif ($re->type == 'csv') {
+
+            $files = 'csv';
+            $format = \Maatwebsite\Excel\Excel::CSV;
+        } elseif ($re->type == 'xls') {
+
+            $files = 'xls';
+            $format = \Maatwebsite\Excel\Excel::XLS;
+        } elseif ($re->type == 'html') {
+
+            $files = 'html';
+            $format = \Maatwebsite\Excel\Excel::HTML;
+        } else {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        }
+
+        $filename = "Suppliers-" . date('d-m-Y') . "." . $files;
+        return Excel::download(new SuppliersExport, $filename, $format);
     }
 }

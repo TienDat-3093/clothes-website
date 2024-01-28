@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Imports\AdminsImport;
+use App\EXports\AdminsExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminsController extends Controller
@@ -114,5 +115,32 @@ class AdminsController extends Controller
         Excel::import(new AdminsImport, $re->file('import_file'));
 
         return redirect()->back()->with('alert', "Import successfully");
+    }
+    public function ExportExcel(Request $re)
+    {
+        if ($re->type == 'xlsx') {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        } elseif ($re->type == 'csv') {
+
+            $files = 'csv';
+            $format = \Maatwebsite\Excel\Excel::CSV;
+        } elseif ($re->type == 'xls') {
+
+            $files = 'xls';
+            $format = \Maatwebsite\Excel\Excel::XLS;
+        } elseif ($re->type == 'html') {
+
+            $files = 'html';
+            $format = \Maatwebsite\Excel\Excel::HTML;
+        } else {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        }
+
+        $filename = "Admins-" . date('d-m-Y') . "." . $files;
+        return Excel::download(new AdminsExport, $filename, $format);
     }
 }

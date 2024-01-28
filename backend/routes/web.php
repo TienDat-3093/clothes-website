@@ -48,8 +48,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/view-pdf', [AdminsController::class, 'ViewPDF'])->name('pdf');
 
-        Route::get('/import-excel', [AdminsController::class, 'index'])->name('excel');
-        Route::post('/import-excel', [AdminsController::class, 'ImportExcel'])->name('excel');
+        Route::get('/import-excel', [AdminsController::class, 'index'])->name('import-excel');
+        Route::post('/import-excel', [AdminsController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [AdminsController::class, 'ExportExcel'])->name('export-excel');
     });
     //endAdmins
 
@@ -66,8 +68,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/view-pdf', [SuppliersController::class, 'ViewPDF'])->name('pdf');
 
-        Route::get('/import-excel', [SuppliersController::class, 'index'])->name('excel');
-        Route::post('/import-excel', [SuppliersController::class, 'ImportExcel'])->name('excel');
+        Route::get('/import-excel', [SuppliersController::class, 'index'])->name('import-excel');
+        Route::post('/import-excel', [SuppliersController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [SuppliersController::class, 'ExportExcel'])->name('export-excel');
     });
 
     //endSuppliers
@@ -85,8 +89,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/view-pdf', [ProductsController::class, 'ViewPDF'])->name('pdf');
 
-        Route::get('/import-excel', [ProductsController::class, 'index'])->name('excel');
-        Route::post('/import-excel', [ProductsController::class, 'ImportExcel'])->name('excel');
+        Route::get('/import-excel', [ProductsController::class, 'index'])->name('import-excel');
+        Route::post('/import-excel', [ProductsController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [ProductsController::class, 'ExportExcel'])->name('export-excel');
     });
     //endProducts
 
@@ -106,8 +112,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/view-pdf', [ProductTypesController::class, 'ViewPDF'])->name('pdf');
 
-        Route::get('/import-excel', [ProductTypesController::class, 'List'])->name('excel');
-        Route::post('/import-excel', [ProductTypesController::class, 'ImportExcel'])->name('excel');
+        Route::get('/import-excel', [ProductTypesController::class, 'List'])->name('import-excel');
+        Route::post('/import-excel', [ProductTypesController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [ProductTypesController::class, 'ExportExcel'])->name('export-excel');
     });
 
     //endProductTypes
@@ -128,8 +136,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/view-pdf', [CategoriesController::class, 'ViewPDF'])->name('pdf');
 
-        Route::get('/import-excel', [CategoriesController::class, 'List'])->name('excel');
-        Route::post('/import-excel', [CategoriesController::class, 'ImportExcel'])->name('excel');
+        Route::get('/import-excel', [CategoriesController::class, 'List'])->name('import-excel');
+        Route::post('/import-excel', [CategoriesController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [CategoriesController::class, 'ExportExcel'])->name('export-excel');
     });
 
     //endCategories
@@ -150,8 +160,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/view-pdf', [DiscountsController::class, 'ViewPDF'])->name('pdf');
 
-        Route::get('/import-excel', [DiscountsController::class, 'List'])->name('excel');
-        Route::post('/import-excel', [DiscountsController::class, 'ImportExcel'])->name('excel');
+        Route::get('/import-excel', [DiscountsController::class, 'List'])->name('import-excel');
+        Route::post('/import-excel', [DiscountsController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [DiscountsController::class, 'ExportExcel'])->name('export-excel');
     });
 
     //endDiscounts
@@ -166,8 +178,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/view-pdf', [UsersController::class, 'ViewPDF'])->name('pdf');
 
-        Route::get('/import-excel', [UsersController::class, 'List'])->name('excel');
-        Route::post('/import-excel', [UsersController::class, 'ImportExcel'])->name('excel');
+        Route::get('/import-excel', [UsersController::class, 'List'])->name('import-excel');
+        Route::post('/import-excel', [UsersController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [UsersController::class, 'ExportExcel'])->name('export-excel');
     });
 
     //endUsers
@@ -188,6 +202,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/verify/{id}', [ImportsController::class, 'Verify'])->name('verify');
 
         Route::get('/view-pdf', [ImportsController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/export-excel', [ImportsController::class, 'ExportExcel'])->name('export-excel');
     });
 
     //endImports
@@ -201,6 +217,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}', [CommentsController::class, 'Delete'])->name('delete');
 
         Route::get('/view-pdf', [CommentsController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/export-excel', [CommentsController::class, 'ExportExcel'])->name('export-excel');
     });
 
     //endComments
@@ -218,6 +236,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/status/{id}/{status}', [CartsController::class, 'ChangeStatus'])->name('status');
 
         Route::get('/view-pdf', [CartsController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/export-excel', [CartsController::class, 'ExportExcel'])->name('export-excel');
     });
 
     //endExports

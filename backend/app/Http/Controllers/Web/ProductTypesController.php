@@ -9,7 +9,9 @@ use App\Models\Status;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 use App\Http\Requests\CreateProductTypesRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Imports\ProductTypesImport;
+use App\Exports\ProductTypesExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class ProductTypesController extends Controller
@@ -91,5 +93,42 @@ class ProductTypesController extends Controller
         $data = ProductTypes::all();
         $pdf = PDF::loadView('product_types.pdf',  compact('data'));
         return $pdf->stream('Product Types.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new ProductTypesImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
+    }
+    public function ExportExcel(Request $re)
+    {
+        if ($re->type == 'xlsx') {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        } elseif ($re->type == 'csv') {
+
+            $files = 'csv';
+            $format = \Maatwebsite\Excel\Excel::CSV;
+        } elseif ($re->type == 'xls') {
+
+            $files = 'xls';
+            $format = \Maatwebsite\Excel\Excel::XLS;
+        } elseif ($re->type == 'html') {
+
+            $files = 'html';
+            $format = \Maatwebsite\Excel\Excel::HTML;
+        } else {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        }
+
+        $filename = "ProductTypes-" . date('d-m-Y') . "." . $files;
+        return Excel::download(new ProductTypesExport, $filename, $format);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Users;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Imports\UsersImport;
+use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
@@ -50,5 +51,32 @@ class UsersController extends Controller
         Excel::import(new UsersImport, $re->file('import_file'));
 
         return redirect()->back()->with('alert', "Import successfully");
+    }
+    public function ExportExcel(Request $re)
+    {
+        if ($re->type == 'xlsx') {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        } elseif ($re->type == 'csv') {
+
+            $files = 'csv';
+            $format = \Maatwebsite\Excel\Excel::CSV;
+        } elseif ($re->type == 'xls') {
+
+            $files = 'xls';
+            $format = \Maatwebsite\Excel\Excel::XLS;
+        } elseif ($re->type == 'html') {
+
+            $files = 'html';
+            $format = \Maatwebsite\Excel\Excel::HTML;
+        } else {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        }
+
+        $filename = "Users-" . date('d-m-Y') . "." . $files;
+        return Excel::download(new UsersExport, $filename, $format);
     }
 }
