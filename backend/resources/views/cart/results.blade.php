@@ -15,12 +15,22 @@
                     <a class="dropdown-item" href="{{ route('cart.details', ['id' => $cart->id]) }}"><i class="bx bx-detail"></i>
                     Detail</a>
                     @if($cart->status_carts_id == 1)
-                    <a data-id="{{ $cart->id }}" class="dropdown-item delete-link" data-action="duyệt"
-                        data-route="{{ route('cart.verify', ['id' => $cart->id]) }}"><i class="bx bx-check-square"></i>
+                    <a data-id="{{ $cart->id }}" class="dropdown-item delete-link" data-action="cập nhập status thành đã duyệt"
+                        data-route="{{ route('cart.status', ['id' => $cart->id, 'status' => '2']) }}"><i class="bx bx-check-square"></i>
                         Verify</a>
                     <a data-id="{{ $cart->id }}" class="dropdown-item delete-link" data-action="xóa"
                         data-route="{{ route('cart.delete', ['id' => $cart->id]) }}"><i class="bx bx-trash"></i>
                         Delete</a>
+                    @endif
+                    @if($cart->status_carts_id == 2)
+                    <a data-id="{{ $cart->id }}" class="dropdown-item delete-link" data-action="cập nhập status thành đang giao"
+                        data-route="{{ route('cart.status', ['id' => $cart->id, 'status' => '4']) }}"><i class="bx bx-check-square"></i>
+                        Being Delivered</a>
+                    @endif
+                    @if($cart->status_carts_id == 4)
+                    <a data-id="{{ $cart->id }}" class="dropdown-item delete-link" data-action="cập nhập status thành đã giao"
+                        data-route="{{ route('cart.status', ['id' => $cart->id, 'status' => '5']) }}"><i class="bx bx-check-square"></i>
+                        Delivered</a>
                     @endif
             </div>
         </div>
