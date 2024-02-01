@@ -61,9 +61,7 @@
                                                 @endforeach
                                                 @endif
                                             </select>
-                                            <button type="button" class="btn btn-icon btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#addColorModal">
-                                                <span class="bx bx-palette"></span>
-                                            </button>
+                                           
                                         </div>
 
                                     </div>
@@ -78,9 +76,7 @@
                                                 @endforeach
                                                 @endif
                                             </select>
-                                            <button type="button" class="btn btn-icon btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#addSizeModal">
-                                                <span class="bx bx-ruler"></span>
-                                            </button>
+                                           
                                         </div>
 
                                     </div>
@@ -179,26 +175,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                <h5 class="modal-title" id="modalCenterTitle">Add Color</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col mb-3">
                         <label for="nameWithTitle" class="form-label">Name</label>
-                        <input type="text" id="nameWithTitle" class="form-control" placeholder="Enter Name">
+                        <input type="text" id="nameWithTitle" class="form-control" placeholder="Enter Name Color">
                     </div>
                 </div>
-                <div class="row g-2">
-                    <div class="col mb-0">
-                        <label for="emailWithTitle" class="form-label">Email</label>
-                        <input type="text" id="emailWithTitle" class="form-control" placeholder="xxxx@xxx.xx">
-                    </div>
-                    <div class="col mb-0">
-                        <label for="dobWithTitle" class="form-label">DOB</label>
-                        <input type="text" id="dobWithTitle" class="form-control" placeholder="DD / MM / YY">
-                    </div>
-                </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -210,3 +197,30 @@
     </div>
 </div>
 <!--End color Modal -->
+<!--Add size Modal -->
+<div class="modal fade" id="addColorModal" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="btn">Add Size</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="nameWithTitle" class="form-label">Name</label>
+                        <input type="text" id="nameWithTitle" class="form-control" placeholder="Enter Name Color">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End size Modal -->

@@ -11,7 +11,6 @@
         <input type="text" id="searchInput" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon-search31">
     </div>
     
-   
 </div>
 <br>
 <div class="card">
@@ -84,9 +83,9 @@
     $j(document).ready(function() {
         $j('#searchInput').on('keyup', function(event) {
             if (event.key === 'Enter') {
-                
+
                 searchProducts();
-                
+
             }
         });
         $j('#btnCreateProduct').click(function() {
@@ -138,7 +137,7 @@
                 _token: '{{ csrf_token() }}'
             },
             success: function(data) {
-                
+
                 $j('#listProduct tbody').html(data);
 
             },

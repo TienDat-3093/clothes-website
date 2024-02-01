@@ -25,19 +25,20 @@
             @include('import/results')
         </tbody>
     </table>
-    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#searchInput').on('keyup', function(event) {
+    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
+        <script>
+        var $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            $j('#searchInput').on('keyup', function(event) {
                 if (event.key === 'Enter') {
-                    searchSuppliers();
+                    search();
                 }
             });
         });
 
-        function searchSuppliers() {
-            let keyword = $('#searchInput').val();
-            $.ajax({
+        function search() {
+            let keyword = $j('#searchInput').val();
+            $j.ajax({
                 url: '{{ route('import.search') }}',
                 type: 'POST',
                 data: {
@@ -45,7 +46,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(data) {
-                    $('#listImport tbody').html(data);
+                    $j('#listImport tbody').html(data);
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);

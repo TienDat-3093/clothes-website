@@ -3,7 +3,7 @@ import Product from "./product/Product";
 import Filter from "./home/Filter";
 import { useState, useEffect } from "react";
 import Search from "./home/Search";
-import {fetchAllCategories,fetchProductToCategory,} from "../services/UserService";
+import {fetchAllCategories,fetchProductToCategory} from "../services/UserService";
 
 export default function ListProducts(props) {
   
@@ -14,7 +14,9 @@ export default function ListProducts(props) {
   const [searchResults, setSearchResults] = useState([]);
   const [categoryID, setCategotyID] = useState([]);
   const [categories, setCategories] = useState([]);
+  
 
+ 
   
   const getCategories = async () => {
     try {

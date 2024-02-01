@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUserComment,fetchUserDetail } from "../services/UserService";
+import { fetchUserComment,fetchUserDetail,fetchUserCart } from "../services/UserService";
 import axios from "axios";
 export default function Login() {
     const navigate = useNavigate();
@@ -27,6 +27,7 @@ export default function Login() {
                 if(response===null)
                 return;
                 fetchUserComment(response.id,token);
+                fetchUserCart(response.id,token);
                 navigate("/");
             })
         } catch (error) {
@@ -34,6 +35,8 @@ export default function Login() {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             localStorage.removeItem('comment');
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cartDetail');
         }
     };
     return (

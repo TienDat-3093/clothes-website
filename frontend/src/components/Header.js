@@ -24,13 +24,20 @@ export default function Header() {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("comment");
+        localStorage.removeItem("cart");
+        localStorage.removeItem("cartDetail");
+        localStorage.removeItem("usercart");
         navigate("/");
       }
     } catch (error) {
+      console.log(error);
       if (error.response.data.message == "Token has expired") {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("comment");
+        localStorage.removeItem("cart");
+        localStorage.removeItem("cartDetail");
+        localStorage.removeItem("usercart");
         navigate("/");
       }
       console.log("Error during logout:", error.response.data.message);
@@ -140,28 +147,24 @@ export default function Header() {
           </div>
           <div ref={wrapMenuDesktopRef} className="wrap-menu-desktop">
             <nav className="limiter-menu-desktop container">
-              {/* Logo desktop */}
               <NavLink to="/" className="logo">
                 <img src="../images/icons/logo-01.png" alt="IMG-LOGO" />
               </NavLink>
-              {/* Menu desktop */}
+
               <div className="menu-desktop">
                 <ul className="main-menu">
                   <li className="">
                     <NavLink to="/">Home</NavLink>
                   </li>
-                  {/* <li>
-                    <NavLink to="/shop">Shop</NavLink>
-                  </li> */}
 
                   <li className="">
                     <a href="/shop">Shop</a>
                     <ul className="sub-menu">{getShop()}</ul>
                   </li>
 
-                  <li className="">
+                  {/* <li className="">
                     <NavLink to="/features">Features</NavLink>
-                  </li>
+                  </li> */}
                   <li className="">
                     <NavLink to="/blog">Blog</NavLink>
                   </li>
@@ -173,7 +176,7 @@ export default function Header() {
                   </li>
                 </ul>
               </div>
-              {/* Icon header */}
+
               <div className="wrap-icon-header flex-w flex-r-m">
                 <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                   <i className="zmdi zmdi-search" />
@@ -196,15 +199,14 @@ export default function Header() {
             </nav>
           </div>
         </div>
-        {/* Header Mobile */}
+
         <div className="wrap-header-mobile">
-          {/* Logo moblie */}
           <div className="logo-mobile">
             <NavLink to="/">
               <img src="../images/icons/logo-01.png" alt="IMG-LOGO" />
             </NavLink>
           </div>
-          {/* Icon header */}
+
           <div className="wrap-icon-header flex-w flex-r-m m-r-15">
             <div className="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
               <i className="zmdi zmdi-search" />
@@ -224,100 +226,68 @@ export default function Header() {
               <i className="zmdi zmdi-favorite-outline" />
             </NavLink>
           </div>
-          {/* Button show menu */}
+
           <div className="btn-show-menu-mobile hamburger hamburger--squeeze">
             <span className="hamburger-box">
               <span className="hamburger-inner" />
             </span>
           </div>
         </div>
-        {/* Menu Mobile */}
-        <div className="menu-mobile">
-          {
-            <ul className="topbar-mobile">
-              <li>
-                <div className="left-top-bar">
-                  Welcome to our clothes website
-                </div>
-              </li>
-              <li>
-                <div className="right-top-bar flex-w h-full">
-                  <a href="#" className="flex-c-m p-lr-10 trans-04">
-                    Help &amp; FAQs
-                  </a>
 
-                  {!token ? (
-                    <>
-                      <NavLink
-                        to="/login"
-                        className="flex-c-m trans-04 p-lr-25"
-                      >
-                        Login
-                      </NavLink>
-                    </>
-                  ) : null}
-                  {token ? (
-                    <>
-                      <a href="user" className="flex-c-m trans-04 p-lr-25">
-                        {user.username}
-                      </a>
-                      <a
-                        href="#"
-                        className="flex-c-m trans-04 p-lr-25"
-                        onClick={handleLogout}
-                      >
-                        Logout
-                      </a>
-                    </>
-                  ) : null}
+        <div className="menu-mobile">
+          <ul className="topbar-mobile">
+            <li>
+              <div className="left-top-bar">Welcome to our clothes website</div>
+            </li>
+            <li>
+              <div className="right-top-bar flex-w h-full">
+                <a href="#" className="flex-c-m p-lr-10 trans-04">
+                  Help &amp; FAQs
+                </a>
+
+                {!token ? (
+                  <>
+                    <NavLink to="/login" className="flex-c-m trans-04 p-lr-25">
+                      Login
+                    </NavLink>
+                  </>
+                ) : null}
+                {token ? (
+                  <>
+                    <a href="user" className="flex-c-m trans-04 p-lr-25">
+                      {user.username}
+                    </a>
+                    <a
+                      href="#"
+                      className="flex-c-m trans-04 p-lr-25"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </a>
+                  </>
+                ) : null}
+              </div>
+
+              <div className="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+                <div className="container-search-header">
+                  <button className="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                    <img src="../images/icons/icon-close2.png" alt="CLOSE" />
+                  </button>
+                  <div className="wrap-search-header flex-w p-l-15">
+                    <button className="flex-c-m trans-04">
+                      <i className="zmdi zmdi-search" />
+                    </button>
+                    <input
+                      className="plh3"
+                      type="text"
+                      name="search"
+                      placeholder="Search..."
+                    />
+                  </div>
                 </div>
-              </li>
-            </ul>
-          }
-          <ul className="main-menu-m">
-            <li>
-              <NavLink to="/">Home</NavLink>
-              <span className="arrow-main-menu-m">
-                <i className="fa fa-angle-right" aria-hidden="true" />
-              </span>
-            </li>
-            <li>
-              <NavLink to="/shop">Shop</NavLink>
-            </li>
-            <li>
-              <NavLink to="/features" className="label">
-                Features
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/blog">Blog</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">About</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">Contact</NavLink>
+              </div>
             </li>
           </ul>
-        </div>
-        {/* Modal Search */}
-        <div className="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-          <div className="container-search-header">
-            <button className="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-              <img src="../images/icons/icon-close2.png" alt="CLOSE" />
-            </button>
-            <form className="wrap-search-header flex-w p-l-15">
-              <button className="flex-c-m trans-04">
-                <i className="zmdi zmdi-search" />
-              </button>
-              <input
-                className="plh3"
-                type="text"
-                name="search"
-                placeholder="Search..."
-              />
-            </form>
-          </div>
         </div>
       </header>
     </>

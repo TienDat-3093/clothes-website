@@ -27,19 +27,20 @@
             @include('admin/results')
         </tbody>
     </table>
-    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $('#searchInput').on('keyup', function(event) {
+    var $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            $j('#searchInput').on('keyup', function(event) {
                 if (event.key === 'Enter') {
-                    searchSuppliers();
+                    search();
                 }
             });
         });
 
-        function searchSuppliers() {
-            let keyword = $('#searchInput').val();
-            $.ajax({
+        function search() {
+            let keyword = $j('#searchInput').val();
+            $j.ajax({
                 url: "{{route('admin.search')}}",
                 type: 'POST',
                 data: {

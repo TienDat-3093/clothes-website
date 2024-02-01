@@ -23,7 +23,14 @@ class AdminsController extends Controller
     public function loginHandle(LoginRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('admin.dashboard');
+            $user = Auth::user();
+            if ($user) {
+                if ($user['status_id'] == 2) {
+                    return redirect()->route('admin.login')->with('alert', 'Tài khoản đã bị khóa');
+                } else {
+                    return redirect()->route('dashboard.index');
+                }
+            }
         }
         return redirect()->route('admin.login')->with('alert', 'Access denied!');
     }
@@ -41,8 +48,8 @@ class AdminsController extends Controller
     }
     public function index()
     {
-        $listAdmin=Admins::all();
-        return view('admin/index',compact('listAdmin'));
+        $listAdmin = Admins::all();
+        return view('admin/index', compact('listAdmin'));
     }
     public function search(Request $request)
     {
@@ -88,8 +95,7 @@ class AdminsController extends Controller
     public function delete($id)
     {
         $admin = Admins::find($id);
-        if($admin->status_id == 2)
-        {
+        if ($admin->status_id == 2) {
             return redirect()->route('admin.index')->with('alert', 'Tài khoản admin đã được khóa rồi');
         }
         $admin->status_id = 2;

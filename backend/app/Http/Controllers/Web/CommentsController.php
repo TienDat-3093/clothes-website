@@ -17,16 +17,19 @@ class CommentsController extends Controller
     public function Search(Request $request)
     {
         $keyword = $request->input('data');
-        if($keyword!=null){
-            $user_id = Users::where('username', 'like', "%$keyword%")->pluck('id');
-            if($user_id->isEmpty())
-                $listComment = Comments::where('users_id', -1)->get();
-            else
-                $listComment = Comments::where('users_id', "$user_id[0]")->get();
-            }
-        else{
+
+        if (empty($keyword)) {
             $listComment = Comments::all();
+        } else {
+            $user_id = Users::where('username', 'like', "%$keyword%")->pluck('id')->toArray();
+
+            if (!empty($user_id)) {
+                $listComment = Comments::whereIn('users_id', $user_id)->get();
+            } else {
+                $listComment = [];
+            }
         }
+
         return view('comment/results', compact('listComment'));
     }
     public function Delete($id)

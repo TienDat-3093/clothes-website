@@ -12,6 +12,9 @@ use App\Http\Controllers\Web\CommentsController;
 use App\Http\Controllers\Web\CartsController;
 use App\Http\Controllers\Web\DiscountsController;
 use App\Http\Controllers\Web\SlideShowController;
+use App\Http\Controllers\Web\DashBoardController;
+use App\Http\Controllers\Web\ColorsController;
+use App\Http\Controllers\Web\SizesController;
 use App\Models\Suppliers;
 
 /*
@@ -34,7 +37,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', [AdminsController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/', [DashBoardController::class, 'index'])->name('dashboard.index');
     Route::get('/logout', [AdminsController::class, 'logout'])->name('admin.logout');
 
     //Admins
@@ -67,12 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [SlideShowController::class, 'index'])->name('index');
         Route::post('/create', [SlideShowController::class, 'create'])->name('create');
         Route::get('/delete/{id}', [SlideShowController::class, 'delete'])->name('delete');
-        /* Route::post('/search', [SuppliersController::class, 'search'])->name('search');
-        Route::get('/create', [SuppliersController::class, 'create'])->name('create');
-        Route::post('/create', [SuppliersController::class, 'createHandle'])->name('createHandle');
-        Route::get('/update/{id}', [SuppliersController::class, 'update'])->name('update');
-        Route::post('/update/{id}', [SuppliersController::class, 'updateHandle'])->name('updateHandle');
-        Route::get('/delete/{id}', [SuppliersController::class, 'delete'])->name('delete'); */
+        
     });
     //endSlideshow
     //Products
@@ -195,4 +193,22 @@ Route::middleware('auth')->group(function () {
     });
 
     //endImports
+    //Color
+    Route::prefix('/color')->name('color.')->group(function () {
+        Route::get('/',[ColorsController::class,'index'])->name('index');
+        Route::post('/create',[ColorsController::class,'create'])->name('create');
+        Route::get('/update/{id}', [ColorsController::class, 'update'])->name('update');
+        Route::post('/update/{id}', [ColorsController::class, 'updateHandle'])->name('update');
+    });
+    //endColor
+    Route::prefix('/size')->name('size.')->group(function () {
+        Route::get('/',[SizesController::class,'index'])->name('index');
+        Route::post('/create',[SizesController::class,'create'])->name('create');
+        Route::get('/update/{id}', [SizesController::class, 'update'])->name('update');
+        Route::post('/update/{id}', [SizesController::class, 'updateHandle'])->name('update');
+        
+    });
+    Route::prefix('/dashboard')->name('dashboard.')->group(function () {
+        Route::get('/chart', [DashBoardController::class, 'chart'])->name('dashboard.chart');
+    });
 });

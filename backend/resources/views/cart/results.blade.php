@@ -4,11 +4,7 @@
         <td>{{ $cart->total_price }}</td>
         <td>{{ $cart->users->username }}</td>
         <td>{{ $cart->discounts_id }}</td>
-        @if($cart->status->id == 1)
-            <td><span class="badge bg-label-primary me-1">Chờ duyệt</span></td>
-        @else
-            <td><span class="badge bg-label-primary me-1">Đã duyệt</span></td>
-        @endif
+        <td><span class="badge bg-label-primary me-1">{{$cart->status_carts->name}}</span></td>
         <td>
         <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"
@@ -18,7 +14,7 @@
             <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ route('cart.details', ['id' => $cart->id]) }}"><i class="bx bx-detail"></i>
                     Detail</a>
-                    @if($cart->status_id == 1)
+                    @if($cart->status_carts_id == 1)
                     <a data-id="{{ $cart->id }}" class="dropdown-item delete-link" data-action="duyệt"
                         data-route="{{ route('cart.verify', ['id' => $cart->id]) }}"><i class="bx bx-check-square"></i>
                         Verify</a>
