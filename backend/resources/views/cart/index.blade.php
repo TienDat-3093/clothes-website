@@ -2,6 +2,8 @@
 
 
 @section('content')
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bills/</span> Index </h4>
+
     <div class="mt-2 d-flex align-items-center">
         <a href="{{ route('cart.pdf') }}" class="btn btn-primary me-5">View PDF</a>
         <form action="{{ route('cart.export-excel') }}" method="GET">
