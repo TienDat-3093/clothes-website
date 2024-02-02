@@ -2,6 +2,8 @@
 
 
 @section('content')
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Imports/</span> Index </h4>
+
     <div class="mt-2 d-flex align-items-center">
         <a href="{{ route('import.create') }}" class="btn btn-primary me-2">Add</a>
         <a href="{{ route('import.pdf') }}" class="btn btn-primary me-5">View PDF</a>
