@@ -11,7 +11,17 @@ class Users extends Authenticatable implements JWTSubject
 {
     use HasFactory;
     protected $table = 'users';
-    public function status(){
+    protected $fillable = [
+        'username',
+        'fullname',
+        'email',
+        'address',
+        'password',
+        'phone_number',
+        'login_at',
+    ];
+    public function status()
+    {
         return $this->belongsTo(StatusUsers::class);
     }
     public function getJWTIdentifier()

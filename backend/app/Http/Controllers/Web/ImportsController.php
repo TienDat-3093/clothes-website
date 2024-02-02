@@ -12,6 +12,9 @@ use App\Models\Colors;
 use App\Models\Sizes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use App\EXports\ImportsExport;
 
 class ImportsController extends Controller
 {
@@ -104,5 +107,38 @@ class ImportsController extends Controller
             $i++;
         }
         return redirect()->route('import.index');
+    }
+    public function ViewPDF()
+    {
+        $data = Imports::all();
+        $pdf = PDF::loadView('import.pdf',  compact('data'));
+        return $pdf->stream('Import.pdf');
+    }
+    public function ExportExcel(Request $re)
+    {
+        if ($re->type == 'xlsx') {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        } elseif ($re->type == 'csv') {
+
+            $files = 'csv';
+            $format = \Maatwebsite\Excel\Excel::CSV;
+        } elseif ($re->type == 'xls') {
+
+            $files = 'xls';
+            $format = \Maatwebsite\Excel\Excel::XLS;
+        } elseif ($re->type == 'html') {
+
+            $files = 'html';
+            $format = \Maatwebsite\Excel\Excel::HTML;
+        } else {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        }
+
+        $filename = "Imports-" . date('d-m-Y') . "." . $files;
+        return Excel::download(new ImportsExport, $filename, $format);
     }
 }

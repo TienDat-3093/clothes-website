@@ -8,11 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Carts extends Model
 {
     use HasFactory;
-    protected $table ='carts';
-    public function status_carts(){
+    protected $table = 'carts';
+    public function status_carts()
+    {
         return $this->belongsTo(StatusCarts::class);
     }
-    public function users(){
+    public function users()
+    {
         return $this->belongsTo(Users::class);
+    }
+    public function discounts()
+    {
+        return $this->belongsTo(Discounts::class);
     }
 }

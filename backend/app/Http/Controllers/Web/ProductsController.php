@@ -13,6 +13,10 @@ use App\Models\Sizes;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Nette\Schema\Expect;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Imports\ProductsImport;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductsController extends Controller
 {
@@ -26,7 +30,7 @@ class ProductsController extends Controller
         $status = Status::all();
         return view('product/index', compact('listProduct', 'productImage', 'listCategory', 'listColor', 'listSize'));
     }
- 
+
     public function search(Request $request)
     {
         $productImage = ProductImages::all();
@@ -153,7 +157,7 @@ class ProductsController extends Controller
             }
             $productImage = ProductImages::all();
             $listProduct = Products::paginate(10);
-            return view('product/results', compact('listProduct','productImage'));
+            return view('product/results', compact('listProduct', 'productImage'));
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error']);
         }
@@ -161,17 +165,59 @@ class ProductsController extends Controller
     public function delete($id)
     {
         $product = Products::find($id);
-        if(!empty($product)){
-            if($product->status_id == 2)
-            {
-                return redirect()->route('product.index')->with('alert' ,'Sản phẩm không tồn tại');
+        if (!empty($product)) {
+            if ($product->status_id == 2) {
+                return redirect()->route('product.index')->with('alert', 'Sản phẩm không tồn tại');
             }
             $product->status_id = 2;
             $product->save();
-            return redirect()->route('product.index')->with('alert' ,'Xóa thành công sản phẩm');
+            return redirect()->route('product.index')->with('alert', 'Xóa thành công sản phẩm');
+        } else {
+            return redirect()->route('product.index')->with('alert', 'Không có sản phẩm có id {$id}');
         }
-        else{
-            return redirect()->route('product.index')->with('alert' ,'Không có sản phẩm có id {$id}');
+    }
+
+    public function ViewPDF()
+    {
+        $data = Products::all();
+        $pdf = PDF::loadView('product.pdf',  compact('data'));
+        return $pdf->stream('Products.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new ProductsImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
+    }
+    public function ExportExcel(Request $re)
+    {
+        if ($re->type == 'xlsx') {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        } elseif ($re->type == 'csv') {
+
+            $files = 'csv';
+            $format = \Maatwebsite\Excel\Excel::CSV;
+        } elseif ($re->type == 'xls') {
+
+            $files = 'xls';
+            $format = \Maatwebsite\Excel\Excel::XLS;
+        } elseif ($re->type == 'html') {
+
+            $files = 'html';
+            $format = \Maatwebsite\Excel\Excel::HTML;
+        } else {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
         }
+
+        $filename = "Products-" . date('d-m-Y') . "." . $files;
+        return Excel::download(new ProductsExport, $filename, $format);
     }
 }

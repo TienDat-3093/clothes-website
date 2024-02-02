@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { checkout,fetchUserCart } from '../../services/UserService';
+import { checkout, fetchUserCart } from '../../services/UserService';
 
 export default function CartDetail() {
 
@@ -34,8 +34,22 @@ export default function CartDetail() {
         updateCart(updatedCart);
     };
 
+    // const handleChangeQuantity = (index, newQuantity) => {
+    //     newQuantity = Math.max(1, newQuantity);
+
+    //     const updatedCart = [...usercart];
+    //     updatedCart[index].quantity = newQuantity;
+    //     updateCart(updatedCart);
+    // };
+
     const handleChangeQuantity = (index, newQuantity) => {
         newQuantity = Math.max(1, newQuantity);
+
+        // Kiểm tra nếu newQuantity vượt quá số lượng sản phẩm đang có
+        if (newQuantity > usercart[index].quantity_available) {
+            alert('Số lượng không thể vượt quá số lượng sản phẩm đang có.');
+            return;
+        }
 
         const updatedCart = [...usercart];
         updatedCart[index].quantity = newQuantity;
@@ -55,7 +69,7 @@ export default function CartDetail() {
 
             if (success) {
                 alert('Đặt hàng thành công!');
-                await fetchUserCart(user.id,token);
+                await fetchUserCart(user.id, token);
                 updateCart([]);
             }
         } catch (error) {
@@ -149,12 +163,12 @@ export default function CartDetail() {
                                                     </td>
                                                     <td className="column-5">{item.price * item.quantity}</td>
                                                     <td className="column-5">
-                                                        <button
+                                                        <div
                                                             onClick={() => removeFromCart(index)}
                                                             className="btn btn-sm btn-icon"
                                                         >
                                                             X
-                                                        </button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             ))}

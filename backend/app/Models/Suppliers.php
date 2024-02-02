@@ -9,10 +9,14 @@ class Suppliers extends Model
 {
     use HasFactory;
     protected $table = 'suppliers';
-
+    protected $fillable = [
+        'name',
+        'email',
+        'phone_number',
+        'address',
+    ];
     public function status()
     {
         return $this->belongsTo(StatusUsers::class);
     }
-
 }

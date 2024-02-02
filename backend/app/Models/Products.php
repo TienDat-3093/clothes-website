@@ -9,6 +9,13 @@ class Products extends Model
 {
     use HasFactory;
     protected $table = 'products';
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'star_avg',
+        'categories_id',
+    ];
     public function listImage()
     {
         return $this->hasMany(ProductImages::class);
@@ -23,7 +30,6 @@ class Products extends Model
     }
     public function category()
     {
-        return $this->belongsTo(Categories::class,'categories_id');
+        return $this->belongsTo(Categories::class, 'categories_id');
     }
-    
 }

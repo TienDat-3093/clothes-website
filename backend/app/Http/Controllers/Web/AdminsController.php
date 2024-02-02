@@ -9,6 +9,10 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Imports\AdminsImport;
+use App\EXports\AdminsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminsController extends Controller
 {
@@ -101,5 +105,49 @@ class AdminsController extends Controller
         $admin->status_id = 2;
         $admin->save();
         return redirect()->route('admin.index')->with('alert', 'Khóa tài khoản admin thành công');
+    }
+
+    public function ViewPDF()
+    {
+        $data = Admins::all();
+        $pdf = PDF::loadView('admin.pdf',  compact('data'));
+        return $pdf->stream('Admin.pdf');
+    }
+    public function ImportExcel(Request $re)
+    {
+        // $re->validate([
+        //     'import_file' => ['require', 'file'],
+        // ]);
+
+        Excel::import(new AdminsImport, $re->file('import_file'));
+
+        return redirect()->back()->with('alert', "Import successfully");
+    }
+    public function ExportExcel(Request $re)
+    {
+        if ($re->type == 'xlsx') {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        } elseif ($re->type == 'csv') {
+
+            $files = 'csv';
+            $format = \Maatwebsite\Excel\Excel::CSV;
+        } elseif ($re->type == 'xls') {
+
+            $files = 'xls';
+            $format = \Maatwebsite\Excel\Excel::XLS;
+        } elseif ($re->type == 'html') {
+
+            $files = 'html';
+            $format = \Maatwebsite\Excel\Excel::HTML;
+        } else {
+
+            $files = 'xlsx';
+            $format = \Maatwebsite\Excel\Excel::XLSX;
+        }
+
+        $filename = "Admins-" . date('d-m-Y') . "." . $files;
+        return Excel::download(new AdminsExport, $filename, $format);
     }
 }

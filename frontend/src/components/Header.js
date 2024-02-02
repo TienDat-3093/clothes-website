@@ -5,43 +5,42 @@ import { fetchAllProductType } from "../services/UserService";
 import $ from "jquery";
 import axios from "axios";
 export default function Header() {
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
-  const navigate = useNavigate();
-  const handleLogout = async () => {
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/logout",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            Accept: "application/json",
-          },
-        }
-      );
-      if (response.data.message == "Successfully logged out") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        localStorage.removeItem("comment");
-        localStorage.removeItem("cart");
-        localStorage.removeItem("cartDetail");
-        localStorage.removeItem("usercart");
-        navigate("/");
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+      try {
+          const response = await axios.post(
+              'http://127.0.0.1:8000/api/logout',
+              {},
+              {
+                  headers: {
+                      Authorization: 'Bearer ' + token,
+                      Accept: 'application/json',
+                  },
+              });
+          if (response.data.message == "Successfully logged out") {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              localStorage.removeItem('comment');
+              localStorage.removeItem('cart');
+              localStorage.removeItem('cartDetail');
+              localStorage.removeItem('usercart');
+              navigate('/');
+          }
+      } catch (error) {
+          console.log(error);
+          if (error.response.data.message == "Token has expired") {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              localStorage.removeItem('comment');
+              localStorage.removeItem('cart');
+              localStorage.removeItem('cartDetail');
+              localStorage.removeItem('usercart');
+              navigate('/');
+          }
+          console.log('Error during logout:', error.response.data.message);
       }
-    } catch (error) {
-      console.log(error);
-      if (error.response.data.message == "Token has expired") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        localStorage.removeItem("comment");
-        localStorage.removeItem("cart");
-        localStorage.removeItem("cartDetail");
-        localStorage.removeItem("usercart");
-        navigate("/");
-      }
-      console.log("Error during logout:", error.response.data.message);
-    }
   };
   const menuDesktopRef = useRef(null);
   const wrapMenuDesktopRef = useRef(null);
