@@ -42,7 +42,14 @@ class CartsController extends Controller
 
         return view('cart/results', compact('listCart'));
     }
-    public function ChangeStatus($id,$status)
+    public function Verify($id)
+    {
+        $cart = Carts::where('id', $id)->get();
+        $cart[0]->status_carts_id = 2;
+        $cart[0]->save();
+        return redirect()->route('cart.index')->with('alert', 'Duyệt hóa đơn thành công!');
+    }
+    public function ChangeStatus($id, $status)
     {
         $cart = Carts::where('id', $id)->get();
         $cart[0]->status_carts_id = $status;
