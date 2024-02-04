@@ -55,7 +55,7 @@
         function search() {
             let keyword = $j('#searchInput').val();
             $j.ajax({
-                url: '{{ route('import.search') }}',
+                url: "{{ route('import.search') }}",
                 type: 'POST',
                 data: {
                     data: keyword,

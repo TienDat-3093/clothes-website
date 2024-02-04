@@ -71,7 +71,7 @@
         function searchCategories() {
             let keyword = $j('#searchInput').val();
             $j.ajax({
-                url: '{{ route('categories.search') }}',
+                url: "{{ route('categories.search') }}",
                 type: 'POST',
                 data: {
                     data: keyword,

@@ -42,7 +42,7 @@
             @include('comment/results')
         </tbody>
     </table>
-    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
     <script>
         var $j = jQuery.noConflict();
         $j(document).ready(function() {
@@ -56,7 +56,7 @@
         function searchComments() {
             let keyword = $j('#searchInput').val();
             $j.ajax({
-                url: '{{ route('comment.search') }}',
+                url: "{{ route('comment.search') }}",
                 type: 'POST',
                 data: {
                     data: keyword,

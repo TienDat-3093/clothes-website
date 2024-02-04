@@ -41,11 +41,10 @@
             @include('cart/results')
         </tbody>
     </table>
-    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
     <script>
-        var $j = jQuery.noConflict();
-        $j(document).ready(function() {
-            $j('#searchInput').on('keyup', function(event) {
+        $(document).ready(function() {
+            $('#searchInput').on('keyup', function(event) {
                 if (event.key === 'Enter') {
                     search();
                 }
@@ -55,7 +54,7 @@
         function search() {
             let keyword = $j('#searchInput').val();
             $j.ajax({
-                url: '{{ route('cart.search') }}',
+                url: "{{ route('cart.search') }}",
                 type: 'POST',
                 data: {
                     data: keyword,

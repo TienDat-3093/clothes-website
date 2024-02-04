@@ -52,7 +52,7 @@
             @include('user/results')
         </tbody>
     </table>
-    <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{asset('assets/jquery-3.7.1.min.js')}}"></script>
     <script>
         var $j = jQuery.noConflict();
         $j(document).ready(function() {
@@ -66,7 +66,7 @@
         function search() {
             let keyword = $j('#searchInput').val();
             $j.ajax({
-                url: '{{ route('user.search') }}',
+                url: "{{ route('user.search') }}",
                 type: 'POST',
                 data: {
                     data: keyword,

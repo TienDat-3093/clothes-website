@@ -55,7 +55,6 @@ export default function CartDetail() {
         updatedCart[index].quantity = newQuantity;
         updateCart(updatedCart);
     };
-
     const handleCheckout = async () => {
         const token = localStorage.getItem('token');
         const user = JSON.parse(localStorage.getItem('user'));
@@ -157,7 +156,6 @@ export default function CartDetail() {
                                                                 onClick={() =>
                                                                     handleChangeQuantity(index, item.quantity + 1)
                                                                 }
-
                                                             >
                                                                 <i className="fs-16 zmdi zmdi-plus" />
                                                             </div>

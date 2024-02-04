@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 export default function Product(props) {
 
     const [isInWishlist, setIsInWishlist] = useState(false);
-
+    const [ wishlist, setWishlist ] = useState([]);
     // useEffect(() => {
     //     // Check if product is already in wishlist on initial render
     //     const isAlreadyInWishlist = props.wishlist.some(item => item.id === props.data.id);
@@ -16,7 +16,8 @@ export default function Product(props) {
     // }, [props.wishlist, props.data.id]);
 
     const addToWishlist = () => {
-        const { wishlist, setWishlist } = props;
+        setWishlist(props);
+        /* const { wishlist, setWishlist } = ; */
         const productId = props.data.id;
 
         if (!wishlist.find(item => item.id === productId)) {
@@ -79,7 +80,6 @@ export default function Product(props) {
             </NavLink>
         );
     };
-
     return (
         <>
             <div className="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item watches">

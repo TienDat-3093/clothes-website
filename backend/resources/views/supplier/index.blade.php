@@ -78,7 +78,7 @@
         function searchSuppliers() {
             let keyword = $j('#searchInput').val();
             $j.ajax({
-                url: '{{ route('supplier.search') }}',
+                url: "{{ route('supplier.search') }}",
                 type: 'POST',
                 data: {
                     data: keyword,

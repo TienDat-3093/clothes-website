@@ -27,7 +27,14 @@ class AdminsController extends Controller
     public function loginHandle(LoginRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('admin.dashboard');
+            $user = Auth::user();
+            if ($user) {
+                if ($user['status_id'] == 2) {
+                    return redirect()->route('admin.login')->with('alert', 'Tài khoản đã bị khóa');
+                } else {
+                    return redirect()->route('dashboard.index');
+                }
+            }
         }
         return redirect()->route('admin.login')->with('alert', 'Access denied!');
     }

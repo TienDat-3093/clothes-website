@@ -3,9 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\APIProductsController;
+use App\Http\Controllers\API\APIProductsController;
 use App\Http\Controllers\API\APIUsersController;
 use App\Http\Controllers\API\APICommentsController;
+use App\Http\Controllers\API\APISlideShowController;
+use App\Http\Controllers\API\APIProductTypesController;
+use App\Http\Controllers\API\APICategoriesController;
 use App\Http\Controllers\API\APICartsController;
 
 /*
@@ -50,10 +53,26 @@ Route::group([
     Route::post('logout', [APIUsersController::class, "logout"]);
 });
 
-Route::prefix('/product')->group(function () {
-    Route::get('/index', [APIProductsController::class, 'index']);
-    Route::get('/show/{id}', [APIProductsController::class, 'show']);
+Route::prefix('/product')->group(function(){
+    Route::get('/index',[APIProductsController::class,'index']);
+    Route::get('/show/{id}',[APIProductsController::class,'show']);
+    Route::post('/search/{keyword}',[APIProductsController::class,'search']);
+    Route::post('filter/{sort}/{price}',[APIProductsController::class,'filter']);
 });
+Route::prefix('/producttype')->group(function(){
+    Route::get('/index',[APIProductTypesController::class,'index']);
+    Route::get('/show/{id}',[APIProductTypesController::class,'show']);
+});
+
+Route::prefix('/category')->group(function(){
+    Route::get('/index',[APICategoriesController::class,'index']);
+    Route::get('/show/{id}',[APICategoriesController::class,'show']);
+});
+
+Route::prefix('/slideshow')->group(function(){
+    Route::get('/index',[APISlideShowController::class,'index']);
+});
+
 
 Route::prefix('/comment')->group(function () {
     Route::get('/{id}', [APICommentsController::class, 'getComment']);

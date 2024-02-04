@@ -11,6 +11,10 @@ use App\Http\Controllers\Web\ImportsController;
 use App\Http\Controllers\Web\CommentsController;
 use App\Http\Controllers\Web\CartsController;
 use App\Http\Controllers\Web\DiscountsController;
+use App\Http\Controllers\Web\SlideShowController;
+use App\Http\Controllers\Web\DashBoardController;
+use App\Http\Controllers\Web\ColorsController;
+use App\Http\Controllers\Web\SizesController;
 use App\Models\Suppliers;
 
 /*
@@ -33,7 +37,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', [AdminsController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/', [DashBoardController::class, 'index'])->name('dashboard.index');
     Route::get('/logout', [AdminsController::class, 'logout'])->name('admin.logout');
 
     //Admins
@@ -75,6 +79,13 @@ Route::middleware('auth')->group(function () {
     });
 
     //endSuppliers
+    //Slideshow
+    Route::prefix('/slideshow')->name('slideshow.')->group(function () {
+        Route::get('/', [SlideShowController::class, 'index'])->name('index');
+        Route::post('/create', [SlideShowController::class, 'create'])->name('create');
+        Route::get('/delete/{id}', [SlideShowController::class, 'delete'])->name('delete');
+    });
+    //endSlideshow
     //Products
     Route::prefix('/product')->name('product.')->group(function () {
         Route::get('/', [ProductsController::class, 'index'])->name('index');
@@ -240,5 +251,34 @@ Route::middleware('auth')->group(function () {
         Route::get('/export-excel', [CartsController::class, 'ExportExcel'])->name('export-excel');
     });
 
-    //endExports
+    //endImports
+    //Color
+    Route::prefix('/color')->name('color.')->group(function () {
+        Route::get('/', [ColorsController::class, 'index'])->name('index');
+        Route::post('/create', [ColorsController::class, 'create'])->name('create');
+        Route::get('/update/{id}', [ColorsController::class, 'update'])->name('update');
+        Route::post('/update/{id}', [ColorsController::class, 'updateHandle'])->name('update');
+        Route::get('/view-pdf', [ColorsController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [ColorsController::class, 'index'])->name('import-excel');
+        Route::post('/import-excel', [ColorsController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [ColorsController::class, 'ExportExcel'])->name('export-excel');
+    });
+    //endColor
+    Route::prefix('/size')->name('size.')->group(function () {
+        Route::get('/', [SizesController::class, 'index'])->name('index');
+        Route::post('/create', [SizesController::class, 'create'])->name('create');
+        Route::get('/update/{id}', [SizesController::class, 'update'])->name('update');
+        Route::post('/update/{id}', [SizesController::class, 'updateHandle'])->name('update');
+        Route::get('/view-pdf', [SizesController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [SizesController::class, 'index'])->name('import-excel');
+        Route::post('/import-excel', [SizesController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [SizesController::class, 'ExportExcel'])->name('export-excel');
+    });
+    Route::prefix('/dashboard')->name('dashboard.')->group(function () {
+        Route::get('/chart', [DashBoardController::class, 'chart'])->name('dashboard.chart');
+    });
 });
