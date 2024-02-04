@@ -10,6 +10,11 @@ class Colors extends Model
 {
     use HasFactory;
     protected $table = 'colors';
-    
-
+    protected $fillable = [
+        'name',
+    ];
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

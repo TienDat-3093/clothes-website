@@ -84,7 +84,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [SlideShowController::class, 'index'])->name('index');
         Route::post('/create', [SlideShowController::class, 'create'])->name('create');
         Route::get('/delete/{id}', [SlideShowController::class, 'delete'])->name('delete');
-        
     });
     //endSlideshow
     //Products
@@ -255,18 +254,29 @@ Route::middleware('auth')->group(function () {
     //endImports
     //Color
     Route::prefix('/color')->name('color.')->group(function () {
-        Route::get('/',[ColorsController::class,'index'])->name('index');
-        Route::post('/create',[ColorsController::class,'create'])->name('create');
+        Route::get('/', [ColorsController::class, 'index'])->name('index');
+        Route::post('/create', [ColorsController::class, 'create'])->name('create');
         Route::get('/update/{id}', [ColorsController::class, 'update'])->name('update');
         Route::post('/update/{id}', [ColorsController::class, 'updateHandle'])->name('update');
+        Route::get('/view-pdf', [ColorsController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [ColorsController::class, 'index'])->name('import-excel');
+        Route::post('/import-excel', [ColorsController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [ColorsController::class, 'ExportExcel'])->name('export-excel');
     });
     //endColor
     Route::prefix('/size')->name('size.')->group(function () {
-        Route::get('/',[SizesController::class,'index'])->name('index');
-        Route::post('/create',[SizesController::class,'create'])->name('create');
+        Route::get('/', [SizesController::class, 'index'])->name('index');
+        Route::post('/create', [SizesController::class, 'create'])->name('create');
         Route::get('/update/{id}', [SizesController::class, 'update'])->name('update');
         Route::post('/update/{id}', [SizesController::class, 'updateHandle'])->name('update');
-        
+        Route::get('/view-pdf', [SizesController::class, 'ViewPDF'])->name('pdf');
+
+        Route::get('/import-excel', [SizesController::class, 'index'])->name('import-excel');
+        Route::post('/import-excel', [SizesController::class, 'ImportExcel'])->name('import-excel');
+
+        Route::get('/export-excel', [SizesController::class, 'ExportExcel'])->name('export-excel');
     });
     Route::prefix('/dashboard')->name('dashboard.')->group(function () {
         Route::get('/chart', [DashBoardController::class, 'chart'])->name('dashboard.chart');

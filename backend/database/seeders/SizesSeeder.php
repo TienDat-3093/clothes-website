@@ -13,9 +13,8 @@ class SizesSeeder extends Seeder
      */
     public function run(): void
     {
-        $listSize = ['S','M','L','XL','2XL'];
-        foreach($listSize as $size)
-        {
+        $listSize = ['S', 'M', 'L', 'X', 'XS', 'XL', '2XL'];
+        foreach ($listSize as $size) {
             Sizes::create([
                 'name' => $size,
             ]);

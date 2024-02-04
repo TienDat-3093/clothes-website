@@ -9,5 +9,11 @@ class Sizes extends Model
 {
     use HasFactory;
     protected $table = 'sizes';
-
+    protected $fillable = [
+        'name',
+    ];
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }
