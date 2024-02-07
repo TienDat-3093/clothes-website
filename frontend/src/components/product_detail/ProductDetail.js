@@ -57,12 +57,20 @@ export default function ProductDetail(props) {
 	const submitReview = async () => {
 		const token = localStorage.getItem("token");
 		const user = JSON.parse(localStorage.getItem("user"));
+		const cart = JSON.parse(localStorage.getItem("cart"));
 		let products_id = id;
 		if (!token || !user)
 			return alert("Vui lòng đăng nhập để đánh giá sản phẩm!");
-		if (!cartDetail.some((detail) => detail.products_id == products_id)) {
-			return alert("Bạn không thể đánh sản phẩm chưa mua!");
+		let allowComment = false;
+		cart.forEach(item => {
+			if (item.status_carts_id == 5 && cartDetail.some(detail => detail.products_id == products_id && detail.carts_id == item.id)) {
+				allowComment = true;
+			}
+		});
+		if (!allowComment) {
+			alert("Bạn không thể đánh sản phẩm chưa mua!");
 		}
+		 else {
 		let content = input_content.current.value;
 		let ratings = selectedRating;
 		if (!ratings || ratings == 0) return alert("Vui lòng đánh giá sản phẩm!");
@@ -89,6 +97,7 @@ export default function ProductDetail(props) {
 			alert("Error: " + error.response.data.message);
 		}
 		console.log(input_content.current.value, selectedRating, user.id, id);
+	}
 	};
 
 	const handleRatingChange = (newValue) => {

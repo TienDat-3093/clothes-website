@@ -30,7 +30,9 @@ class APICommentsController extends Controller
             $staravg += $rating->ratings;
             $count++;
         }
-        $staravg = $staravg / $count;
+        if($count != 0){
+            $staravg = $staravg / $count;
+        }
         $product = Products::where('id',$id)->first();
         $product->star_avg = $staravg;
         $product->save();
