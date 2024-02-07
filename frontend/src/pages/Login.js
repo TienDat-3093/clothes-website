@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUserComment,fetchUserDetail,fetchUserCart } from "../services/UserService";
 import axios from "axios";

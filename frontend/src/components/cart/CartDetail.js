@@ -63,7 +63,10 @@ export default function CartDetail() {
         if (!token || !user) {
             return alert("Vui lòng đăng nhập để thanh toán!");
         }
-
+        console.log(usercart);
+        if (usercart.length == 0) {
+            return alert("Giỏ hàng không có sản phẩm!");
+        }
         try {
             const success = await checkout(user.id, token, usercart);
 
