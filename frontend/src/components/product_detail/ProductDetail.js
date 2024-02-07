@@ -61,13 +61,13 @@ export default function ProductDetail(props) {
 		let products_id = id;
 		if (!token || !user)
 			return alert("Vui lòng đăng nhập để đánh giá sản phẩm!");
-		let allowCOmment = false;
+		let allowComment = false;
 		cart.forEach(item => {
 			if (item.status_carts_id == 5 && cartDetail.some(detail => detail.products_id == products_id && detail.carts_id == item.id)) {
-				allowCOmment = true;
+				allowComment = true;
 			}
 		});
-		if (!allowCOmment) {
+		if (!allowComment) {
 			alert("Bạn không thể đánh sản phẩm chưa mua!");
 		}
 		 else {
